@@ -20,8 +20,8 @@ class ProductsTableSeeder extends Seeder
             'product_price' => 285000,
             'product_material' => 'SATTEN CREPE',
             'product_description' => 'Flare at front detail , Premium Sateen Fabric , wide Sabrina neck, Free size',
-            'product_wash_instruction' => 'Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print.',
-            'product_color' => ''
+            'product_wash_instruction' => 'Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print.'
+            // 'product_color' => ''
 
             
         ]);
