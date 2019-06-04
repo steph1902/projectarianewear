@@ -20,10 +20,15 @@ class IndexController extends Controller
     	return view('index');
     }
 
+    public function productListView()
+    {
+      return view('productlist');
+    }
 
     public function productDetailView()
     {
     	return view('productdetail');
     }
+
 
 }

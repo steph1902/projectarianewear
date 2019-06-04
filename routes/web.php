@@ -22,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Frontend
 Route::get('index','IndexController@indexView');
+
+Route::get('productlist', 'IndexController@productListView');
+
 Route::get('productdetail','IndexController@productDetailView');
 
 
