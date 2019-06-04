@@ -1,0 +1,39 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 5ECB-1E77
+
+ Directory of C:\Users\User\Documents\laravelproject\projectariane\public\images
+
+06/03/2019  10:03 PM    <DIR>          .
+06/03/2019  10:03 PM    <DIR>          ..
+03/11/2019  12:37 PM            65,870 about_1.jpg
+03/11/2019  12:37 PM           614,089 about_1.png
+09/03/2018  08:47 PM            87,096 blog_1.jpg
+09/03/2018  06:47 AM           142,555 children.jpg
+09/06/2018  05:13 PM            14,948 cloth_1.jpg
+09/06/2018  05:13 PM            22,889 cloth_2.jpg
+09/06/2018  05:13 PM            29,558 cloth_3.jpg
+06/03/2019  10:03 PM                 0 dir.txt
+06/02/2019  04:12 PM    <DIR>          Foto Produk Ariane Wear
+09/02/2018  12:53 PM            95,542 hero_1.jpg
+09/02/2018  12:52 PM           615,354 hero_1.png
+03/12/2019  01:11 PM           180,414 hero_2.jpg
+09/03/2018  06:50 AM           138,777 men.jpg
+03/11/2019  09:30 AM         3,981,842 model_1.png
+03/11/2019  09:29 AM         2,351,992 model_2.png
+03/11/2019  12:36 PM         2,385,126 model_3.png
+03/11/2019  09:11 PM         2,048,784 model_4.png
+03/11/2019  09:42 PM         2,366,382 model_5.png
+03/11/2019  11:09 PM         1,858,420 model_6.png
+03/12/2019  08:29 AM         3,051,973 model_7.png
+05/20/2018  02:34 PM            20,035 person_1.jpg
+06/10/2018  08:11 PM            36,774 person_2.jpg
+05/20/2018  02:54 PM            21,812 person_3.jpg
+06/10/2018  08:10 PM            26,026 person_4.jpg
+03/11/2019  10:29 PM           798,967 prod_1.png
+03/11/2019  10:36 PM         3,129,823 prod_2.png
+03/12/2019  08:19 AM           806,788 prod_3.png
+09/03/2018  10:45 AM           103,830 shoe.png
+09/06/2018  05:16 PM            16,837 shoe_1.jpg
+09/03/2018  06:19 AM           117,012 women.jpg
+              29 File(s)     25,129,515 bytes
+               3 Dir(s)  88,704,978,944 bytes free

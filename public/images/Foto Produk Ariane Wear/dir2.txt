@@ -1,0 +1,51 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 5ECB-1E77
+
+ Directory of C:\Users\User\Documents\laravelproject\projectariane\public\images\Foto Produk Ariane Wear
+
+06/03/2019  10:04 PM    <DIR>          .
+06/03/2019  10:04 PM    <DIR>          ..
+06/02/2019  03:59 PM    <DIR>          Abby Top
+06/02/2019  04:00 PM    <DIR>          Aleeya Dress
+06/02/2019  04:12 PM    <DIR>          Alexa Top
+06/02/2019  03:21 PM    <DIR>          Ara Outer not in product list
+06/02/2019  03:21 PM    <DIR>          Ara Pleads Outer
+06/02/2019  03:21 PM    <DIR>          Ariane Tanktop
+06/02/2019  03:21 PM    <DIR>          Bella Top
+06/02/2019  03:21 PM    <DIR>          Bianca Tanktop
+06/02/2019  03:21 PM    <DIR>          Cail Dress
+06/02/2019  03:21 PM    <DIR>          Celine Dress
+06/02/2019  03:21 PM    <DIR>          Chloe Top
+06/02/2019  03:21 PM    <DIR>          Clara Outer
+06/03/2019  10:04 PM                 0 dir2.txt
+06/02/2019  03:21 PM    <DIR>          Dorothy Tanktop
+06/02/2019  03:21 PM    <DIR>          Dorothy Top not in product list
+06/02/2019  03:21 PM    <DIR>          Ebony Top
+06/02/2019  03:21 PM    <DIR>          Eva Top
+06/02/2019  03:21 PM    <DIR>          Flare Top
+06/02/2019  03:21 PM    <DIR>          Friska Dress
+06/02/2019  03:21 PM    <DIR>          Indy Outer
+06/02/2019  03:21 PM    <DIR>          Jollyn Top
+06/02/2019  03:21 PM    <DIR>          Kim Jumpsuit
+06/02/2019  03:21 PM    <DIR>          Kimmy Jumpsuit
+06/02/2019  03:21 PM    <DIR>          Kourtney Dress
+06/02/2019  03:21 PM    <DIR>          Kylie Jumpsuit
+06/02/2019  03:21 PM    <DIR>          Lace Top
+06/02/2019  03:21 PM    <DIR>          Lena Top
+06/02/2019  03:21 PM    <DIR>          Lorra Dress
+06/02/2019  03:21 PM    <DIR>          Luna Vest
+06/02/2019  03:21 PM    <DIR>          Lyn Top
+06/02/2019  03:21 PM    <DIR>          Marsya Top
+06/02/2019  03:21 PM    <DIR>          Marza Tanktop
+06/02/2019  03:21 PM    <DIR>          Mezza Top
+06/02/2019  03:21 PM    <DIR>          Mira Top
+06/02/2019  03:21 PM    <DIR>          Natasha Set
+06/02/2019  03:21 PM    <DIR>          Pleads Pants
+06/02/2019  03:21 PM    <DIR>          Shelby Top
+06/02/2019  03:21 PM    <DIR>          Suri Top
+06/02/2019  03:21 PM    <DIR>          Vebby Pants
+06/02/2019  03:21 PM    <DIR>          Vicky Pants
+06/02/2019  03:21 PM    <DIR>          Vivian Top
+06/02/2019  03:21 PM    <DIR>          Yoona Dress
+               1 File(s)              0 bytes
+              43 Dir(s)  88,701,935,616 bytes free

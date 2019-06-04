@@ -167,15 +167,15 @@ class ProductsTableSeeder extends Seeder
             
         ]);
 
-        DB::table('products')->insert([
-            'product_name' => 'CHLOE',
-            'product_stock' => rand(1,100),
-            'product_price' =>
-            'product_material' =>
-            'product_description' =>
-            'product_wash_instruction' =>
+        // DB::table('products')->insert([
+        //     'product_name' => 'CHLOE',
+        //     'product_stock' => rand(1,100),
+        //     'product_price' =>
+        //     'product_material' =>
+        //     'product_description' =>
+        //     'product_wash_instruction' =>
             
-        ]);
+        // ]);
 
         DB::table('products')->insert([
             'product_name' => 'CINDY TANK TOP',
@@ -281,7 +281,7 @@ class ProductsTableSeeder extends Seeder
             'product_name' => 'KIM JUMPSUIT',
             'product_stock' => rand(1,100),
             'product_price' => 500000,
-            'product_material' => 'SCUBA'
+            'product_material' => 'SCUBA',
             'product_description' => 'Very strech fabric , Lining inside, Have button detail at frind, 2 tone colour',
             'product_wash_instruction' => 'Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print'
             
@@ -311,7 +311,7 @@ class ProductsTableSeeder extends Seeder
             'product_stock' => rand(1,100),
             'product_price' => 375000,
             'product_material' => 'SCUBA MIX , SCUBA CRAP',
-            'product_description' => 'Overlap  style, Drappery style, Long Pants, Very strech fabric , zipper at back side'
+            'product_description' => 'Overlap  style, Drappery style, Long Pants, Very strech fabric , zipper at back side',
             'product_wash_instruction' => 'Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print .'
             
         ]);
@@ -391,7 +391,7 @@ class ProductsTableSeeder extends Seeder
             'product_stock' => rand(1,100),
             'product_price' => 300000,
             'product_material' => 'None',
-            'product_description' => 'None'
+            'product_description' => 'None',
             'product_wash_instruction' => 'Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print .'
         ]);
 
@@ -469,7 +469,7 @@ class ProductsTableSeeder extends Seeder
             'product_price' => 240000,
             'product_material' => 'None',
             'product_description' => 'None',
-            'product_wash_instruction' => 
+            'product_wash_instruction' => 'None'
             
         ]);
 
@@ -551,7 +551,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'product_name' => 'VIVIAN TOP',
             'product_stock' => rand(1,100),
-            'product_price' => 270000
+            'product_price' => 270000,
             'product_material' => 'RIB',
             'product_description' => 'RIB FABRIC WITH FRONT LONG TIE DETAIL',
             'product_wash_instruction' => 'Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print .'
