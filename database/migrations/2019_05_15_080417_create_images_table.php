@@ -18,6 +18,7 @@ class CreateImagesTable extends Migration
             // $table->string('image_name')->nullable();
             $table->string('image_path')->nullable();
             $table->string('product_name');
+            $table->string('colour_name');
             $table->timestamps();
         });
     }
