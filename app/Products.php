@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
 {
-    //
+	//
+
+	protected $table = 'products';
+
 	protected $fillable = 
 	[
 		'product_name',
@@ -19,14 +22,14 @@ class Products extends Model
 	];
 	public function Images()
 	{
-		return $this->hasMany('App\Images');
+		return $this->hasMany('App\Images','product_name');
 	}
 	public function Sizes()
 	{
-		return $this->hasMany('App\Sizes');
+		return $this->hasMany('App\Sizes','product_name');
 	}
 	public function Colours()
 	{
-		return $this->hasMany('App\Colours');
+		return $this->hasMany('App\Colours','product_name');
 	}
 }

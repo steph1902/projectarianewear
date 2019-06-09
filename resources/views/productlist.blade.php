@@ -204,16 +204,20 @@
         {{-- C:\Users\User\Documents\laravelproject\projectariane\public\images\Foto Produk Ariane Wear\Abby Top\Green\ABBY TOP (2).jpg --}}
         
         <div class="row mb-5">
-          {{-- <div class="col-lg-6 col-md-6 item-entry mb-4"> --}}
-              <div class="card col-md-4 item-entry mb-4">
+          
+          @foreach($products as $product)
+
+          <div class="card col-md-4 item-entry mb-4">
             <a href="#" class="product-item md-height bg-gray d-block">
               <img src="images\Foto Produk Ariane Wear\Abby Top\Green\ABBY TOP (2).jpg" alt="Image" class="img-fluid">
             </a>
-            <h2 class="item-title"><a href="#">Gray Shoe</a></h2>
-            <strong class="item-price">$20.00</strong>
+            <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
+            <strong class="item-price">IDR {{ $product->product_price }}</strong>
           </div>
 
-          <div class="col-md-4 item-entry mb-4">
+          @endforeach
+
+          {{-- <div class="col-md-4 item-entry mb-4">
                 <a href="#" class="product-item md-height bg-gray d-block">
                   <img src="images/prod_2.png" alt="Image" class="img-fluid">
                 </a>
@@ -227,7 +231,7 @@
                     </a>
                     <h2 class="item-title"><a href="#">Gray Shoe</a></h2>
                     <strong class="item-price">$20.00</strong>
-                  </div>
+                  </div> --}}
         </div>
 
         {{-- 3 product view row style --}}
