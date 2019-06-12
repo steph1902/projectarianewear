@@ -206,15 +206,20 @@
         <div class="row mb-5">
           
           @foreach($products as $product)
+            
 
           <div class="card col-md-4 item-entry mb-4">
             <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="images\Foto Produk Ariane Wear\Abby Top\Green\ABBY TOP (2).jpg" alt="Image" class="img-fluid">
+              <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
+            
             <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
+            <h3 class="item-title"><a href="#">{{ $product->colour_name }}</a></h3>
             <strong class="item-price">IDR {{ $product->product_price }}</strong>
+
           </div>
 
+            
           @endforeach
 
           {{-- <div class="col-md-4 item-entry mb-4">
@@ -239,18 +244,12 @@
 
 
 
-        <div class="row">
+        <div class="row" >
           <div class="col-md-12 text-center">
-            <div class="site-block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
+            <div class="site-block-27 text-center">
+
+              {{ $products->links() }}
+              
             </div>
           </div>
         </div>

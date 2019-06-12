@@ -110,6 +110,8 @@
             <!-- old end -->
 
 
+            @foreach($productDetails as $productDetail)
+
             <!-- BOOTSTRAP START -->
             <div class="item-entry">
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -130,9 +132,9 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <!-- <img class="d-block w-100 img-fluid" src="images/prod_2.png" alt="First slide"> -->
-                    <img class="img-fluid img-thumbnail mx-auto" src="images/prod_2.png" alt="First slide">
+                    <img class="img-fluid img-thumbnail mx-auto" src="{{ $productDetail->image_path }}" alt="First slide">
                   </div>
-                  <div class="carousel-item">
+                  {{-- <div class="carousel-item">
                     <!-- <img class="d-block w-100 img-fluid" src="images/prod_2.png" alt="Second slide"> -->
                     <img class="img-fluid img-thumbnail mx-auto" src="images/prod_2.png" alt="Second slide">
                   </div>
@@ -143,7 +145,7 @@
                   <div class="carousel-item">
                     <!-- <img class="d-block w-100 img-fluid" src="images/prod_2.png" alt="Third slide"> -->
                     <img class="img-fluid img-thumbnail mx-auto" src="images/prod_2.png" alt="Fourth slide">
-                  </div>
+                  </div> --}}
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -159,24 +161,43 @@
 
           </div>
           <div class="col-md-6">
-            <h2 class="text-black">Gray Shoe</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.</p>
-            <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p>
-            <p><strong class="text-primary h4">$50.00</strong></p>
+          
+          <h2 class="text-black"> {{ $productDetail->product_name }}  - {{$productDetail->colour_name}}</h2> {{-- name --}}
+            
+
+            {{-- <h3 class="text-black">  </h3> colour --}}
+            
+            <p> {{ $productDetail->product_description }} </p>
+            
+            <h4 class="text-black">Wash Instruction</h4>
+
+            <p class="mb-4">
+              {{ $productDetail->product_wash_instruction }}
+            </p>
+            
+            <p><strong class="text-primary h4">IDR {{ $productDetail->product_price }}</strong></p>
+          
             <div class="mb-1 d-flex">
               <label for="option-sm" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                <input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">{{ $productDetail->size_name }}</span>
               </label>
-              <label for="option-md" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
+              {{-- <label for="option-md" class="d-flex mr-3 mb-3">
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                  <input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
               </label>
               <label for="option-lg" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                  <input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
               </label>
               <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
-              </label>
+                <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                  <input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
+              </label> --}}
             </div>
+
+            @endforeach  
+
             <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 120px;">
                 <div class="input-group-prepend">

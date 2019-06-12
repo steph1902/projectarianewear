@@ -15,7 +15,7 @@ class Images extends Model
     
     public function products()
     {
-        return $this->belongsTo('App\Products');
+        return $this->belongsTo('App\Products','product_name');
     }
 
     public function colours()
