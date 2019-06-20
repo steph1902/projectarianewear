@@ -37,10 +37,10 @@ class IndexController extends Controller
       return view('productlist',compact('products'));
     }
 
-    public function productDetailView($productName=null, $productColour=null)
+    public function productDetailView($id,$productColour)
     {
       /*
-      SELECT 
+      SELECT
         colours.colour_name,
         products.product_name,
         products.product_description,
@@ -59,15 +59,15 @@ class IndexController extends Controller
           products.product_name = colours.product_name AND
           images.product_name = sizes.product_name AND
           images.colour_name = colours.colour_name
-      GROUP BY 
-          products.product_name, 
-          colours.colour_name, 
+      GROUP BY
+          products.product_name,
+          colours.colour_name,
           sizes.size_name
         */
+        // dd($id);
+        // $productName = $productName;
+        // $productColour = $productColour;
 
-        $productName = 'ABBY TOP';
-        $productColour = 'Green';
-        
         // '+"colour_name": "Green"
         // +"product_name": "ABBY TOP"'
 
@@ -77,7 +77,7 @@ class IndexController extends Controller
         ->join('colours', 'colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.product_name','sizes.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
-        ->where('products.product_name','=',$productName)
+        ->where('products.id','=',$id) //->where('products.product_name','=',$productName)
         ->where('colours.colour_name','=',$productColour)
         ->select(
               'colours.colour_name',
@@ -88,10 +88,12 @@ class IndexController extends Controller
               'images.image_path',
               'sizes.size_name')
         ->groupBy(
-              'products.product_name', 
-              'colours.colour_name', 
+              'products.product_name',
+              'colours.colour_name',
               'sizes.size_name')
         ->get();
+
+        dd($productDetails);
 
         // dd($productDetails);
 

@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>ShopMax &mdash; Colorlib e-Commerce Template</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@extends('layouts.app')
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
-
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
-  <link rel="stylesheet" href="css/aos.css">
-
-  <link rel="stylesheet" href="css/style.css">
-
-</head>
+@section('content')
 <body>
 
   <div class="site-wrap">
@@ -32,7 +13,7 @@
           <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
           <form action="#" method="post">
             <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
-          </form>  
+          </form>
         </div>
       </div>
 
@@ -62,7 +43,7 @@
                     </li>
                   </ul>
                 </li>
-                
+
                 <li class="active"><a href="shop.html">Shop</a></li>
                 <li><a href="#">Catalogue</a></li>
                 <li><a href="#">New Arrivals</a></li>
@@ -82,7 +63,7 @@
         </div>
       </div>
     </div>
-    
+
 
 
 
@@ -92,7 +73,7 @@
           <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="shop.html">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Gray Shoe</strong></div>
         </div>
       </div>
-    </div>  
+    </div>
 
     <div class="site-section">
       <div class="container">
@@ -161,22 +142,22 @@
 
           </div>
           <div class="col-md-6">
-          
+
           <h2 class="text-black"> {{ $productDetail->product_name }}  - {{$productDetail->colour_name}}</h2> {{-- name --}}
-            
+
 
             {{-- <h3 class="text-black">  </h3> colour --}}
-            
+
             <p> {{ $productDetail->product_description }} </p>
-            
+
             <h4 class="text-black">Wash Instruction</h4>
 
             <p class="mb-4">
               {{ $productDetail->product_wash_instruction }}
             </p>
-            
+
             <p><strong class="text-primary h4">IDR {{ $productDetail->product_price }}</strong></p>
-          
+
             <div class="mb-1 d-flex">
               <label for="option-sm" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
@@ -196,7 +177,7 @@
               </label> --}}
             </div>
 
-            @endforeach  
+            @endforeach
 
             <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 120px;">
@@ -357,7 +338,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col-md-6 col-lg-3">
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Contact Info</h3>
@@ -387,7 +368,7 @@
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
-          
+
         </div>
       </div>
     </footer>
@@ -404,4 +385,5 @@
   <script src="js/main.js"></script>
 
 </body>
+@endsection
 </html>

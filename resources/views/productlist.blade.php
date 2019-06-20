@@ -116,7 +116,9 @@
 
 
           <div class="card col-md-4 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
+
+
+            <a href="{{ url( 'productdetail/' .$product->product_name. '/' .$product->colour_name)}}" class="product-item md-height bg-gray d-block">
               <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
 

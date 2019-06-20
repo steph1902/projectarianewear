@@ -1,0 +1,99 @@
+#TODO create this model and  migration
+
+User
+_____
+FirstName
+LastName
+Address
+City
+State
+PostalCode
+Country
+Phone
+CreditCard
+CreditCardType
+CreditCardExpMonth
+CreditCardExpYear
+
+
+Orders
+______
+ID
+email (unique,fk from user)
+OrderNumber(unique,random)
+PaymentId(unique,fk)
+PaymentDate
+PaidStatus
+
+OrdersDetails
+_____________
+id
+orders_id
+products_id
+price
+qty
+discount
+total_paid_price
+size
+color
+
+Shipping
+_____________
+id 
+ShippingDate
+ShippingCode (no resi)
+ShippingName
+ShippingCost
+ShippingOrigin
+ShippingDestination
+
+Payment
+____________
+id
+payment_type
+payment_amount
+order_id
+user_id
+shipping_id
+timestamp
+
+
+
+#TODO migrate
+#TODO fix nav link
+#TODO [products page] add to cart link
+
+#TODO https://github.com/Crinsane/LaravelShoppingcart
+
+composer require gloudemans/shoppingcart
+config/app.php
+Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
+And optionally add a new line to the aliases array:
+
+'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+
+php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="migrations"
+php artisan migrate
+
+
+#TODO integrate and complete cart logic process
+#TODO [checkout page] checkout
+#TODO integrate hitung ongkir laravel
+#TODO integrate payment gateway
+#TODO set up payment gateway account
+#TODO set up invoice
+#TODO profile page, design UI, then backend
+#TODO about me
+#TODO Email newsletter
+#TODO make footer pretty
+#TODO social media
+#TODO voucher diskon
+#TODO return policy
+#TODO notify product habis
+
+
+https://github.com/spatie/laravel-sluggable
+
+
+

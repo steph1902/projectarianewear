@@ -3,14 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 
 class Products extends Model
 {
-	//
+    use Gloudemans\Shoppingcart\CanBeBought;
+
 
 	protected $table = 'products';
 
-	protected $fillable = 
+	protected $fillable =
 	[
 		'product_name',
 		'product_price',
