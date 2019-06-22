@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+
+ */
+
 class CreateColoursTable extends Migration
 {
     /**
@@ -18,6 +22,7 @@ class CreateColoursTable extends Migration
             $table->string('colour_name');
             // $table->integer('product_id');
             $table->string('product_name');
+            $table->string('product_url');
             $table->timestamps();
         });
     }

@@ -30,14 +30,17 @@ class IndexController extends Controller
         ->join('images', 'images.product_name', '=', 'products.product_name')
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
-        ->paginate(20);
+        ->paginate(20);// ->get();//
+
+        // dd($products);
+
 
       return view('productlist',compact('products'));
     }
 
-    public function productDetailView($id,$productColour)
+    public function productDetailView($url)
     {
       /*
       SELECT
@@ -65,11 +68,11 @@ class IndexController extends Controller
           sizes.size_name
         */
         // dd($id);
-        // $productName = $productName;
-        // $productColour = $productColour;
+        // $productName = "ABBY TOP";
+        // $productColour = "Green";
 
-        // '+"colour_name": "Green"
-        // +"product_name": "ABBY TOP"'
+        // '+"colour_name":
+        // +"product_name":
 
         $productDetails = DB::table('products')
         ->join('images', 'images.product_name', '=', 'products.product_name')
@@ -77,8 +80,9 @@ class IndexController extends Controller
         ->join('colours', 'colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.product_name','sizes.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
-        ->where('products.id','=',$id) //->where('products.product_name','=',$productName)
-        ->where('colours.colour_name','=',$productColour)
+        ->where('colours.product_url','=',$url)
+        // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
+        // ->where('colours.colour_name','=',$productColour)
         ->select(
               'colours.colour_name',
               'products.product_name',
@@ -93,11 +97,47 @@ class IndexController extends Controller
               'sizes.size_name')
         ->get();
 
-        dd($productDetails);
+        $productString = $productDetails['0']->product_name .    ' ' . $productDetails['0']->colour_name;
+        $url = \str_slug($productString);
+        // dd($url);
 
         // dd($productDetails);
 
     	return view('productdetail',compact('productDetails'));
+    }
+
+    /**
+     * to fix product detail url feature
+     */
+    public function insertURL()
+    {
+
+        $productColour = DB::table('colours')->select('product_name','colour_name')->get();
+
+        $data = array();
+        $data = $productColour;
+
+
+        foreach($data as $d)
+        {
+            $data['product_name'] = $d->product_name;
+            $data['colour_name'] = $d->colour_name;
+            $data['product_url'] = \str_slug($d->product_name.' '.$d->colour_name);
+            // dd($data['product_url']);
+
+            DB::table('colours')
+                ->where( 'product_name', $data['product_name'] )
+                ->where( 'colour_name', $data['colour_name'] )
+                ->update(
+                [
+                    'product_url' => $data['product_url']
+                ]
+            );
+
+        }
+
+
+
     }
 
 

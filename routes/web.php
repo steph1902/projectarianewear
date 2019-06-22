@@ -25,7 +25,12 @@ Route::get('index','IndexController@indexView');
 
 Route::get('productlist', 'IndexController@productListView');
 
-Route::get('productdetail/{id}/{colour}','IndexController@productDetailView');
+Route::get('productdetail/{url}','IndexController@productDetailView');
+
+/**
+ * to insert url slug
+ */
+Route::get('urlslug','IndexController@insertUrl');
 
 
 //backend
