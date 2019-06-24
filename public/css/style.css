@@ -638,6 +638,8 @@ a {
     content: "\f0e0"; }
   .block-5 ul li.phone:before {
     content: "\f095"; }
+  .block-5 ul li.instagram:before{
+    content: "\f16d"; }
 
 .block-6 {
   display: block; }

@@ -5,9 +5,8 @@
 
   <div class="site-wrap">
 
-
+{{--
     <div class="site-navbar bg-white py-2">
-
       <div class="search-wrap">
         <div class="container">
           <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
@@ -62,15 +61,18 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
 
-
+    @foreach($productDetails as $productDetail)
 
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="shop.html">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Gray Shoe</strong></div>
+          <div class="col-md-12 mb-0">
+              <a href="">Home</a> <span class="mx-2 mb-0">/</span>
+              <a href="{{ url('productlist') }}">Shop</a> <span class="mx-2 mb-0">/</span>
+              <strong class="text-black">{{ $productDetail->product_name }}  - {{$productDetail->colour_name}}</strong></div>
         </div>
       </div>
     </div>
@@ -91,7 +93,7 @@
             <!-- old end -->
 
 
-            @foreach($productDetails as $productDetail)
+
 
             <!-- BOOTSTRAP START -->
             <div class="item-entry">
@@ -113,7 +115,9 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <!-- <img class="d-block w-100 img-fluid" src="images/prod_2.png" alt="First slide"> -->
-                    <img class="img-fluid img-thumbnail mx-auto" src="{{ $productDetail->image_path }}" alt="First slide">
+                    {{-- <img src="{{asset('images/Foto Produk Ariane Wear/Indy Outer/Army Green/INDY OUTER (6).jpg')}}" alt="Image" class="img-fluid"> --}}
+                    {{-- src="images\Foto Produk Ariane Wear\Indy Outer\Army Green\INDY OUTER (6).jpg" --}}
+                    <img class="img-fluid img-thumbnail mx-auto" src="{{ asset($productDetail->image_path)  }}" alt="First slide">
                   </div>
                   {{-- <div class="carousel-item">
                     <!-- <img class="d-block w-100 img-fluid" src="images/prod_2.png" alt="Second slide"> -->
@@ -197,7 +201,7 @@
         </div>
       </div>
     </div>
-
+{{--
     <div class="site-section block-3 site-blocks-2">
       <div class="container">
         <div class="row justify-content-center">
@@ -296,9 +300,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
-    <footer class="site-footer custom-border-top">
+    {{-- <footer class="site-footer custom-border-top">
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
@@ -371,19 +375,8 @@
 
         </div>
       </div>
-    </footer>
+    </footer> --}}
   </div>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-
-  <script src="js/main.js"></script>
-
 </body>
 @endsection
 </html>

@@ -10,31 +10,33 @@
   <title>Ariane Wear</title>
 
   <!-- Scripts -->
-  <script src="{{ public_path('js/app.js') }}" defer></script>
-  <script src="{{ public_path('js/jquery-3.3.1.min.js') }}"></script>
-  <script src="{{ public_path('js/jquery-ui.js') }}"></script>
-  <script src="{{ public_path('js/popper.min.js') }}"></script>
-  <script src="{{ public_path('js/bootstrap.min.js') }}"></script>
-  <script src="{{ public_path('js/owl.carousel.min.js') }}"></script>
-  <script src="{{ public_path('js/jquery.magnific-popup.min.js') }}"></script>
-  <script src="{{ public_path('js/aos.js') }}"></script>
-  <script src="{{ public_path('js/main.js') }}"></script>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}">
+
+  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+  <script src="{{ asset('js/jquery-ui.js') }}"></script>
+  <script src="{{ asset('js/popper.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ asset('js/aos.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
   <!-- Styles -->
-  <link href="{{ public_path('css/app.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ public_path('https://fonts.googleapis.com/css?family=Mukta:300,400,700') }}">
-  <link rel="stylesheet" href="{{ public_path('fonts/icomoon/style.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/magnific-popup.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/jquery-ui.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/owl.carousel.min.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/owl.theme.default.min.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/aos.css') }}">
-  <link rel="stylesheet" href="{{ public_path('css/style.css') }}">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Mukta:300,400,700') }}">
+  <link rel="stylesheet" href="{{ asset('fonts/icomoon/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 </head>
 <body>
@@ -116,7 +118,7 @@
                         {{ __('Register') }}
                       </a>
                     </li>
-                    @endif
+
                     @else
                     <li class="has-children">
                       <a href="#">
@@ -129,20 +131,21 @@
                       document.getElementById('logout-form').submit();">
                       {{ __('Logout') }}
                     </a>
-                  </li>
+                    @endif
+
 
 
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                   @csrf
                 </form>
+                </li>
               </li>
               @endguest
-            </ul>
+
 
               <li><a href="#">About Us</a></li>
-              {{-- <li><a href="#">New Arrivals</a></li> --}}
-              {{-- <li><a href="#">Contact</a></li> --}}
+
             </ul>
           </nav>
         </div>
@@ -212,9 +215,10 @@
         <div class="block-5 mb-5">
           <h3 class="footer-heading mb-4">Contact Info</h3>
           <ul class="list-unstyled">
-            <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-            <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-            <li class="email">emailaddress@domain.com</li>
+            <li class="address">Jakarta</li>
+            <li class="phone"><a href="tel://+6287878919818">+6287878919818</a></li>
+            <li class="email"><a href="mailto://arianewear@gmail.com">arianewear@gmail.com</li>
+            <li class="instagram"><a href="https://www.instagram.com/arianewear">@arianewear</a></li>
           </ul>
         </div>
 
@@ -233,7 +237,13 @@
       <div class="col-md-12">
         <p>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          All rights reserved | This template is made with
+           <i class="icon-heart" aria-hidden="true"></i>
+           by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a><br>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </p>
       </div>
