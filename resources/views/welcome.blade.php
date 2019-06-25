@@ -123,7 +123,7 @@
         <div class="row">
             @foreach($products as $product)
           <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="{{ url( 'productdetail/' .$product->product_url )}}" class="product-item md-height bg-gray d-block">
+            <a href="{{ url( 'productdetail/' .$product->product_url )}}" class="product-item md-height bg-white d-block">
               <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
             <h2 class="item-title"><a href="{{ url( 'productdetail/' .$product->product_url )}}">{{ $product->product_name }}</a></h2>

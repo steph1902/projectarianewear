@@ -25,15 +25,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Frontend
 Route::get('index','IndexController@indexView');
-
 Route::get('productlist', 'IndexController@productListView');
-
 Route::get('productdetail/{url}','IndexController@productDetailView');
+Route::get('addtocart/{url}','IndexController@addToCart');
 
 /**
  * to insert url slug
  */
-Route::get('urlslug','IndexController@insertUrl');
+// Route::get('urlslug','IndexController@insertUrl');
 
 
 //backend

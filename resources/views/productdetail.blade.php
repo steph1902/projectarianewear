@@ -181,7 +181,7 @@
               </label> --}}
             </div>
 
-            @endforeach
+
 
             <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 120px;">
@@ -195,7 +195,9 @@
               </div>
 
             </div>
-            <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+
+            <p><a href=" {{ url( 'addtocart/' .$productDetail->product_url )}}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+            @endforeach
 
           </div>
         </div>

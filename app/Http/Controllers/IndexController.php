@@ -55,6 +55,64 @@ class IndexController extends Controller
       return view('productlist',compact('products'));
     }
 
+    public function addToCart($url)
+    {
+        $productDetails = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('sizes', 'sizes.product_name', '=', 'products.product_name')
+        ->join('colours', 'colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.product_name','sizes.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('colours.product_url','=',$url)
+        // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
+        // ->where('colours.colour_name','=',$productColour)
+        ->select(
+              'colours.colour_name',
+              'products.product_name',
+              'products.product_description',
+              'products.product_wash_instruction',
+              'products.product_price',
+              'images.image_path',
+              'sizes.size_name')
+        ->groupBy(
+              'products.product_name',
+              'colours.colour_name',
+              'sizes.size_name')
+        ->get();
+        // dd($productDetails);
+
+        // Collection {#240 ▼
+        //     #items: array:1 [▼
+        //       0 => {#248 ▼
+        //         +"colour_name": "ArmyGreen"
+        //         +"product_name": "INDY OUTER"
+        //         +"product_description": "None"
+        //         +"product_wash_instruction": "Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print"
+        //         +"product_price": 360000
+        //         +"image_path": "images\Foto Produk Ariane Wear\Indy Outer\Army Green\INDY OUTER (6).jpg"
+        //         +"size_name": "ALL SIZE"
+        //       }
+        //     ]
+        //   }
+        // Cart::add(
+        //     [
+        //         'id' => '293ad',
+        //         'name' => 'Product 1',
+        //         'qty' => 1,
+        //         'price' => 9.99,
+        //         'weight' => 550,
+        //         'options' => ['size' => 'large']
+
+        //     ]);
+
+
+        // Cart::add(
+        //     [
+        //         'id' => $productDetails->
+
+        //     ]);
+    }
+
     public function productDetailView($url)
     {
       /*
@@ -99,6 +157,7 @@ class IndexController extends Controller
         // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
         // ->where('colours.colour_name','=',$productColour)
         ->select(
+              'colours.product_url',
               'colours.colour_name',
               'products.product_name',
               'products.product_description',
