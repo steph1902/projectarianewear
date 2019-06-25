@@ -24,6 +24,21 @@ class IndexController extends Controller
     	return view('index');
     }
 
+    public function frontPage()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->take(6)
+        ->get();
+        // ->paginate(20);// ->get();//
+        // dd($products);
+        return view('welcome',compact('products'));
+    }
+
     public function productListView()
     {
         $products = DB::table('products')
@@ -96,8 +111,8 @@ class IndexController extends Controller
               'colours.colour_name',
               'sizes.size_name')
         ->get();
-
-        $productString = $productDetails['0']->product_name .    ' ' . $productDetails['0']->colour_name;
+        // dd($productDetails);
+        $productString = $productDetails['0']->product_name.' '.$productDetails['0']->colour_name;
         $url = \str_slug($productString);
         // dd($url);
 

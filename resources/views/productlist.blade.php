@@ -111,24 +111,15 @@
 
 
         <div class="row mb-5">
-
           @foreach($products as $product)
-
-
           <div class="card col-md-4 item-entry mb-4">
-
-
             <a href="{{ url( 'productdetail/' .$product->product_url )}}" class="product-item md-height bg-gray d-block">
               <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
-
             <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
             <h3 class="item-title"><a href="#">{{ $product->colour_name }}</a></h3>
             <strong class="item-price">IDR {{ $product->product_price }}</strong>
-
           </div>
-
-
           @endforeach
 
         </div>

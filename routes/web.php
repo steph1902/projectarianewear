@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function ()
-{
-    return view('welcome');
-});
+Route::get('/','IndexController@frontPage');
+
+// Route::get('/', function ()
+// {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
