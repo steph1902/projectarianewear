@@ -4,6 +4,15 @@
 <body>
 
   <div class="site-wrap">
+
+        @if(session('success'))
+
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+
+        @endif
+
     {{-- <div class="site-navbar bg-white py-2">
 
       <div class="search-wrap">

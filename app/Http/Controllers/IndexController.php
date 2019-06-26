@@ -55,6 +55,65 @@ class IndexController extends Controller
       return view('productlist',compact('products'));
     }
 
+    public function cart()
+    {
+        return view('cart');
+    }
+
+    public function addToCartExample($id)
+    {
+        $product = Product::find($id);
+
+        if(!$product) {
+
+            abort(404);
+
+        }
+
+        $cart = session()->get('cart');
+
+        // if cart is empty then this the first product
+        if(!$cart) {
+
+            $cart = [
+                    $id => [
+                        "name" => $product->name,
+                        "quantity" => 1,
+                        "price" => $product->price,
+                        "photo" => $product->photo
+                    ]
+            ];
+
+            session()->put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        }
+
+        // if cart not empty then check if this product exist then increment quantity
+        if(isset($cart[$id])) {
+
+            $cart[$id]['quantity']++;
+
+            session()->put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+        }
+
+        // if item not exist in cart then add to cart with quantity = 1
+        $cart[$id] = [
+            "name" => $product->name,
+            "quantity" => 1,
+            "price" => $product->price,
+            "photo" => $product->photo
+        ];
+
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+
     public function addToCart($url)
     {
         $productDetails = DB::table('products')
@@ -79,38 +138,57 @@ class IndexController extends Controller
               'colours.colour_name',
               'sizes.size_name')
         ->get();
+
         // dd($productDetails);
 
-        // Collection {#240 ▼
-        //     #items: array:1 [▼
-        //       0 => {#248 ▼
-        //         +"colour_name": "ArmyGreen"
-        //         +"product_name": "INDY OUTER"
-        //         +"product_description": "None"
-        //         +"product_wash_instruction": "Hand wash cold separetely , was inside out , do not bleach , do not dry clean , do not iron print or decorative print"
-        //         +"product_price": 360000
-        //         +"image_path": "images\Foto Produk Ariane Wear\Indy Outer\Army Green\INDY OUTER (6).jpg"
-        //         +"size_name": "ALL SIZE"
-        //       }
-        //     ]
-        //   }
-        // Cart::add(
-        //     [
-        //         'id' => '293ad',
-        //         'name' => 'Product 1',
-        //         'qty' => 1,
-        //         'price' => 9.99,
-        //         'weight' => 550,
-        //         'options' => ['size' => 'large']
+        if(!$productDetails)
+        {
+            abort(404);
+        }
+        $cart = session()->get('cart');
+        // if cart is empty then this the first product
+        if(!$cart)
+        {
+            $cart =[
+                $url =>[
+                    "product_name" => $productDetails[0]->product_name,
+                    "product_quantity" => 1,
+                    "product_price" => $productDetails[0]->product_price,
+                    "product_image" => $productDetails[0]->image_path,
+                    "product_size" => $productDetails[0]->size_name,
+                    "product_colour" => $productDetails[0]->colour_name,
+                ]
+            ];
 
-        //     ]);
+            session()->put('cart',$cart);
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        }
+        // dd($cart);
 
+        // if cart not empty then check if this product exist then increment quantity
+         if(isset($cart[$url]))
+         {
 
-        // Cart::add(
-        //     [
-        //         'id' => $productDetails->
+            $cart[$url]['product_quantity']++;
 
-        //     ]);
+            session()->put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+        }
+
+         // if item not exist in cart then add to cart with quantity = 1
+         $cart[$id] = [
+            "name" => $product->name,
+            "quantity" => 1,
+            "price" => $product->price,
+            "photo" => $product->photo
+        ];
+
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+
     }
 
     public function productDetailView($url)
