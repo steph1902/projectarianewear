@@ -28,7 +28,7 @@ Route::get('index','IndexController@indexView');
 Route::get('productlist', 'IndexController@productListView');
 Route::get('productdetail/{url}','IndexController@productDetailView');
 Route::get('cart','IndexController@cart');
-Route::get('addtocart/{url}','IndexController@addToCart');
+Route::post('addtocart/{url}','IndexController@addToCart')->name('addToCart');
 
 
 /**

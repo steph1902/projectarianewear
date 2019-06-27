@@ -60,61 +60,8 @@ class IndexController extends Controller
         return view('cart');
     }
 
-    public function addToCartExample($id)
-    {
-        $product = Product::find($id);
 
-        if(!$product) {
-
-            abort(404);
-
-        }
-
-        $cart = session()->get('cart');
-
-        // if cart is empty then this the first product
-        if(!$cart) {
-
-            $cart = [
-                    $id => [
-                        "name" => $product->name,
-                        "quantity" => 1,
-                        "price" => $product->price,
-                        "photo" => $product->photo
-                    ]
-            ];
-
-            session()->put('cart', $cart);
-
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
-        }
-
-        // if cart not empty then check if this product exist then increment quantity
-        if(isset($cart[$id])) {
-
-            $cart[$id]['quantity']++;
-
-            session()->put('cart', $cart);
-
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
-
-        }
-
-        // if item not exist in cart then add to cart with quantity = 1
-        $cart[$id] = [
-            "name" => $product->name,
-            "quantity" => 1,
-            "price" => $product->price,
-            "photo" => $product->photo
-        ];
-
-        session()->put('cart', $cart);
-
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
-    }
-
-
-    public function addToCart($url)
+    public function addToCart(Request $request, $url)
     {
         $productDetails = DB::table('products')
         ->join('images', 'images.product_name', '=', 'products.product_name')
@@ -141,6 +88,11 @@ class IndexController extends Controller
 
         // dd($productDetails);
 
+        $size = $request->input('size_name');
+        $quantity = $request->input('quantity');
+
+        // dd($quantity);
+
         if(!$productDetails)
         {
             abort(404);
@@ -152,10 +104,10 @@ class IndexController extends Controller
             $cart =[
                 $url =>[
                     "product_name" => $productDetails[0]->product_name,
-                    "product_quantity" => 1,
+                    "product_quantity" => $quantity,
                     "product_price" => $productDetails[0]->product_price,
                     "product_image" => $productDetails[0]->image_path,
-                    "product_size" => $productDetails[0]->size_name,
+                    "product_size" => $size,
                     "product_colour" => $productDetails[0]->colour_name,
                 ]
             ];
@@ -170,19 +122,19 @@ class IndexController extends Controller
          {
 
             $cart[$url]['product_quantity']++;
-
             session()->put('cart', $cart);
-
             return redirect()->back()->with('success', 'Product added to cart successfully!');
 
         }
 
          // if item not exist in cart then add to cart with quantity = 1
-         $cart[$id] = [
-            "name" => $product->name,
-            "quantity" => 1,
-            "price" => $product->price,
-            "photo" => $product->photo
+         $cart[$url] = [
+            "product_name" => $productDetails[0]->product_name,
+            "product_quantity" => $quantity,
+            "product_price" => $productDetails[0]->product_price,
+            "product_image" => $productDetails[0]->image_path,
+            "product_size" => $size,
+            "product_colour" => $productDetails[0]->colour_name,
         ];
 
         session()->put('cart', $cart);
@@ -193,37 +145,6 @@ class IndexController extends Controller
 
     public function productDetailView($url)
     {
-      /*
-      SELECT
-        colours.colour_name,
-        products.product_name,
-        products.product_description,
-        products.product_wash_instruction,
-        products.product_price,
-        images.image_path,
-        sizes.size_name
-      FROM
-          products,
-          images,
-          sizes,
-          colours
-      WHERE
-	        products.product_name = images.product_name AND
-          products.product_name = sizes.product_name AND
-          products.product_name = colours.product_name AND
-          images.product_name = sizes.product_name AND
-          images.colour_name = colours.colour_name
-      GROUP BY
-          products.product_name,
-          colours.colour_name,
-          sizes.size_name
-        */
-        // dd($id);
-        // $productName = "ABBY TOP";
-        // $productColour = "Green";
-
-        // '+"colour_name":
-        // +"product_name":
 
         $productDetails = DB::table('products')
         ->join('images', 'images.product_name', '=', 'products.product_name')
@@ -249,6 +170,7 @@ class IndexController extends Controller
               'sizes.size_name')
         ->get();
         // dd($productDetails);
+        // $productDetails =
         $productString = $productDetails['0']->product_name.' '.$productDetails['0']->colour_name;
         $url = \str_slug($productString);
         // dd($url);

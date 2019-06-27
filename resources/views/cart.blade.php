@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+@endif
+
   <body>
 
   <div class="site-wrap">
@@ -27,62 +33,51 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th class="product-thumbnail">Image</th>
-                    <th class="product-name">Product</th>
-                    <th class="product-price">Price</th>
-                    <th class="product-quantity">Quantity</th>
-                    <th class="product-total">Total</th>
-                    <th class="product-remove">Remove</th>
+                    <th class="product-thumbnail"> Image</th>
+                    <th class="product-name"> Name</th>
+                    <th class="product-colour"> Colour</th>
+                    <th class="product-size"> Size</th>
+                    <th class="product-price"> Price</th>
+                    <th class="product-quantity"> Quantity</th>
+                    <th class="product-subtotal"> Subtotal</th>
+                    <th class="product-remove">Remove Item</th>
                   </tr>
                 </thead>
+
+                <?php $total = 0 ?>
                 <tbody>
-                  <tr>
-                    <td class="product-thumbnail">
-                      <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
-                    </td>
-                    <td class="product-name">
-                      <h2 class="h5 text-black">Top Up T-Shirt</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                      </div>
 
-                    </td>
-                    <td>$49.00</td>
-                    <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
-                  </tr>
+
+
+                @if(session('cart'))
+                  @foreach(session('cart') as $url => $details)
+
+                  <?php $total += $details['product_price'] * $details['product_quantity'] ?>
 
                   <tr>
                     <td class="product-thumbnail">
-                      <img src="images/cloth_2.jpg" alt="Image" class="img-fluid">
+                      <img src="{{$details['product_image']}}" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
-                      <h2 class="h5 text-black">Polo Shirt</h2>
+                      <h2 class="h5 text-black">{{ $details['product_name'] }}</h2>
                     </td>
-                    <td>$49.00</td>
-                    <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                      </div>
-
+                    <td class="product-name">
+                        <h2 class="h5 text-black">{{ $details['product_colour'] }}</h2>
                     </td>
-                    <td>$49.00</td>
+                    <td class="product-name">
+                            <h2 class="h5 text-black">{{ $details['product_size'] }}</h2>
+                        </td>
+                    <td>IDR {{ $details['product_price'] }}</td>
+                    <td class="product-name">
+                        <h2 class="h5 text-black">{{ $details['product_quantity'] }}</h2>
+                    </td>
+                    <td>IDR {{ $details['product_price'] * $details['product_quantity'] }}</td>
                     <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
                   </tr>
+
+                    @endforeach
+                  @endif
+
                 </tbody>
               </table>
             </div>
@@ -125,7 +120,7 @@
                     <span class="text-black">Subtotal</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black">$230.00</strong>
+                    <strong class="text-black">IDR {{ $total }}</strong>
                   </div>
                 </div>
                 <div class="row mb-5">
@@ -133,7 +128,7 @@
                     <span class="text-black">Total</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black">$230.00</strong>
+                    <strong class="text-black">IDR {{ $total }}</strong>
                   </div>
                 </div>
 
