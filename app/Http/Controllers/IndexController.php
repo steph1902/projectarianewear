@@ -24,6 +24,11 @@ class IndexController extends Controller
     	return view('index');
     }
 
+    public function checkoutPage()
+    {
+        return view('checkout');
+    }
+
     public function frontPage()
     {
         $products = DB::table('products')

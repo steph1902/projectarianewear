@@ -134,7 +134,9 @@
 
                 <div class="row">
                   <div class="col-md-12">
+                  <a href="{{url('checkout')}}">
                     <button class="btn btn-primary btn-lg btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                  </a>
                   </div>
                 </div>
               </div>
