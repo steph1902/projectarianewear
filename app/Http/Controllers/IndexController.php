@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Products;
 use App\Images;
 use Illuminate\Support\Facades\DB;
+use RajaOngkir;
 
 
 class IndexController extends Controller
@@ -24,8 +25,12 @@ class IndexController extends Controller
     	return view('index');
     }
 
-    public function checkoutPage()
+    public function checkoutPage(RajaOngkir $rajaOngkir)
     {
+        // dd($rajaOngkir);
+        $data = rajaOngkir::Provinsi()->all();
+        $data = rajaOngkir::Kota()->all();
+        dd($data);
         return view('checkout');
     }
 
