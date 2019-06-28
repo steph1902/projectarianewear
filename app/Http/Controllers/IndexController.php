@@ -6,9 +6,6 @@ use Illuminate\Http\Request;
 use App\Products;
 use App\Images;
 use Illuminate\Support\Facades\DB;
-use RajaOngkir;
-// use rizalafani\rajaongkirlaravel\RajaOngkir;
-
 
 class IndexController extends Controller
 {
