@@ -56,7 +56,7 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="logo">
           <div class="site-logo">
-            <a href="index.html" class="js-logo-clone">ARIANE WEAR</a>
+            <a href="{{url('/')}}" class="js-logo-clone">ARIANE WEAR</a>
           </div>
         </div>
         {{--
@@ -77,9 +77,9 @@
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
 
-                <li><a href="#">New Arrival</a></li>
-                <li><a href="#">Best Seller</a></li>
-                <li><a href="#">Must Haves</a></li>
+                <li><a href="{{ url('newarrival') }}">New Arrival</a></li>
+                <li><a href="{{ url('bestseller') }}">Best Seller</a></li>
+                <li><a href="{{url('musthaves')}}">Must Haves</a></li>
 
                 <li class="has-children ">
                   <a href="#">Categories</a>
@@ -144,7 +144,7 @@
               @endguest
 
 
-              <li><a href="#">About Us</a></li>
+              <li><a href="{{url('aboutme')}}">About Us</a></li>
 
             </ul>
           </nav>
@@ -245,6 +245,8 @@
            <i class="icon-heart" aria-hidden="true"></i>
            by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a><br>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          <br> and is developed with <a href="https://laravel.com" target="_blank" class="text-primary">Laravel</a>  by
+          <a href="#" target="_blank" class="text-primary">Kairos Projects</a><br>
         </p>
       </div>
 

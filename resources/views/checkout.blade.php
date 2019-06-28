@@ -206,6 +206,8 @@
                 </div>
               </div>
             </div>
+            <?php $total = 0 ?>
+            @if(session('cart'))
 
             <div class="row mb-5">
               <div class="col-md-12">
@@ -217,24 +219,27 @@
                       <th>Total</th>
                     </thead>
                     <tbody>
+                        @foreach(session('cart') as $url => $details)
+                            <?php $total += $details['product_price'] * $details['product_quantity'] ?>
+
                       <tr>
-                        <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                        <td>$250.00</td>
+                        <td>{{ $details['product_name'] }} <strong class="mx-2">x</strong> {{$details['product_quantity']}} </td>
+                        <td>IDR {{ $details['product_price'] * $details['product_quantity'] }}</td>
+
+                      </tr>
+                      @endforeach
+                      <tr>
+
                       </tr>
                       <tr>
-                        <td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
-                        <td>$100.00</td>
-                      </tr>
-                      <tr>
-                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                        <td class="text-black">$350.00</td>
-                      </tr>
-                      <tr>
+
                         <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                        <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+                        <td class="text-black font-weight-bold"><strong>IDR {{ $total }}</strong></td>
                       </tr>
                     </tbody>
                   </table>
+
+                        @endif
 
                   <div class="border p-3 mb-3">
                     <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>

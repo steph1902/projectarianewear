@@ -31,6 +31,12 @@ Route::get('cart','IndexController@cart');
 Route::post('addtocart/{url}','IndexController@addToCart')->name('addToCart');
 Route::get('checkout','IndexController@checkoutPage');
 
+Route::get('newarrival','IndexController@newArrival');
+Route::get('bestseller','IndexController@bestSeller');
+Route::get('musthaves','IndexController@mustHaves');
+
+Route::get('aboutme','IndexController@aboutMe');
+
 
 /**
  * to insert url slug

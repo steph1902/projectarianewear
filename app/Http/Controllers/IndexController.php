@@ -7,6 +7,7 @@ use App\Products;
 use App\Images;
 use Illuminate\Support\Facades\DB;
 use RajaOngkir;
+// use rizalafani\rajaongkirlaravel\RajaOngkir;
 
 
 class IndexController extends Controller
@@ -17,20 +18,64 @@ class IndexController extends Controller
 
     */
 
+    public function newArrival()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_new_arrival_flag','true')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
 
+        // dd($products);
+        return view('newarrival',compact('products'));
+    }
+    public function bestSeller()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_best_seller_flag', '=' ,  'true')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+        // dd($products);
 
+        return view('bestseller',compact('products'));
+    }
+    public function mustHaves()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_must_haves_flag','true')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+
+        return view('musthaves',compact('products'));
+    }
+
+    public function aboutMe()
+    {
+        return view('about');
+    }
 
     public function indexView()
     {
     	return view('index');
     }
 
-    public function checkoutPage(RajaOngkir $rajaOngkir)
+    public function checkoutPage()
     {
         // dd($rajaOngkir);
-        $data = rajaOngkir::Provinsi()->all();
-        $data = rajaOngkir::Kota()->all();
-        dd($data);
+        // $data = RajaOngkir::Provinsi()->all();
+        // $data = $rajaOngkir::Kota()->all();
+        // dd($data);
         return view('checkout');
     }
 

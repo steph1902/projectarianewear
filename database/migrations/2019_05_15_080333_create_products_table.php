@@ -21,8 +21,14 @@ class CreateProductsTable extends Migration
             $table->string('product_size_in_cm')->nullable();
             $table->string('product_material')->nullable();
             $table->string('product_description',200)->nullable();
-            $table->string('product_wash_instruction',200)->nullable();   
-            $table->integer('product_stock'); 
+            $table->string('product_wash_instruction',200)->nullable();
+
+            $table->string('product_new_arrival_flag',10)->nullable();
+            $table->string('product_best_seller_flag',10)->nullable();
+            $table->string('product_must_haves_flag',10)->nullable();
+
+
+            $table->integer('product_stock');
 
             $table->timestamps();
 
