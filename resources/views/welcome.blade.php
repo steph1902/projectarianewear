@@ -11,7 +11,7 @@
             <div class="site-block-cover-content">
             <h2 class="sub-title">#New Summer Collection 2019</h2>
             <h1>Arrivals Sales</h1>
-            <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+            <p><a href="{{url('productlist')}}" class="btn btn-black rounded-0">Shop Now</a></p>
             </div>
           </div>
           <div class="col-md-6 order-1 align-self-end">
@@ -29,19 +29,19 @@
         <div class="row align-items-stretch">
           <div class="col-lg-8">
             <div class="product-item sm-height full-height bg-gray">
-              <a href="#" class="product-category">Top <span>25 items</span></a>
+              <a href="#" class="product-category">Top</a>
               <img src="{{asset('images/Foto Produk Ariane Wear/Alexa Top/Black/ALEXA TOP.jpeg')}}" alt="Image" class="img-fluid">
             </div>
           </div>
 
           <div class="col-lg-4">
             <div class="product-item sm-height bg-gray mb-4">
-              <a href="#" class="product-category">Outerwear <span>25 items</span></a>
+              <a href="#" class="product-category">Outerwear </a>
               <img src="{{asset('images/Foto Produk Ariane Wear/Clara Outer/White/CLARA OUTER (1).jpg')}}" alt="Image" class="img-fluid">
             </div>
             {{-- C:\Users\User\Documents\laravelproject\projectariane\public\images\Foto Produk Ariane Wear\ --}}
             <div class="product-item sm-height bg-gray">
-              <a href="#" class="product-category">Jumpsuit <span>25 items</span></a>
+              <a href="#" class="product-category">Jumpsuit</a>
               <img src="{{asset('images/Foto Produk Ariane Wear/Kylie Jumpsuit/Nude/KYLIE JUMPSUIT (2).jpeg')}}" alt="Image" class="img-fluid">
             </div>
           </div>

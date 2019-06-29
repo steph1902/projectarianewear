@@ -14,6 +14,83 @@ class IndexController extends Controller
 		Controller Frontend
 
     */
+    public function topProduct()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_name','like','%top%')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+
+        return view('topproduct',compact('products'));
+
+    }
+    public function dressProduct()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_name','like','%dress%')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+
+        return view('dressproduct',compact('products'));
+    }
+    public function outerProduct()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_name','like','%outer%')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+
+        return view('outerproduct',compact('products'));
+
+
+    }
+    public function jumpsuitProduct()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_name','like','%jump%')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+
+        return view('jumpsuitproduct',compact('products'));
+
+
+    }
+    //obtain product category set
+    public function setProduct()
+    {
+        $products = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('colours','colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('products.product_name','like','%set%')
+        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->groupBy('colours.colour_name', 'products.product_name')
+        ->paginate(20);// ->get();//
+
+        // dd($products);
+
+        return view('setproduct',compact('products'));
+
+    }
+
+
+
 
     public function newArrival()
     {
@@ -35,7 +112,7 @@ class IndexController extends Controller
         ->join('images', 'images.product_name', '=', 'products.product_name')
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
-        ->where('products.product_best_seller_flag', '=' ,  'true')
+        ->where('products.product_best_seller_flag','true')
         ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
@@ -208,6 +285,7 @@ class IndexController extends Controller
         // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
         // ->where('colours.colour_name','=',$productColour)
         ->select(
+              'products.product_stock',
               'colours.product_url',
               'colours.colour_name',
               'products.product_name',

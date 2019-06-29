@@ -59,46 +59,23 @@
             <a href="{{url('/')}}" class="js-logo-clone">ARIANE WEAR</a>
           </div>
         </div>
-        {{--
-          New Arrival
-          Best Seller
-          Must Haves
-          Categories
-          Top
-          Bottom
-          Dress
-          Outerwear
-          Jumpsuit
-          Set
-          My Account
-          About Us
-          --}}
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
 
                 <li><a href="{{ url('newarrival') }}">New Arrival</a></li>
                 <li><a href="{{ url('bestseller') }}">Best Seller</a></li>
+
                 <li><a href="{{url('musthaves')}}">Must Haves</a></li>
 
                 <li class="has-children ">
                   <a href="#">Categories</a>
                   <ul class="dropdown">
-                    <li><a href="#">Top</a></li>
-                    <li><a href="#">Bottom</a></li>
-                    <li><a href="#">Dress</a></li>
-                    <li><a href="#">Outerwear</a></li>
-                    <li><a href="#">Jumpsuit</a></li>
-                    <li><a href="#">Set</a></li>
-
-                    {{-- <li class="has-children">
-                      <a href="#">Sub Menu</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
-                      </ul>
-                    </li> --}}
+                    <li><a href="{{url('top')}}">Top</a></li>
+                    <li><a href="{{url('dress')}}">Dress</a></li>
+                    <li><a href="{{url('outer')}}">Outerwear</a></li>
+                    <li><a href="{{url('jumpsuit')}}">Jumpsuit</a></li>
+                    <li><a href="{{url('set')}}">Set</a></li>
                   </ul>
                 </li>
                 @guest
@@ -233,24 +210,23 @@
         </div>
       </div>
     </div>
+
+    {{--  --}}
+
     <div class="row pt-5 mt-5 text-center">
-      <div class="col-md-12">
-        <p>
-          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          Copyright &copy;
-          <script>
-            document.write(new Date().getFullYear());
-          </script>
-          All rights reserved | This template is made with
-           <i class="icon-heart" aria-hidden="true"></i>
-           by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a><br>
-          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          <br> and is developed with <a href="https://laravel.com" target="_blank" class="text-primary">Laravel</a>  by
-          <a href="#" target="_blank" class="text-primary">Kairos Projects</a><br>
-        </p>
+        <div class="col-md-12">
+          <p>
+            Copyright &copy;
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            All rights reserved | This website is developed by
+            <a href="mailto:kairos.projects.id@gmail.com" target="_blank" class="text-primary">Kairos Projects</a><br>
+          </p>
+        </div>
+
       </div>
 
-    </div>
   </div>
 </footer>
 

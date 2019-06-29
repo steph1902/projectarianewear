@@ -35,6 +35,12 @@ Route::get('newarrival','IndexController@newArrival');
 Route::get('bestseller','IndexController@bestSeller');
 Route::get('musthaves','IndexController@mustHaves');
 
+Route::get('top','IndexController@topProduct');
+Route::get('dress','IndexController@dressProduct');
+Route::get('outer','IndexController@outerProduct');
+Route::get('jumpsuit','IndexController@jumpsuitProduct');
+Route::get('set','IndexController@setProduct');
+
 Route::get('aboutme','IndexController@aboutMe');
 
 
