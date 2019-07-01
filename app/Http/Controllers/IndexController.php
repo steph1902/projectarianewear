@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 use App\Products;
 use App\Images;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,97 @@ class IndexController extends Controller
 		Controller Frontend
 
     */
+
+    public function rajaOngkir()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array
+        (
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                        "key: e33a9c5190a759d73f9036c2f3756589"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        $provinceObj = json_decode($response,true);
+        $provinces = array();
+        foreach($provinceObj['rajaongkir']['results'] as $province)
+        {
+            $provinces[] =  $province;
+        }
+
+        curl_close($curl);
+
+        if ($err)
+        {
+            echo "cURL Error #:" . $err;
+        }
+        else
+        {
+            // echo ($response);
+            // var_dump();
+            // die();
+
+        }
+
+
+    }
+
+    public function testGuzzle()
+    {
+        //request url
+        $url = 'https://stackoverflow.com/feeds/tag?tagnames=php&sort=newest';
+        $url = 'https://api.rajaongkir.com/starter/province?id=12';
+
+
+        //create new instance of Client class
+        $client = new Client(
+            ['header' =>
+                [
+                    'key' => 'e33a9c5190a759d73f9036c2f3756589',
+                ]
+            ]
+            );
+
+        //send get request to fetch data
+        $response = $client->request('GET', $url);
+
+        //check response status ex: 200 is 'OK'
+        if ($response->getStatusCode() == 200)
+        {
+            //header information contains detail information about the response.
+            if ($response->hasHeader('Content-Length'))
+            {
+                //get number of bytes received
+                $content_length = $response->getHeader('Content-Length')[0];
+                echo '<p> Download '. $content_length. ' of data </p>';
+            }
+
+            //get body content
+            $body = $response->getBody();
+
+            //convert response to XML Element object
+            $xml = new \SimpleXmlElement($body);
+
+            //loop each item and display result
+            foreach($xml->entry as $item)
+            {
+                echo '<h3> Question By: ' . $item->author->name . '</h3>';
+                echo '<p> Question: '. $item->summary . '</p>';
+            }
+        }
+    }
+
     public function topProduct()
     {
         $products = DB::table('products')
@@ -146,11 +238,59 @@ class IndexController extends Controller
 
     public function checkoutPage()
     {
-        // dd($rajaOngkir);
-        // $data = RajaOngkir::Provinsi()->all();
-        // $data = $rajaOngkir::Kota()->all();
-        // dd($data);
-        return view('checkout');
+        // get province start
+        $curl = curl_init();
+        curl_setopt_array($curl, array
+        (
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array("key: e33a9c5190a759d73f9036c2f3756589"),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        $provinceObj = json_decode($response,true);
+        $provinces = array();
+        foreach($provinceObj['rajaongkir']['results'] as $province)
+        {
+            $provinces[] =  $province;
+        }
+        curl_close($curl);
+        // get province end
+
+        // get cities start
+        $curl2 = curl_init();
+        curl_setopt_array($curl2, array
+        (
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/city",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array("key: e33a9c5190a759d73f9036c2f3756589"),
+        ));
+        $response = curl_exec($curl2);
+        $err = curl_error($curl2);
+        $citiesObj = json_decode($response,true);
+        $cities = array();
+        foreach($citiesObj['rajaongkir']['results'] as $city)
+        {
+            $cities[] =  $city;
+        }
+        curl_close($curl2);
+        // get cities end
+        dd($cities);
+
+
+
+
+        return view('checkout',compact('provinces','cities'));
     }
 
     public function frontPage()

@@ -43,6 +43,10 @@ Route::get('set','IndexController@setProduct');
 
 Route::get('aboutme','IndexController@aboutMe');
 
+Route::get('testguzzle','IndexController@testGuzzle');
+Route::get('rajaongkir','IndexController@rajaOngkir');
+
+
 
 /**
  * to insert url slug
