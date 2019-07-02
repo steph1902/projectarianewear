@@ -236,7 +236,65 @@ class IndexController extends Controller
     	return view('index');
     }
 
+
+    public function example()
+    {
+        $analyticsData = Analytics::performQuery(Period::years(1),
+            'ga:sessions',
+            [
+                'metrics' => 'ga:users',
+                'dimensions' => 'ga:country, ga:region, ga:city, ga:date, ga:browser,ga:operatingSystem'
+            ]
+        );
+
+        $data = array();
+        $data = $analyticsData['rows'];
+
+        /*
+            need to be change/update with the correct url_id
+         */
+        $url_id = 1;
+
+        /**
+         * assigned each data and bulk insert to db
+         */
+
+        foreach ($data as $key => $value)
+        {
+            $data['country'] = $value[0];
+            $data['region'] = $value[1];
+            $data['city'] = $value[2];
+            $data['date'] = $value[3];
+            $data['browser'] = $value[4];
+            $data['operatingSytem'] = $value[5];
+            $data['visitor'] = $value[6];
+
+            DB::table('analytics')->insert(
+                [
+                    'url_id' => $url_id,
+                    'country' => $data['country'],
+                    'region' => $data['region'],
+                    'city' => $data['city'],
+                    'date' => $data['date'],
+                    'browser' => $data['browser'],
+                    'operatingSystem' => $data['operatingSytem'],
+                    'visitor' => $data['visitor']
+                ]);
+        }
+    }
     public function checkoutPage()
+    {
+        $provinces = DB::table('provinces')->get();
+        $cities = DB::table('cities')->get();
+
+        // dd($provinces);
+        $provinces = json_decode($provinces,true);
+        $cities = json_decode($cities,true);
+
+        return view('checkout',compact('provinces','cities'));
+
+    }
+    public function populateDataProvinceAndCities()
     {
         // get province start
         $curl = curl_init();
@@ -255,12 +313,29 @@ class IndexController extends Controller
         $err = curl_error($curl);
         $provinceObj = json_decode($response,true);
         $provinces = array();
+        $provinces = $provinceObj['rajaongkir']['results'];
+        // dd($provinces);
+        // foreach($provinces as $key => $value)
+        // {
+        //     $provinces['province_id'] = $value['province_id'];
+        //     $provinces['province'] = $value['province'];
+
+        //     DB::table('provinces')->insert(
+        //         [
+        //             'province_id' => $provinces['province_id'],
+        //             'province' => $provinces['province']
+        //         ]);
+        // }
+        // dd('check db');
+
         foreach($provinceObj['rajaongkir']['results'] as $province)
         {
             $provinces[] =  $province;
         }
         curl_close($curl);
         // get province end
+
+        // dd($provinces);
 
         // get cities start
         $curl2 = curl_init();
@@ -279,6 +354,30 @@ class IndexController extends Controller
         $err = curl_error($curl2);
         $citiesObj = json_decode($response,true);
         $cities = array();
+        $cities = $citiesObj['rajaongkir']['results'];
+        foreach($cities as $key => $value)
+        {
+            $cities['city_id'] = $value['city_id'];
+            $cities['province_id'] = $value['province_id'];
+            $cities['province'] = $value['province'];
+            $cities['type'] = $value['type'];
+            $cities['city_name'] = $value['city_name'];
+            $cities['postal_code'] = $value['postal_code'];
+
+            DB::table('cities')->insert(
+                [
+                    'city_id' => $cities['city_id'],
+                    'province_id' => $cities['province_id'],
+                    'province' => $cities['province'],
+                    'type' => $cities['type'],
+                    'city_name' => $cities['city_name'],
+                    'postal_code' => $cities['postal_code']
+                ]);
+        }
+        dd('check db');
+
+
+
         foreach($citiesObj['rajaongkir']['results'] as $city)
         {
             $cities[] =  $city;
@@ -286,6 +385,7 @@ class IndexController extends Controller
         curl_close($curl2);
         // get cities end
         dd($cities);
+
 
 
 

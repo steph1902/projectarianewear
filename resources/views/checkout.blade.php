@@ -50,8 +50,8 @@
 
                         <div class="form-group">
                           <label for="c_diff_country" class="text-black">Provinces <span class="text-danger">*</span></label>
-                          <select id="c_diff_country" class="form-control">
-                            <option value="1">Select a province</option>
+                          <select id="province" name="province" class="form-control">
+                            <option value="0">Select a province</option>
                             {{-- looping province start here --}}
                             @foreach ($provinces as $province)
                                 <option value="{{ $province['province_id'] }}">
@@ -65,14 +65,15 @@
 
                         <div class="form-group">
                                 <label for="c_diff_country" class="text-black">Cities <span class="text-danger">*</span></label>
-                                <select id="c_diff_country" class="form-control">
-                                  <option value="1">Select a city</option>
+                                <select id="city" name="city" class="form-control">
+                                  <option value="0">Select a city</option>
+                                  <option value=""></option>
                                      {{-- looping province start here --}}
-                                    @foreach ($provinces as $province)
-                                        <option value="{{ $province['province_id'] }}">
-                                            {{ $province['province'] }}
+                                    {{-- @foreach ($cities as $city)
+                                        <option value="{{ $city['province_id'] }}">
+                                            {{ $city['city_name'] }}
                                         </option>
-                                    @endforeach
+                                    @endforeach --}}
                                 {{-- looping province end here --}}
                                 </select>
                         </div>
@@ -80,7 +81,7 @@
                           <div class="form-group row">
                             <div class="col-md-12">
                             <label for="c_diff_postal_zip" class="text-black">Postal / Zip Code<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
+                            <input disabled type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
                             </div>
                           </div>
 
@@ -247,6 +248,50 @@
 
 
   </div>
+
+  <script>
+        $('#state').on('change', function(e){
+            console.log(e);
+            var state_id = e.target.value;
+
+            $.get('{{ url('information') }}/create/ajax-state?state_id=' + state_id, function(data) {
+                console.log(data);
+                $('#city').empty();
+                $.each(data, function(index,subCatObj){
+                    $('#city').append(''+subCatObj.name+'');
+                });
+            });
+        });
+    </script>
+
+use App\City;
+
+Route::get('/information/create/ajax-state',function()
+{
+    $state_id = Input::get('state_id');
+    $subcategories = City::where('state_id','=',$state_id)->get();
+    return $subcategories;
+
+});
+
+<div class="form-group">
+    <label>State
+        <select name="state" id="state" class="form-control input-sm">
+            <option value=""></option>
+            @foreach($states as $state)
+               {{ $state->name}}
+            @endforeach
+           </select>
+    </label>
+</div>
+
+<div class="form-group">
+    <label>City
+        <select id="city" class="form-control input-sm" name="city_id">
+            <option value=""></option>
+       </select>
+    </label>
+</div>
 
 
   </body>
