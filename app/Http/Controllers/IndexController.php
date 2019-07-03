@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use App\Products;
 use App\Images;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class IndexController extends Controller
 {
@@ -281,6 +282,16 @@ class IndexController extends Controller
                     'visitor' => $data['visitor']
                 ]);
         }
+    }
+
+    public function getcities()
+    {
+        $province_id = Input::get('province_id');
+        $cities = DB::table('cities')->where('province_id','=',$province_id)->get();
+        // dd($cities);
+        return response()->json($cities);
+
+
     }
     public function checkoutPage()
     {

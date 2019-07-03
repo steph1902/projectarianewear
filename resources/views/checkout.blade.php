@@ -2,6 +2,8 @@
 
 @section('content')
 <body>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
   <div class="site-wrap">
     <div class="bg-light py-3">
@@ -28,8 +30,11 @@
           <div class="col-md-6 mb-5 mb-md-0">
             <h2 class="h3 mb-3 text-black">Billing Details</h2>
             <div class="p-3 p-lg-5 border">
+                <form>
+                @csrf
 
                     <div class="form-group row">
+
                             <div class="col-md-6">
                             <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
@@ -51,7 +56,7 @@
                         <div class="form-group">
                           <label for="c_diff_country" class="text-black">Provinces <span class="text-danger">*</span></label>
                           <select id="province" name="province" class="form-control">
-                            <option value="0">Select a province</option>
+                            <option value="0" disable="true" selected="true">Select a province</option>
                             {{-- looping province start here --}}
                             @foreach ($provinces as $province)
                                 <option value="{{ $province['province_id'] }}">
@@ -66,7 +71,7 @@
                         <div class="form-group">
                                 <label for="c_diff_country" class="text-black">Cities <span class="text-danger">*</span></label>
                                 <select id="city" name="city" class="form-control">
-                                  <option value="0">Select a city</option>
+                                  <option value="0" disable="true" selected="true">Select a city</option>
                                   <option value=""></option>
                                      {{-- looping province start here --}}
                                     {{-- @foreach ($cities as $city)
@@ -103,6 +108,8 @@
                         </div>
 
                     </div>
+                </form>
+
 
 
               <div class="form-group">
@@ -248,50 +255,32 @@
 
 
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <script>
-        $('#state').on('change', function(e){
+  <script type="text/javascript">
+       $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+        $('#province').on('change', function(e)
+        {
             console.log(e);
-            var state_id = e.target.value;
+            var province_id = e.target.value;
 
-            $.get('{{ url('information') }}/create/ajax-state?state_id=' + state_id, function(data) {
+            $.get('/getcities?province_id=' + province_id, function(data)
+            {
                 console.log(data);
                 $('#city').empty();
-                $.each(data, function(index,subCatObj){
-                    $('#city').append(''+subCatObj.name+'');
+                $('#city').append('<option value="0" disable="true" selected="true">Select a city</option>');
+                $.each(data, function(index,cityObj)
+                {
+                    $('#regencies').append('<option value="'+ cityObj.province_id +'">'+ cityObj.city_name +'</option>');
                 });
             });
         });
     </script>
-
-use App\City;
-
-Route::get('/information/create/ajax-state',function()
-{
-    $state_id = Input::get('state_id');
-    $subcategories = City::where('state_id','=',$state_id)->get();
-    return $subcategories;
-
-});
-
-<div class="form-group">
-    <label>State
-        <select name="state" id="state" class="form-control input-sm">
-            <option value=""></option>
-            @foreach($states as $state)
-               {{ $state->name}}
-            @endforeach
-           </select>
-    </label>
-</div>
-
-<div class="form-group">
-    <label>City
-        <select id="city" class="form-control input-sm" name="city_id">
-            <option value=""></option>
-       </select>
-    </label>
-</div>
 
 
   </body>

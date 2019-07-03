@@ -12,7 +12,7 @@
   <!-- Scripts -->
   <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}">
 
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
   <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
   <script src="{{ asset('js/jquery-ui.js') }}"></script>
   <script src="{{ asset('js/popper.min.js') }}"></script>

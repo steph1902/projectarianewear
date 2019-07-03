@@ -50,17 +50,19 @@ Route::get('aboutme','IndexController@aboutMe');
 Route::get('testguzzle','IndexController@testGuzzle');
 Route::get('rajaongkir','IndexController@rajaOngkir');
 
+Route::get('/getcities','IndexController@getCities');
 
-Route::get('/information/create/ajax-state',function()
-{
-       $province_id = Input::get('province');
-       $cities = City::where('province_id','=',$province_id)->get();
-       return $cities;
-//     $state_id = Input::get('state_id');
-//     $subcategories = City::where('state_id','=',$state_id)->get();
-//     return $subcategories;
+// Route::get('cities',function()
+// {
+//        $province_id = Input::get('province');
+//        $cities = City::where('province_id','=',$province_id)->get();
+//        return $cities;
+// //     $state_id = Input::get('state_id');
+// //     $subcategories = City::where('state_id','=',$state_id)->get();
+// //     return $subcategories;
 
-});
+// });
+
 
 
 /**
