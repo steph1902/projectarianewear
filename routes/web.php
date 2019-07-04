@@ -51,6 +51,7 @@ Route::get('testguzzle','IndexController@testGuzzle');
 Route::get('rajaongkir','IndexController@rajaOngkir');
 
 Route::get('/getcities','IndexController@getCities');
+Route::get('/getpostalcode','IndexController@getpostalcode');
 
 // Route::get('cities',function()
 // {

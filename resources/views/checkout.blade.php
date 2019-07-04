@@ -73,20 +73,13 @@
                                 <select id="city" name="city" class="form-control">
                                   <option value="0" disable="true" selected="true">Select a city</option>
                                   <option value=""></option>
-                                     {{-- looping province start here --}}
-                                    {{-- @foreach ($cities as $city)
-                                        <option value="{{ $city['province_id'] }}">
-                                            {{ $city['city_name'] }}
-                                        </option>
-                                    @endforeach --}}
-                                {{-- looping province end here --}}
                                 </select>
                         </div>
 
                           <div class="form-group row">
                             <div class="col-md-12">
-                            <label for="c_diff_postal_zip" class="text-black">Postal / Zip Code<span class="text-danger">*</span></label>
-                            <input disabled type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
+                                <label for="c_diff_postal_zip" class="text-black">Postal / Zip Code<span class="text-danger">*</span></label>
+                                <input disabled type="text" class="form-control" id="postal_code" name="postal_code" value="">
                             </div>
                           </div>
 
@@ -276,10 +269,30 @@
                 $('#city').append('<option value="0" disable="true" selected="true">Select a city</option>');
                 $.each(data, function(index,cityObj)
                 {
-                    $('#regencies').append('<option value="'+ cityObj.province_id +'">'+ cityObj.city_name +'</option>');
+                    $('#city').append('<option value="'+ cityObj.city_id +'">'+ cityObj.city_name +'</option>');
                 });
             });
         });
+
+        $('#city').on('change', function(e)
+        {
+            console.log(e);
+            var city_id = e.target.value;
+            $.get('/getpostalcode?city_id=' + city_id,function(data)
+            {
+                console.log(data);
+            //   $('#postal_code').append('<option value="0" disable="true" selected="true">=== Select Districts ===</option>');
+                $.each(data, function(index, postalCodeObj)
+                {
+                    console.log(postalCodeObj.postal_code);
+                    // $('#postal_code').append('<option value="'+ postalCodeObj.postal_code +'">'+ postalCodeObj.postal_code +'</option>');
+                    // $('#postal_code').append('<input type="text" class="form-control" id="postal_code" name="postal_code value="' +postalCodeObj.postal_code +'">');
+                    $('#postal_code').val(postalCodeObj.postal_code);
+                    // $('#postal_code').append('value="' +postalCodeObj.postal_code +'">');
+                    // <input disabled type="text" class="form-control" id="postal_code" name="postal_code"> </input>
+                });
+        });
+      });
     </script>
 
 

@@ -289,10 +289,19 @@ class IndexController extends Controller
         $province_id = Input::get('province_id');
         $cities = DB::table('cities')->where('province_id','=',$province_id)->get();
         // dd($cities);
+        // console.log($cities);
         return response()->json($cities);
 
 
     }
+    public function getpostalcode()
+    {
+        $city_id = Input::get('city_id');
+        $postal_code = DB::table('cities')->where('city_id','=',$city_id)->get();
+        // console.log($postal_code);
+        return response()->json($postal_code);
+    }
+
     public function checkoutPage()
     {
         $provinces = DB::table('provinces')->get();
