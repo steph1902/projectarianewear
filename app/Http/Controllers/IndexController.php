@@ -237,6 +237,40 @@ class IndexController extends Controller
     	return view('index');
     }
 
+    public function cost()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: e33a9c5190a759d73f9036c2f3756589"
+        ),
+        ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+        if ($err)
+        {
+            echo "cURL Error #:" . $err;
+        }
+        else
+        {
+            echo $response;
+        }
+    }
+
 
     public function example()
     {
@@ -467,6 +501,7 @@ class IndexController extends Controller
               'products.product_description',
               'products.product_wash_instruction',
               'products.product_price',
+              'products.product_weight',
               'images.image_path',
               'sizes.size_name')
         ->groupBy(
@@ -477,7 +512,7 @@ class IndexController extends Controller
 
         // dd($productDetails);
 
-        $size = $request->input('size_name');
+        $size = $request->input ('size_name');
         $quantity = $request->input('quantity');
 
         // dd($quantity);
@@ -497,6 +532,7 @@ class IndexController extends Controller
                     "product_price" => $productDetails[0]->product_price,
                     "product_image" => $productDetails[0]->image_path,
                     "product_size" => $size,
+                    'product_weight' => $productDetails[0]->product_weight,
                     "product_colour" => $productDetails[0]->colour_name,
                 ]
             ];
@@ -523,6 +559,7 @@ class IndexController extends Controller
             "product_price" => $productDetails[0]->product_price,
             "product_image" => $productDetails[0]->image_path,
             "product_size" => $size,
+            'product_weight' => $productDetails[0]->product_weight,
             "product_colour" => $productDetails[0]->colour_name,
         ];
 
@@ -530,6 +567,20 @@ class IndexController extends Controller
 
         return redirect()->back()->with('success', 'Product added to cart successfully!');
 
+    }
+
+    public function removeCart(Request $request,$url)
+    {
+        if($request->url)
+        {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->url]))
+            {
+                unset($cart[$request->url]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
     }
 
     public function productDetailView($url)

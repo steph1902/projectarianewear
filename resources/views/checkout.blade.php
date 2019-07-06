@@ -266,6 +266,7 @@
             {
                 console.log(data);
                 $('#city').empty();
+                $('#postal_code').empty();
                 $('#city').append('<option value="0" disable="true" selected="true">Select a city</option>');
                 $.each(data, function(index,cityObj)
                 {
@@ -281,15 +282,11 @@
             $.get('/getpostalcode?city_id=' + city_id,function(data)
             {
                 console.log(data);
-            //   $('#postal_code').append('<option value="0" disable="true" selected="true">=== Select Districts ===</option>');
+                $('#postal_code').empty();
                 $.each(data, function(index, postalCodeObj)
                 {
                     console.log(postalCodeObj.postal_code);
-                    // $('#postal_code').append('<option value="'+ postalCodeObj.postal_code +'">'+ postalCodeObj.postal_code +'</option>');
-                    // $('#postal_code').append('<input type="text" class="form-control" id="postal_code" name="postal_code value="' +postalCodeObj.postal_code +'">');
                     $('#postal_code').val(postalCodeObj.postal_code);
-                    // $('#postal_code').append('value="' +postalCodeObj.postal_code +'">');
-                    // <input disabled type="text" class="form-control" id="postal_code" name="postal_code"> </input>
                 });
         });
       });

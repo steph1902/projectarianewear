@@ -33,6 +33,7 @@ Route::get('productlist', 'IndexController@productListView');
 Route::get('productdetail/{url}','IndexController@productDetailView');
 Route::get('cart','IndexController@cart');
 Route::post('addtocart/{url}','IndexController@addToCart')->name('addToCart');
+Route::delete('removecart/{url}', 'IndexController@removeCart');
 Route::get('checkout','IndexController@checkoutPage');
 
 Route::get('newarrival','IndexController@newArrival');
@@ -49,6 +50,7 @@ Route::get('aboutme','IndexController@aboutMe');
 
 Route::get('testguzzle','IndexController@testGuzzle');
 Route::get('rajaongkir','IndexController@rajaOngkir');
+Route::get('cost','IndexController@cost');
 
 Route::get('/getcities','IndexController@getCities');
 Route::get('/getpostalcode','IndexController@getpostalcode');

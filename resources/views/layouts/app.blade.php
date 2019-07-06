@@ -158,6 +158,8 @@
           <p>Promo from  July 15 &mdash; 25, 2019</p>
         </a>
       </div>
+
+
       <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
         <div class="row">
           <div class="col-md-12">
@@ -165,24 +167,27 @@
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="#">Sell online</a></li>
-              <li><a href="#">Features</a></li>
-              <li><a href="#">Shopping cart</a></li>
-              <li><a href="#">Store builder</a></li>
+              <li><a href="{{url('productlist')}}">All Products</a></li>
+              <li><a href="{{url('newarrival')}}">New Arrival</a></li>
+              <li><a href="{{url('bestseller')}}">Best Seller</a></li>
+              <li><a href="{{url('musthaves')}}">Must Haves</a></li>
+              <li><a href="{{url('cart')}}">Shopping Cart</a></li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="#">Mobile commerce</a></li>
-              <li><a href="#">Dropshipping</a></li>
-              <li><a href="#">Website development</a></li>
+              <li><a href="{{url('top')}}">Top</a></li>
+              <li><a href="{{url('dress')}}">Dress</a></li>
+              <li><a href="{{url('outerwear')}}">Outerwear</a></li>
+              <li><a href="{{url('jumpsuit')}}">Jumpsuit</a></li>
+              <li><a href="{{url('set')}}">Set</a></li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="#">Point of sale</a></li>
-              <li><a href="#">Hardware</a></li>
-              <li><a href="#">Software</a></li>
+              <li><a href="{{url('login')}}">Login</a></li>
+              <li><a href="{{url('register')}}">Register</a></li>
+              <li><a href="{{url('aboutme')}}">About Us</a></li>
             </ul>
           </div>
         </div>
