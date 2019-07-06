@@ -46,8 +46,8 @@
     <div class="search-wrap">
       <div class="container">
         <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-        <form action="#" method="post">
-          <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+        <form action="{{url('searchresult')}}" method="get">
+          <input type="text"  name="search" class="form-control" placeholder="Search by product name  and hit enter...">
         </form>
       </div>
     </div>

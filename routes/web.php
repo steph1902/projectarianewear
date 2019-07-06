@@ -55,18 +55,8 @@ Route::get('cost','IndexController@cost');
 Route::get('/getcities','IndexController@getCities');
 Route::get('/getpostalcode','IndexController@getpostalcode');
 
-// Route::get('cities',function()
-// {
-//        $province_id = Input::get('province');
-//        $cities = City::where('province_id','=',$province_id)->get();
-//        return $cities;
-// //     $state_id = Input::get('state_id');
-// //     $subcategories = City::where('state_id','=',$state_id)->get();
-// //     return $subcategories;
-
-// });
-
-
+// search
+Route::get('searchresult','IndexController@searchProduct');
 
 /**
  * to insert url slug

@@ -17,6 +17,24 @@ class IndexController extends Controller
 
     */
 
+    public function searchProduct(Request $request)
+    {
+        if($request->has('search'))
+        {
+            $searchValue = $request->get('search');
+
+            $products = DB::table('products')
+            ->join('images', 'images.product_name', '=', 'products.product_name')
+            ->join('colours','colours.product_name', '=', 'products.product_name')
+            ->where('products.product_name', 'like' , '%'.$searchValue.'%' )
+            ->whereColumn('images.colour_name','colours.colour_name')
+            ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+            ->groupBy('colours.colour_name', 'products.product_name')
+            ->paginate(20);// ->get();//
+        }
+            return view('searchresult',compact('products'));
+    }
+
     public function rajaOngkir()
     {
         $curl = curl_init();
@@ -182,9 +200,6 @@ class IndexController extends Controller
 
     }
 
-
-
-
     public function newArrival()
     {
         $products = DB::table('products')
@@ -328,6 +343,7 @@ class IndexController extends Controller
 
 
     }
+
     public function getpostalcode()
     {
         $city_id = Input::get('city_id');
