@@ -144,6 +144,13 @@
                   </div>
                 </div>
 
+                {{ session()->put('total_weight',$weight) }}
+                {{ session()->put('total_price',$total) }}
+
+
+
+
+
                 <div class="row">
                   <div class="col-md-12">
                   <a href="{{url('checkout')}}">

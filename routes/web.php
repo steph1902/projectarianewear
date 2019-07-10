@@ -55,6 +55,15 @@ Route::get('cost','IndexController@cost');
 Route::get('/getcities','IndexController@getCities');
 Route::get('/getpostalcode','IndexController@getpostalcode');
 
+//
+Route::post('orderdetails','IndexController@orderDetails')->name('orderdetails');
+
+Route::post('thankyou','IndexController@thankYou');
+Route::post('notification/handler','IndexController@notificationHandler');
+
+
+
+
 // search
 Route::get('searchresult','IndexController@searchProduct');
 

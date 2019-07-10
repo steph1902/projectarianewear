@@ -6,8 +6,14 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Products;
 use App\Images;
+use App\billing_details;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Veritrans_Config;
+use Veritrans_Snap;
+use Veritrans_Notification;
+
 
 class IndexController extends Controller
 {
@@ -16,6 +22,248 @@ class IndexController extends Controller
 		Controller Frontend
 
     */
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+
+        // Set midtrans configuration
+        Veritrans_Config::$serverKey = config('services.midtrans.serverKey');
+        Veritrans_Config::$isProduction = config('services.midtrans.isProduction');
+        Veritrans_Config::$isSanitized = config('services.midtrans.isSanitized');
+        Veritrans_Config::$is3ds = config('services.midtrans.is3ds');
+    }
+
+
+
+    public function orderDetails(Request $request)
+    {
+        // dd($request->input('city'));
+        $validatedData = $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'address' => 'required',
+            'province' => 'required',
+            'city' => 'required',
+            'postal_code' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+          ]);
+
+
+
+        // dd('here');
+
+        $firstName = $request->input('firstname');
+        $lastName = $request->input('lastname');
+        $address = $request->input('address');
+        $province = $request->input('province');
+        $city = $request->input('city');
+        $postalCode = $request->input('postal_code');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $notes = $request->input('notes');
+
+        // to generate unique order id
+        $strRand = str_random(5);
+        $orderId = 'ORDER-'.$strRand;
+
+        $sessionData = $request->session()->all();
+        // dd($sessionData);
+        $totalWeight = $request->session()->get('total_weight');
+        $totalPrice = $request->session()->get('total_price');
+        // dd($totalWeight);
+
+        // dd($sessionData['cart']);
+        $sessionDataCart = $sessionData['cart'];
+
+
+        $cart = session()->get('cart');
+
+        if(!$cart)
+        {
+            return view('productlist')->with('success','Your cart is still empty, please add some product first to cart.');
+        }
+        else
+        {
+            // dd($cart);
+            DB::table('billing_details')->insert(
+                [
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'address' => $address,
+                    'provinces' => $province,
+                    'cities' => $city,
+                    'postal_code' => $postalCode,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'order_id' => $orderId,
+                    'total_weight' => $totalWeight,
+                    'total_price' => $totalPrice
+                ]
+            );
+
+        }
+
+        // dd('check db');
+        $id =  current(array_keys($sessionDataCart));
+        // dd($id);
+        // $id = $sessionDataCart['product_name'].' '.$sessionDataCart['product_colour'];
+        // Str::slug($id, '-');
+
+
+
+        // dd($id);
+         // Buat transaksi ke midtrans kemudian save snap tokennya.
+         $payload = [
+            'transaction_details' =>
+            [
+                'order_id'      => $orderId,
+                'gross_amount'  => $totalPrice,
+            ],
+            'customer_details' =>
+            [
+                'first_name'    => $firstName,
+                'email'         => $email,
+                // 'phone'         => '08888888888',
+                // 'address'       => '',
+            ],
+            'item_details' =>
+            [
+                [
+                    'id'       => $id,
+                    'price'    => $sessionDataCart[$id]['product_price'],
+                    'quantity' => $sessionDataCart[$id]['product_quantity'],
+                    'name'     => strtolower($sessionDataCart[$id]['product_name'].' '.$sessionDataCart[$id]['product_colour'])
+                ]
+            ]
+        ];
+
+        // foreach($cities as $key => $value)
+        // {
+        //     $cities['city_id'] = $value['city_id'];
+        //     $cities['province_id'] = $value['province_id'];
+        //     $cities['province'] = $value['province'];
+        //     $cities['type'] = $value['type'];
+        //     $cities['city_name'] = $value['city_name'];
+        //     $cities['postal_code'] = $value['postal_code'];
+
+        // foreach ($sessionData['cart'] as $key => $value)
+        // {
+        //     # code...
+        //     // $payload['item_details'] =>
+        //     // [
+        //     //     'id' => $key,
+        //     //     'price' => $value['product_price'],
+        //     //     'quantity' => $value['product_quantity'],
+        //     //     'name' => strtolower($value['product_name'].' '.$value['product_colour'])
+        //     // ]
+
+        //     $payload['item_details']['id'] = $key;
+        //     $payload['item_details']['price'] = $value['product_price'];
+        //     $payload['item_details']['quantity'] = $value['product_quantity'];
+        //     $payload['item_details']['name'] = strtolower($value['product_name'].' '.$value['product_colour']);
+        // }
+
+        // DB::table('billing_details')->insert(
+        //     [
+        //         'first_name' => $firstName,
+        //         'last_name' => $lastName,
+        //         'address' => $address,
+        //         'provinces' => $province,
+        //         'cities' => $city,
+        //         'postal_code' => $postalCode,
+        //         'email' => $email,
+        //         'phone' => $phone,
+        //         'order_id' => $orderId,
+        //         'total_weight' => $totalWeight,
+        //         'total_price' => $totalPrice
+        //     ]
+        // );
+
+
+
+        // dd($payload);
+        $snapToken = Veritrans_Snap::getSnapToken($payload);
+        // dd($snapToken);
+        // $billingDetails->snap_token = $snapToken;
+        // $billingDetails->save();
+        DB::table('billing_details')->insert(['snap_token'=>$snapToken]);
+
+        // Beri response snap token
+        $this->response['snap_token'] = $snapToken;
+
+        return response()->json($this->response);
+
+
+
+        // return view('orderdetails');
+    }
+
+    public function notificationHandler(Request $request)
+    {
+        $notif = new Veritrans_Notification();
+        \DB::transaction(function() use($notif) {
+
+          $transaction = $notif->transaction_status;
+          $type = $notif->payment_type;
+          $orderId = $notif->order_id;
+          $fraud = $notif->fraud_status;
+          $billingDetails = billng_details::findOrFail($orderId);
+
+          if ($transaction == 'capture') {
+
+            // For credit card transaction, we need to check whether transaction is challenge by FDS or not
+            if ($type == 'credit_card') {
+
+              if($fraud == 'challenge') {
+                // TODO set payment status in merchant's database to 'Challenge by FDS'
+                // TODO merchant should decide whether this transaction is authorized or not in MAP
+                // $billingDetails->addUpdate("Transaction order_id: " . $orderId ." is challenged by FDS");
+                $billingDetails->setPending();
+              } else {
+                // TODO set payment status in merchant's database to 'Success'
+                // $billingDetails->addUpdate("Transaction order_id: " . $orderId ." successfully captured using " . $type);
+                $billingDetails->setSuccess();
+              }
+
+            }
+
+          } elseif ($transaction == 'settlement') {
+
+            // TODO set payment status in merchant's database to 'Settlement'
+            // $billingDetails->addUpdate("Transaction order_id: " . $orderId ." successfully transfered using " . $type);
+            $billingDetails->setSuccess();
+
+          } elseif($transaction == 'pending'){
+
+            // TODO set payment status in merchant's database to 'Pending'
+            // $billingDetails->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " using " . $type);
+            $billingDetails->setPending();
+
+          } elseif ($transaction == 'deny') {
+
+            // TODO set payment status in merchant's database to 'Failed'
+            // $billingDetails->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.");
+            $billingDetails->setFailed();
+
+          } elseif ($transaction == 'expire') {
+
+            // TODO set payment status in merchant's database to 'expire'
+            // $billingDetails->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.");
+            $billingDetails->setExpired();
+
+          } elseif ($transaction == 'cancel') {
+
+            // TODO set payment status in merchant's database to 'Failed'
+            // $billingDetails->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.");
+            $billingDetails->setFailed();
+
+          }
+
+        });
+
+        return;
+    }
 
     public function searchProduct(Request $request)
     {
