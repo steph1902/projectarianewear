@@ -22,6 +22,8 @@ class IndexController extends Controller
 		Controller Frontend
 
     */
+
+
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -35,48 +37,36 @@ class IndexController extends Controller
 
 
 
+    public function thankyouPage()
+    {
+        return view('thankyou');
+    }
+
     public function orderDetails(Request $request)
     {
-        // dd($request->input('city'));
-        $validatedData = $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'address' => 'required',
-            'province' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-          ]);
+
+
+        $firstName = $this->request->firstname;
+        $lastName = $this->request->lastname;
+        $address = $this->request->address;
+        $province = $this->request->province;
+        $city = $this->request->city;
+        $postalCode = $this->request->postal_code;
+        $email = $this->request->email;
+        $phone = $this->request->phone;
+        $notes = $this->request->notes;
 
 
 
-        // dd('here');
-
-        $firstName = $request->input('firstname');
-        $lastName = $request->input('lastname');
-        $address = $request->input('address');
-        $province = $request->input('province');
-        $city = $request->input('city');
-        $postalCode = $request->input('postal_code');
-        $email = $request->input('email');
-        $phone = $request->input('phone');
-        $notes = $request->input('notes');
-
-        // to generate unique order id
         $strRand = str_random(5);
         $orderId = 'ORDER-'.$strRand;
 
         $sessionData = $request->session()->all();
-        // dd($sessionData);
+
         $totalWeight = $request->session()->get('total_weight');
         $totalPrice = $request->session()->get('total_price');
-        // dd($totalWeight);
 
-        // dd($sessionData['cart']);
         $sessionDataCart = $sessionData['cart'];
-
-
         $cart = session()->get('cart');
 
         if(!$cart)
@@ -85,7 +75,6 @@ class IndexController extends Controller
         }
         else
         {
-            // dd($cart);
             DB::table('billing_details')->insert(
                 [
                     'first_name' => $firstName,
@@ -104,7 +93,7 @@ class IndexController extends Controller
 
         }
 
-        // dd('check db');
+
         $id =  current(array_keys($sessionDataCart));
         // dd($id);
         // $id = $sessionDataCart['product_name'].' '.$sessionDataCart['product_colour'];
@@ -112,8 +101,10 @@ class IndexController extends Controller
 
 
 
+
         // dd($id);
          // Buat transaksi ke midtrans kemudian save snap tokennya.
+        //  default
          $payload = [
             'transaction_details' =>
             [
@@ -138,65 +129,57 @@ class IndexController extends Controller
             ]
         ];
 
+        // $citiesObj = json_decode($response,true);
+        // $cities = array();
+        // $cities = $citiesObj['rajaongkir']['results'];
         // foreach($cities as $key => $value)
         // {
         //     $cities['city_id'] = $value['city_id'];
         //     $cities['province_id'] = $value['province_id'];
         //     $cities['province'] = $value['province'];
-        //     $cities['type'] = $value['type'];
+        //     $cities['type'] = $value['type'];a
         //     $cities['city_name'] = $value['city_name'];
         //     $cities['postal_code'] = $value['postal_code'];
 
-        // foreach ($sessionData['cart'] as $key => $value)
+
+        // $itemDetails = array();
+        // $itemDetails = $sessionDataCart;
+
+
+        // foreach($sessionDataCart as $key => $value)
         // {
-        //     # code...
-        //     // $payload['item_details'] =>
-        //     // [
-        //     //     'id' => $key,
-        //     //     'price' => $value['product_price'],
-        //     //     'quantity' => $value['product_quantity'],
-        //     //     'name' => strtolower($value['product_name'].' '.$value['product_colour'])
-        //     // ]
+        //     $itemDetails['id'] = $id;
+        //     $itemDetails['price'] = $value[$id]['product_price'];
+        //     $itemDetails['quantity'] = $value[$id]['product_quantity'];
+        //     $itemDetails['name'] = strtolower($value[$id]['product_name'].' '.$value[$id]['product_colour']);
 
-        //     $payload['item_details']['id'] = $key;
-        //     $payload['item_details']['price'] = $value['product_price'];
-        //     $payload['item_details']['quantity'] = $value['product_quantity'];
-        //     $payload['item_details']['name'] = strtolower($value['product_name'].' '.$value['product_colour']);
         // }
-
-        // DB::table('billing_details')->insert(
+        // var_dump($itemDetails);die();
+        //klo gk bs ganti value[][]
+        // $payload = [
+        //     'transaction_details' =>
         //     [
-        //         'first_name' => $firstName,
-        //         'last_name' => $lastName,
-        //         'address' => $address,
-        //         'provinces' => $province,
-        //         'cities' => $city,
-        //         'postal_code' => $postalCode,
-        //         'email' => $email,
-        //         'phone' => $phone,
-        //         'order_id' => $orderId,
-        //         'total_weight' => $totalWeight,
-        //         'total_price' => $totalPrice
-        //     ]
-        // );
+        //         'order_id'      => $orderId,
+        //         'gross_amount'  => $totalPrice,
+        //     ],
+        //     'customer_details' =>
+        //     [
+        //         'first_name'    => $firstName,
+        //         'email'         => $email,
+        //         // 'phone'         => '08888888888',
+        //         // 'address'       => '',
+        //     ],
+        //     'item_details' => $itemDetails,
+        // ];
 
 
 
-        // dd($payload);
+
+
         $snapToken = Veritrans_Snap::getSnapToken($payload);
-        // dd($snapToken);
-        // $billingDetails->snap_token = $snapToken;
-        // $billingDetails->save();
-        DB::table('billing_details')->insert(['snap_token'=>$snapToken]);
-
-        // Beri response snap token
+        // DB::table('billing_details')->insert(['snap_token'=>$snapToken]);
         $this->response['snap_token'] = $snapToken;
-
         return response()->json($this->response);
-
-
-
-        // return view('orderdetails');
     }
 
     public function notificationHandler(Request $request)
@@ -500,11 +483,28 @@ class IndexController extends Controller
     	return view('index');
     }
 
-    public function cost()
+    public function getshippingcost(Request $request)
     {
+        // origin	String	ID kota/kabupaten asal
+        // destination	String	ID kota/kabupaten tujuan
+        // weight	Int	Berat kiriman
+        // courier	String	Kode kurir yang dipakai
+
+        $province_id = Input::get('province_id');
+        $city_id = Input::get('city_id');
+        $weight = session()->get('total_weight');
+        $province = $this->request->province;
+        $city = $this->request->city_id;
+
+        $city = '457';
+
+
+        $CURLOPT_POSTFIELDS_STRING =  "origin=155&destination=".$city."&weight=".$weight."&courier=jne";
+
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
+        curl_setopt_array($curl, array
+        (
         CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
@@ -512,7 +512,7 @@ class IndexController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+        CURLOPT_POSTFIELDS => $CURLOPT_POSTFIELDS_STRING,
         CURLOPT_HTTPHEADER => array(
             "content-type: application/x-www-form-urlencoded",
             "key: e33a9c5190a759d73f9036c2f3756589"
@@ -530,56 +530,12 @@ class IndexController extends Controller
         }
         else
         {
-            echo $response;
+            return response()->json($response);
         }
+
+
     }
 
-
-    public function example()
-    {
-        $analyticsData = Analytics::performQuery(Period::years(1),
-            'ga:sessions',
-            [
-                'metrics' => 'ga:users',
-                'dimensions' => 'ga:country, ga:region, ga:city, ga:date, ga:browser,ga:operatingSystem'
-            ]
-        );
-
-        $data = array();
-        $data = $analyticsData['rows'];
-
-        /*
-            need to be change/update with the correct url_id
-         */
-        $url_id = 1;
-
-        /**
-         * assigned each data and bulk insert to db
-         */
-
-        foreach ($data as $key => $value)
-        {
-            $data['country'] = $value[0];
-            $data['region'] = $value[1];
-            $data['city'] = $value[2];
-            $data['date'] = $value[3];
-            $data['browser'] = $value[4];
-            $data['operatingSytem'] = $value[5];
-            $data['visitor'] = $value[6];
-
-            DB::table('analytics')->insert(
-                [
-                    'url_id' => $url_id,
-                    'country' => $data['country'],
-                    'region' => $data['region'],
-                    'city' => $data['city'],
-                    'date' => $data['date'],
-                    'browser' => $data['browser'],
-                    'operatingSystem' => $data['operatingSytem'],
-                    'visitor' => $data['visitor']
-                ]);
-        }
-    }
 
     public function getcities()
     {
@@ -776,7 +732,7 @@ class IndexController extends Controller
 
         // dd($productDetails);
 
-        $size = $request->input ('size_name');
+        $size = $request->input('size_name');
         $quantity = $request->input('quantity');
 
         // dd($quantity);

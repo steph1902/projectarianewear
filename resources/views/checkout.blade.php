@@ -50,18 +50,18 @@
 
                     <div class="col-md-6">
                       <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="c_diff_fname" name="firstname">
+                      <input type="text" class="form-control" id="firstname" name="firstname">
                     </div>
                     <div class="col-md-6">
                       <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="c_diff_lname" name="lastname">
+                      <input type="text" class="form-control" id="lastname" name="lastname">
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="c_diff_address" name="address" placeholder="Street address">
+                      <input type="text" class="form-control" id="address" name="address" placeholder="Street address">
                     </div>
                   </div>
 
@@ -96,6 +96,7 @@
                       <option value=""></option>
                     </select>
                   </div>
+
 {{--
                   <div class="form-group row">
                     <div class="col-md-12">
@@ -108,20 +109,43 @@
                   <div class="form-group row mb-5">
                     <div class="col-md-6">
                       <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="c_diff_email_address" name="email">
+                      <input type="text" class="form-control" id="email" name="email">
                     </div>
                     <div class="col-md-6">
                       <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="c_diff_phone" name="phone" placeholder="Phone Number">
+                      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number">
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="c_order_notes" class="text-black">Order Notes</label>
-                    <textarea name="notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+                    <textarea name="notes" id="notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
                   </div>
 
+                  <div class="form-group">
+                    <label for="c_diff_country" class="text-black">Shipping Courier<span class="text-danger">*</span></label>
+                    <select id="courier" name="courier" class="form-control">
+                      <option value="jne" disable="true" selected="true">JNE</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="c_diff_country" class="text-black">Services<span class="text-danger">*</span></label>
+                    <select id="delivery" name="delivery" class="form-control">
+                      <option value="reg" disable="true" selected="true">REG</option>
+                      <option value="oke" disable="true">OKE</option>
+                      <option value="yes" disable="true">YES</option>
+                      <option value="sps" disable="true">SPS</option>
+                    </select>
+                  </div>
+
+
                 </div>
+
+
+
+
+
 
             </div>
 
@@ -170,10 +194,23 @@
                         </tr>
 
                         <tr>
-                          <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                          <td class="text-black font-weight-bold"><strong>IDR {{ $total }}</strong></td>
-                        <input type="hidden" id="totalprice" name="totalprice" value="{{$total}}">
+                            <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                            <td class="text-black font-weight-bold"><strong>IDR {{ $total }}</strong></td>
+                            <input type="hidden" id="totalprice" name="totalprice" value="{{$total}}">
                         </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Shipping Cost</strong></td>
+                            <td class="text-black font-weight-bold"><strong>IDR <p id="shippingcost">   </p></strong></td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Grand Total</strong></td>
+                            <td class="text-black font-weight-bold"><strong>IDR {{ $total }}</strong></td>
+                            <input type="hidden" id="grandtotal" name="grandtotal" value="{{$total}}">
+                        </tr>
+
+
                       </tbody>
                     </table>
 
@@ -187,7 +224,13 @@
 
                       <div class="collapse" id="collapsebank">
                         <div class="py-2">
-                          <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                          <p class="mb-0">
+                              Make your payment directly into our bank account.
+                              Please use your Order ID as the payment reference.
+                              Your order won’t be shipped until the funds have cleared in our account.</p>
+                              <p class="mb-0"><br><strong>Empowering commerce
+                                    through technology</strong><br>
+                                    Midtrans sudah membantu ribuan bisnis di Indonesia dengan sistem pembayaran online yang aman dan nyaman.</p>
                         </div>
                       </div>
                     </div>
@@ -240,30 +283,46 @@
             $('#city').empty();
             $('#postal_code').empty();
             $('#city').append('<option value="0" disable="true" selected="true">Select a city</option>');
-            $.each(data, function(index,cityObj)
+
+
+           
+            $.each(data, function(index,cityObj)
             {
                 $('#city').append('<option value="'+ cityObj.city_id +'">'+ cityObj.city_name +'</option>');
             });
           });
     });
 
- $('#city').on('change', function(e)
- {
-  console.log(e);
-  var city_id = e.target.value;
-  $.get('/getpostalcode?city_id=' + city_id,function(data)
-  {
-    console.log(data);
-    // $('#postal_code').empty();
-    $.each(data, function(index, postalCodeObj)
+    $('#city').on('change', function(e)
     {
-      console.log(postalCodeObj.postal_code);
-    //   $('#postal_code').val(postalCodeObj.postal_code);
-      $('#postal_code').append('<option value="'+ postalCodeObj.postal_code +'">'+ postalCodeObj.postal_code    +'</option>');
-    //   document.getElementById('postal_code').value = postalCodeObj.postal_code;
+        console.log(e);
+        var city_id = e.target.value;
+        $.get('/getpostalcode?city_id=' + city_id,function(data)
+        {
+            console.log(data);
+
+            $.each(data, function(index, postalCodeObj)
+            {
+                console.log(postalCodeObj.postal_code);
+                $('#postal_code').append('<option value="'+ postalCodeObj.postal_code +'">'+ postalCodeObj.postal_code    +'</option>');
+
+            });
+        });
+
+        $.get('/getshippingcost',function(data)
+        {
+            console.log(data);
+            // console.log(data);
+            // var obj = JSON.parse(data);
+            // console.log('---');
+            // result cost value
+            // console.log(data['rajaongkir']['results']['costs']['cost'].value);
+
+        });
+
     });
-  });
-});
+
+
 
 
 </script>
@@ -288,8 +347,20 @@ function submitForm()
         _token: '{{ csrf_token() }}',
         totalprice: $('input#totalprice').val(),
         note: $('textarea#note').val(),
-        customer_name: $('input#firstname').val(),
-        customer_email: $('input#email').val(),
+        // firstname: $('input#firstname').val(),
+        // customer_email: $('input#email').val(),
+        firstname: $('input#firstname').val(),
+        lastname: $('input#lastname').val(),
+        address: $('input#address').val(),
+        province: $('select#province').val(),
+        city: $('select#city').val(),
+        postal_code: $('select#postal_code').val(),
+        email: $('input#email').val(),
+        phone: $('input#phone').val(),
+        // order_id: => $orderId,
+        // total_weight: => $totalWeight,
+        // total_price: => $totalPrice
+
     },
 function (data, status) {
     snap.pay(data.snap_token, {

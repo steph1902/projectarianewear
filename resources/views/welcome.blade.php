@@ -29,19 +29,19 @@
         <div class="row align-items-stretch">
           <div class="col-lg-8">
             <div class="product-item sm-height full-height bg-gray">
-              <a href="#" class="product-category">Top</a>
+              <a href="{{url('top')}}" class="product-category">Top</a>
               <img src="{{asset('images/Foto Produk Ariane Wear/Alexa Top/Black/ALEXA TOP.jpeg')}}" alt="Image" class="img-fluid">
             </div>
           </div>
 
           <div class="col-lg-4">
             <div class="product-item sm-height bg-gray mb-4">
-              <a href="#" class="product-category">Outerwear </a>
+              <a href="{{url('outer')}}" class="product-category">Outerwear </a>
               <img src="{{asset('images/Foto Produk Ariane Wear/Clara Outer/White/CLARA OUTER (1).jpg')}}" alt="Image" class="img-fluid">
             </div>
             {{-- C:\Users\User\Documents\laravelproject\projectariane\public\images\Foto Produk Ariane Wear\ --}}
             <div class="product-item sm-height bg-gray">
-              <a href="#" class="product-category">Jumpsuit</a>
+              <a href="{{url('jumpsuit')}}" class="product-category">Jumpsuit</a>
               <img src="{{asset('images/Foto Produk Ariane Wear/Kylie Jumpsuit/Nude/KYLIE JUMPSUIT (2).jpeg')}}" alt="Image" class="img-fluid">
             </div>
           </div>
