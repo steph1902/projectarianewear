@@ -12,7 +12,7 @@ class ImageTableSeeder extends Seeder
      */
     public function run()
     {
-     
+
 
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Abby Top\Green\ABBY TOP (2).jpg',
@@ -355,7 +355,7 @@ class ImageTableSeeder extends Seeder
             'colour_name' => 'Silver'
         ]);
 
-            
+
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Aleeya Dress\Pink\ALEEYA DRESS (1).jpg',
             'product_name' => 'ALEEYA DRESS',
@@ -377,7 +377,7 @@ class ImageTableSeeder extends Seeder
             'colour_name' => 'Pink'
         ]);
 
-    
+
 
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Alexa Top\Black\ALEXA TOP.jpeg',
@@ -796,7 +796,7 @@ class ImageTableSeeder extends Seeder
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Bianca Tanktop\Navy\BIANCA TANKTOP (1).jpg',
             'product_name' => 'BIANCA TANKTOP',
-            'colour_name' => ''
+            'colour_name' => 'Navy'
         ]);
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Bianca Tanktop\Navy\BIANCA TANKTOP (2).jpeg',
@@ -1250,17 +1250,17 @@ class ImageTableSeeder extends Seeder
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Clara Outer\White\CLARA OUTER (3).jpeg',
             'product_name' => 'CLARA OUTER',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Clara Outer\White\CLARA OUTER (3).jpg',
             'product_name' => 'CLARA OUTER',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Clara Outer\White\CLARA OUTER (4).jpeg',
             'product_name' => 'CLARA OUTER',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Clara Outer\White\CLARA OUTER (4).jpg',
@@ -1566,29 +1566,29 @@ class ImageTableSeeder extends Seeder
         ]);
 
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\FLARE TOP (1).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\White\FLARE TOP (1).jpeg',
             'product_name' => 'FLARE TOP',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\FLARE TOP (2).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\White\FLARE TOP (2).jpeg',
             'product_name' => 'FLARE TOP',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\FLARE TOP (3).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\White\FLARE TOP (3).jpeg',
             'product_name' => 'FLARE TOP',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\FLARE TOP (4).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\White\FLARE TOP (4).jpeg',
             'product_name' => 'FLARE TOP',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\FLARE TOP (5).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Flare Top\White\FLARE TOP (5).jpeg',
             'product_name' => 'FLARE TOP',
-            'colour_name' => ''
+            'colour_name' => 'White'
         ]);
 
         DB::table('images')->insert([
@@ -1803,7 +1803,7 @@ class ImageTableSeeder extends Seeder
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Kourtney Dress\Black\KOURTNEY DRESS (13).jpeg',
             'product_name' => 'KOURTNEY DRESS',
-            'colour_name' => ''
+            'colour_name' => 'Black'
         ]);
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Kourtney Dress\Black\KOURTNEY DRESS (14).jpeg',
@@ -3252,9 +3252,9 @@ class ImageTableSeeder extends Seeder
         ]);
 
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Pleads Pants\PLEADS PANTS.jpg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Pleads Pants\DarkBlue\PLEADS PANTS.jpg',
             'product_name' => 'PLEADS PANTS',
-            'colour_name' => ''
+            'colour_name' => 'DarkBlue'
         ]);
 
         DB::table('images')->insert([
@@ -3629,7 +3629,7 @@ class ImageTableSeeder extends Seeder
         ]);
 
 
-        
+
         DB::table('images')->insert([
             'image_path' => 'images\Foto Produk Ariane Wear\Vebby Pants\Black\VEBBY PANTS (1).jpeg',
             'product_name' => 'VEBBY PANTS',
@@ -3647,19 +3647,19 @@ class ImageTableSeeder extends Seeder
         ]);
 
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Vicky Pants\VICKY PANTS (1).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Vicky Pants\LightPink\VICKY PANTS (1).jpeg',
             'product_name' => 'VICKY PANTS',
-            'colour_name' => ''
+            'colour_name' => 'LightPink'
         ]);
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Vicky Pants\VICKY PANTS (2).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Vicky Pants\LightPink\VICKY PANTS (2).jpeg',
             'product_name' => 'VICKY PANTS',
-            'colour_name' => ''
+            'colour_name' => 'LightPink'
         ]);
         DB::table('images')->insert([
-            'image_path' => 'images\Foto Produk Ariane Wear\Vicky Pants\VICKY PANTS (3).jpeg',
+            'image_path' => 'images\Foto Produk Ariane Wear\Vicky Pants\LightPink\VICKY PANTS (3).jpeg',
             'product_name' => 'VICKY PANTS',
-            'colour_name' => ''
+            'colour_name' => 'LightPink'
         ]);
 
         DB::table('images')->insert([
@@ -3796,7 +3796,7 @@ class ImageTableSeeder extends Seeder
 
 
 
-        
+
 
 
 

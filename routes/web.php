@@ -33,7 +33,7 @@ Route::get('productlist', 'IndexController@productListView');
 Route::get('productdetail/{url}','IndexController@productDetailView');
 Route::get('cart','IndexController@cart');
 Route::post('addtocart/{url}','IndexController@addToCart')->name('addToCart');
-Route::delete('removecart/{url}', 'IndexController@removeCart');
+Route::delete('removecart', 'IndexController@removeCart')->name('removecart');
 Route::get('checkout','IndexController@checkoutPage');
 
 Route::get('newarrival','IndexController@newArrival');

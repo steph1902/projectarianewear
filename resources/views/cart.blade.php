@@ -74,7 +74,16 @@
 
                     {{-- <button class="btn btn-danger btn-sm remove-from-cart" data-id="{{ $id }}"><i class="fa fa-trash-o"></i></button> --}}
                     {{-- <form method="post" action="{{ action('IndexController@addToCart',['url' => $productDetails[0]->product_url]) }}" accept-charset="UTF-8"> --}}
-                    <td><a href="{{url('removecart')}}" class="btn btn-primary height-auto btn-sm">X</a></td>
+                    <td>
+
+                        <button class="btn btn-primary height-auto btn-sm remove-from-cart" data-id="{{ $url }}">
+                            X
+                        </button>
+
+                        {{-- <a href="{{url('removeCart')}}" class="btn btn-primary height-auto btn-sm">
+                            X
+                        </a> --}}
+                    </td>
                   </tr>
 
                     @endforeach
@@ -167,6 +176,35 @@
 
 
   </div>
+
+
+
+  <script type="text/javascript">
+
+
+
+    $(".remove-from-cart").click(function (e) {
+        e.preventDefault();
+
+        var ele = $(this);
+
+        if(confirm("Are you sure"))
+        {
+            $.ajax({
+                url: '{{ url('removecart') }}',
+                method: "DELETE",
+                data: {_token: '{{ csrf_token() }}', url: ele.attr("data-id")},
+                success: function (response)
+                {
+                    // console.log(response);
+                    // console.log(data);
+                    window.location.reload();
+                }
+            });
+        }
+    });
+
+</script>
 
 
   </body>

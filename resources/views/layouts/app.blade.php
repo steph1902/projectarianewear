@@ -22,6 +22,10 @@
   <script src="{{ asset('js/aos.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
 
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -36,7 +40,11 @@
   <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
 
 </head>
 <body>

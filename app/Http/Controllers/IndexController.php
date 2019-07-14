@@ -789,8 +789,9 @@ class IndexController extends Controller
 
     }
 
-    public function removeCart(Request $request,$url)
+    public function removeCart(Request $request)
     {
+        // dd($request->url);
         if($request->url)
         {
             $cart = session()->get('cart');
@@ -836,9 +837,21 @@ class IndexController extends Controller
         $url = \str_slug($productString);
         // dd($url);
 
-        // dd($productDetails);
+        $productImages = DB::table('products')
+        ->join('images','images.product_name' ,'=','products.product_name')
+        ->join('colours','colours.product_name','=','images.product_name')
+        ->where('colours.product_url','=',$url)
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->select('images.image_path')
+        // ->take(4)
+        ->get();
+        // SELECT
+	    // images.image_path
+        // FROM products JOIN images ON products.product_name = images.product_name
 
-    	return view('productdetail',compact('productDetails'));
+        // dd($productImages);
+
+    	return view('productdetail',compact('productDetails','productImages'));
     }
 
     /**

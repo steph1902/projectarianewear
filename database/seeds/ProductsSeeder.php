@@ -13,10 +13,12 @@ class ProductsSeeder extends Seeder
     {
         //
         $this->call([
-            ProductsTableSeeder::class,
-            ColorsTableSeeder::class,
-            SizeTableSeeder::class,
-            ImageTableSeeder::class
+            // ProductsTableSeeder::class,
+            // ColorsTableSeeder::class,
+            // SizeTableSeeder::class,
+            ImageTableSeeder::class,
+            // NewProductSeeder::class,
+            NewProductImageSeeder::class,
         ]);
     }
 }
