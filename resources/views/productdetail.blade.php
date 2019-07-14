@@ -68,7 +68,7 @@
                 <div class="mb-1 d-flex">
                 <label for="option-sm" class="d-flex mr-3 mb-3">
                     <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
-                    <input type="radio" id="option-sm" name="size_name"></span> <span class="d-inline-block text-black">{{ $productDetail->size_name }}</span>
+                    <input type="radio" id="size_name" name="size_name"></span> <span class="d-inline-block text-black">{{ $productDetail->size_name }}</span>
                 </label>
                 </div>
             @endif

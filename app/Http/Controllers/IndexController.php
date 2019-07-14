@@ -42,10 +42,8 @@ class IndexController extends Controller
         return view('thankyou');
     }
 
-    public function orderDetails(Request $request)
+    public function toPayment(Request $request)
     {
-
-
         $firstName = $this->request->firstname;
         $lastName = $this->request->lastname;
         $address = $this->request->address;
@@ -55,6 +53,108 @@ class IndexController extends Controller
         $email = $this->request->email;
         $phone = $this->request->phone;
         $notes = $this->request->notes;
+        $delivery = $this->request->delivery;
+        $weight = session()->get('total_weight');
+
+        // dd($request->all());
+
+        $CURLOPT_POSTFIELDS_STRING =  "origin=155&destination=".$city."&weight=".$weight."&courier=jne";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array
+        (
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => $CURLOPT_POSTFIELDS_STRING,
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: e33a9c5190a759d73f9036c2f3756589"
+        ),
+        ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+
+            // $provinceObj = json_decode($response,true);
+            // $provinces = array();
+            // $provinces = $provinceObj['rajaongkir']['results'];
+            $SHIPPING_COST = 0;
+            $costObj = json_decode($response,true);
+            $costs = array();
+            $costsOKE = $costObj['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value']; //OKE
+            $costsREG = $costObj['rajaongkir']['results'][0]['costs'][1]['cost'][0]['value']; //REG
+            // $oke = $costsOKE[0]['value'];
+
+            // $sessionShippingCost = session()->get('shipping_cost');
+            // session()->put('shipping_cost',$cart);
+
+            // dd($delivery);
+
+            if($delivery == 'OKE')
+            {
+                $SHIPPING_COST = $costsOKE;
+                session()->put('shipping_cost',$SHIPPING_COST);
+            }
+            else if($delivery == 'REG')
+            {
+                $SHIPPING_COST = $costsREG;
+                session()->put('shipping_cost',$SHIPPING_COST);
+            }
+
+            $sessioncost = session()->get('shipping_cost');
+
+
+            session()->put('first_name',$firstName);
+            session()->put('last_name',$lastName);
+            session()->put('address',$address);
+            session()->put('province',$province);
+            session()->put('city',$city);
+            session()->put('postal_code',$postalCode);
+            session()->put('email',$email);
+            session()->put('phone',$phone);
+            session()->put('notes',$notes);
+            session()->put('delivery',$delivery);
+
+            $provinces = DB::table('provinces')->get();
+            $cities = DB::table('cities')->get();
+
+        // dd($provinces);
+            $provinces = json_decode($provinces,true);
+            $cities = json_decode($cities,true);
+
+            return view('checkout',compact('provinces','cities'));
+
+
+
+
+
+
+
+    }
+
+    public function orderDetails(Request $request)
+    {
+
+
+        $firstName = $this->request->firstname;
+        $lastName = $this->request->lastname;
+        $address = $this->request->address;
+
+        $province = $request->session()->get('province');
+        $city = $request->session()->get('city');
+        $postalCode = $request->session()->get('postal_code');
+        $email = $request->session()->get('email');
+        $phone = $request->session()->get('phone');
+        $notes = $request->session()->get('notes');
 
 
 
@@ -95,16 +195,7 @@ class IndexController extends Controller
 
 
         $id =  current(array_keys($sessionDataCart));
-        // dd($id);
-        // $id = $sessionDataCart['product_name'].' '.$sessionDataCart['product_colour'];
-        // Str::slug($id, '-');
 
-
-
-
-        // dd($id);
-         // Buat transaksi ke midtrans kemudian save snap tokennya.
-        //  default
          $payload = [
             'transaction_details' =>
             [
@@ -122,62 +213,14 @@ class IndexController extends Controller
             [
                 [
                     'id'       => $id,
-                    'price'    => $sessionDataCart[$id]['product_price'],
-                    'quantity' => $sessionDataCart[$id]['product_quantity'],
-                    'name'     => strtolower($sessionDataCart[$id]['product_name'].' '.$sessionDataCart[$id]['product_colour'])
+                    'price'    => $totalPrice,
+                    'quantity' => 1,
+                    'name'     => $orderId
                 ]
             ]
         ];
 
-        // $citiesObj = json_decode($response,true);
-        // $cities = array();
-        // $cities = $citiesObj['rajaongkir']['results'];
-        // foreach($cities as $key => $value)
-        // {
-        //     $cities['city_id'] = $value['city_id'];
-        //     $cities['province_id'] = $value['province_id'];
-        //     $cities['province'] = $value['province'];
-        //     $cities['type'] = $value['type'];a
-        //     $cities['city_name'] = $value['city_name'];
-        //     $cities['postal_code'] = $value['postal_code'];
-
-
-        // $itemDetails = array();
-        // $itemDetails = $sessionDataCart;
-
-
-        // foreach($sessionDataCart as $key => $value)
-        // {
-        //     $itemDetails['id'] = $id;
-        //     $itemDetails['price'] = $value[$id]['product_price'];
-        //     $itemDetails['quantity'] = $value[$id]['product_quantity'];
-        //     $itemDetails['name'] = strtolower($value[$id]['product_name'].' '.$value[$id]['product_colour']);
-
-        // }
-        // var_dump($itemDetails);die();
-        //klo gk bs ganti value[][]
-        // $payload = [
-        //     'transaction_details' =>
-        //     [
-        //         'order_id'      => $orderId,
-        //         'gross_amount'  => $totalPrice,
-        //     ],
-        //     'customer_details' =>
-        //     [
-        //         'first_name'    => $firstName,
-        //         'email'         => $email,
-        //         // 'phone'         => '08888888888',
-        //         // 'address'       => '',
-        //     ],
-        //     'item_details' => $itemDetails,
-        // ];
-
-
-
-
-
         $snapToken = Veritrans_Snap::getSnapToken($payload);
-        // DB::table('billing_details')->insert(['snap_token'=>$snapToken]);
         $this->response['snap_token'] = $snapToken;
         return response()->json($this->response);
     }
@@ -556,6 +599,20 @@ class IndexController extends Controller
         return response()->json($postal_code);
     }
 
+    public function preCheckoutPage()
+    {
+        $provinces = DB::table('provinces')->get();
+        $cities = DB::table('cities')->get();
+
+        // dd($provinces);
+        $provinces = json_decode($provinces,true);
+        $cities = json_decode($cities,true);
+
+        return view('precheckout',compact('provinces','cities'));
+
+    }
+
+
     public function checkoutPage()
     {
         $provinces = DB::table('provinces')->get();
@@ -568,6 +625,9 @@ class IndexController extends Controller
         return view('checkout',compact('provinces','cities'));
 
     }
+
+
+
     public function populateDataProvinceAndCities()
     {
         // get province start
@@ -588,19 +648,6 @@ class IndexController extends Controller
         $provinceObj = json_decode($response,true);
         $provinces = array();
         $provinces = $provinceObj['rajaongkir']['results'];
-        // dd($provinces);
-        // foreach($provinces as $key => $value)
-        // {
-        //     $provinces['province_id'] = $value['province_id'];
-        //     $provinces['province'] = $value['province'];
-
-        //     DB::table('provinces')->insert(
-        //         [
-        //             'province_id' => $provinces['province_id'],
-        //             'province' => $provinces['province']
-        //         ]);
-        // }
-        // dd('check db');
 
         foreach($provinceObj['rajaongkir']['results'] as $province)
         {

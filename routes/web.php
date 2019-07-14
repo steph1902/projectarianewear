@@ -34,6 +34,7 @@ Route::get('productdetail/{url}','IndexController@productDetailView');
 Route::get('cart','IndexController@cart');
 Route::post('addtocart/{url}','IndexController@addToCart')->name('addToCart');
 Route::delete('removecart', 'IndexController@removeCart')->name('removecart');
+Route::get('precheckout','IndexController@preCheckoutPage');
 Route::get('checkout','IndexController@checkoutPage');
 
 Route::get('newarrival','IndexController@newArrival');
@@ -57,7 +58,9 @@ Route::get('/getpostalcode','IndexController@getpostalcode');
 Route::get('/getshippingcost','IndexController@getshippingcost')->name('getshippingcost');
 
 //
+Route::post('toPayment','IndexController@toPayment')->name('toPayment'); //before payment, fill data, calculate shipping cost
 Route::post('orderdetails','IndexController@orderDetails')->name('orderdetails');
+
 
 Route::post('thankyou','IndexController@thankYou');
 Route::post('notification/handler','IndexController@notificationHandler');

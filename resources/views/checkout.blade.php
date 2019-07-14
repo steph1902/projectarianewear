@@ -10,9 +10,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0">
-            <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
-            <a href="cart.html">Cart</a> <span class="mx-2 mb-0">/</span>
-            <strong class="text-black">Checkout</strong></div>
+            <a href="{{url('/')}}">Home</a> <span class="mx-2 mb-0">/</span>
+            <a href="{{url('cart')}}">Cart</a> <span class="mx-2 mb-0">/</span>
+            <strong class="text-black">Complete Payment</strong></div>
           </div>
         </div>
       </div>
@@ -48,54 +48,56 @@
 
                   <div class="form-group row">
 
+
+
                     <div class="col-md-6">
                       <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="firstname" name="firstname">
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{session()->get('first_name')}}" disabled>
                     </div>
                     <div class="col-md-6">
                       <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="lastname" name="lastname">
+                      <input type="text" class="form-control" id="lastname" name="lastname" value="{{session()->get('last_name')}}" disabled>
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="address" name="address" placeholder="Street address">
+                      <input type="text" class="form-control" id="address" name="address" value="{{session()->get('address')}}" disabled>
                     </div>
                   </div>
 
 
                   <div class="form-group">
                     <label for="c_diff_country" class="text-black">Provinces <span class="text-danger">*</span></label>
-                    <select id="province" name="province" class="form-control">
-                      <option value="0" disable="true" selected="true">Select a province</option>
-                      {{-- looping province start here --}}
-                      @foreach ($provinces as $province)
-                      <option value="{{ $province['province_id'] }}">
-                        {{ $province['province'] }}
-                      </option>
-                      @endforeach
-                      {{-- looping province end here --}}
-
+                        <input type="text" class="form-control" id="address" name="address" value="{{session()->get('province')}}" disabled>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="c_diff_country" class="text-black">Cities <span class="text-danger">*</span></label>
-                    <select id="city" name="city" class="form-control">
+                    <input type="text" class="form-control" id="address" name="address" value="{{session()->get('city')}}" disabled>
+                    {{-- <select id="city" name="city" class="form-control">
                       <option value="0" disable="true" selected="true">Select a city</option>
                       <option value=""></option>
-                    </select>
+                    </select> --}}
                   </div>
 
                   <div class="form-group">
                     <label for="c_diff_country" class="text-black">Postal / Zip Code<span class="text-danger">*</span></label>
-                    <select id="postal_code" name="postal_code" class="form-control">
+                    <input type="text" class="form-control" id="address" name="address" value="{{session()->get('postal_code')}}" disabled>
+                    {{-- <select id="postal_code" name="postal_code" class="form-control"> --}}
                       {{-- <option value="0" disable="true" selected="true">Select a city</option> --}}
-                      <option value=""></option>
+                      {{-- <option value=""></option> --}}
                     </select>
                   </div>
+
+                  {{-- {{ session()->put('total_weight',$weight) }}
+                  {{ session()->put('total_price',$total) }} --}}
+
+                  {{-- <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Calculate Shipping</button>
+                  </div> --}}
 
 {{--
                   <div class="form-group row">
@@ -109,34 +111,36 @@
                   <div class="form-group row mb-5">
                     <div class="col-md-6">
                       <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="email" name="email">
+                      <input type="text" class="form-control" id="address" name="address" value="{{session()->get('email')}}" disabled>
                     </div>
                     <div class="col-md-6">
                       <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+                      <input type="text" class="form-control" id="address" name="address" value="{{session()->get('phone')}}" disabled>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="c_order_notes" class="text-black">Order Notes</label>
-                    <textarea name="notes" id="notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+                    <textarea name="notes" id="notes" cols="30" rows="5" class="form-control" value="{{session()->get('notes')}}" disabled></textarea>
                   </div>
 
                   <div class="form-group">
                     <label for="c_diff_country" class="text-black">Shipping Courier<span class="text-danger">*</span></label>
-                    <select id="courier" name="courier" class="form-control">
-                      <option value="jne" disable="true" selected="true">JNE</option>
-                    </select>
+                    <input type="text" class="form-control" id="address" name="address" value="JNE" disabled>
+                    {{-- <select id="courier" name="courier" class="form-control"> --}}
+                      {{-- <option value="jne" disable="true" selected="true">JNE</option> --}}
+                    {{-- </select> --}}
                   </div>
 
                   <div class="form-group">
                     <label for="c_diff_country" class="text-black">Services<span class="text-danger">*</span></label>
-                    <select id="delivery" name="delivery" class="form-control">
+                    <input type="text" class="form-control" id="address" name="address" value="{{session()->get('delivery')}}" disabled>
+                    {{-- <select id="delivery" name="delivery" class="form-control">
                       <option value="reg" disable="true" selected="true">REG</option>
                       <option value="oke" disable="true">OKE</option>
                       <option value="yes" disable="true">YES</option>
                       <option value="sps" disable="true">SPS</option>
-                    </select>
+                    </select> --}}
                   </div>
 
 
@@ -169,6 +173,7 @@
               </div>
 
               <?php $total = 0 ?>
+              <?php $shippingcost = session()->get('shipping_cost') ?>
               @if(session('cart'))
 
               <div class="row mb-5">
@@ -201,13 +206,17 @@
 
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Shipping Cost</strong></td>
-                            <td class="text-black font-weight-bold"><strong>IDR <p id="shippingcost">   </p></strong></td>
+                            <td class="text-black font-weight-bold"><strong>IDR {{$shippingcost}} <p id="shippingcost">   </p></strong></td>
                         </tr>
-
+                        <?php $grandtotal = 0 ?>
+                        <?php $grandtotal = $total + $shippingcost ?>
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Grand Total</strong></td>
-                            <td class="text-black font-weight-bold"><strong>IDR {{ $total }}</strong></td>
-                            <input type="hidden" id="grandtotal" name="grandtotal" value="{{$total}}">
+                            <td class="text-black font-weight-bold"><strong>IDR {{ $grandtotal }}</strong></td>
+                            {{-- <input type="hidden" id="grandtotal" name="grandtotal" value="{{$grandtotal}}"> --}}
+                            <input type="hidden" id="totalprice" name="totalprice" value="{{$grandtotal}}">
+                            {{ session()->put('total_price',$grandtotal) }}
+
                         </tr>
 
 
