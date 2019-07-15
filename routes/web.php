@@ -80,6 +80,20 @@ Route::get('searchresult','IndexController@searchProduct');
 
 //backend
 Route::get('backendindex','BackendController@getBackIndexPageView');
+//backend product
+Route::get('backendaddproduct','BackendController@getBackAddProductView');
+Route::get('backendproductview','BackendController@getBackProductView');
+// update
+Route::get('backendeditproductview/{url}','BackendController@getBackEditProductView');
+Route::post('backendeditproduct','BackendController@backendEditProduct')->name('backendeditproduct');
+
+
+
+
+
+
+
+
 /*
 	Products
 */

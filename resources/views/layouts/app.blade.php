@@ -30,6 +30,8 @@
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+
+  <!-- Styles -->
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Mukta:300,400,700') }}">
@@ -44,6 +46,7 @@
   <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>
 
 
 </head>
@@ -55,7 +58,7 @@
       <div class="container">
         <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
         <form action="{{url('searchresult')}}" method="get">
-          <input type="text"  name="search" class="form-control" placeholder="Search by product name  and hit enter...">
+          <input type="text"  name="search" class="form-control" placeholder="Search by product name and hit enter...">
         </form>
       </div>
     </div>
@@ -63,9 +66,11 @@
     <div class="container">
       <div class="d-flex align-items-center justify-content-between">
         <div class="logo">
-          <div class="site-logo">
-            <a href="{{url('/')}}" class="js-logo-clone">ARIANE WEAR</a>
-          </div>
+          {{-- <div class="site-logo"> --}}
+            <a href="{{url('/')}}" class="js-logo-clone">
+                <img src="{{asset('images/logoariane.jpg')}}" height="75" width="180"/>
+            </a>
+          {{-- </div> --}}
         </div>
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
