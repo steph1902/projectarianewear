@@ -107,7 +107,7 @@
               </a>
               </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
               <div class="col-md-12">
                 <label class="text-black h4" for="coupon">Coupon</label>
                 <p>Enter your coupon code if you have one.</p>
@@ -118,7 +118,7 @@
               <div class="col-md-4">
                 <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
               </div>
-            </div>
+            </div> --}}
           </div>
           <div class="col-md-6 pl-5">
             <div class="row justify-content-end">

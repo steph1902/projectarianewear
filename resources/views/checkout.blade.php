@@ -209,15 +209,61 @@
                             <td class="text-black font-weight-bold"><strong>IDR {{$shippingcost}} <p id="shippingcost">   </p></strong></td>
                         </tr>
                         <?php $grandtotal = 0 ?>
+                        <?php $priceAfterDiscount = 0 ?>
+                        <?php $discountValue = session()->get('coupon_discount_value') ?>
                         <?php $grandtotal = $total + $shippingcost ?>
+
+                        @if(session('coupon_discount_value'))
+                        <?php $discountPriceValue = ($discountValue/100) * $grandtotal ?>
+                        <?php $priceAfterDiscount = $grandtotal - $discountPriceValue ?>
+
+                        <tr>
+                            <td class="text-black font-weight-bold"><strong>Grand Total</strong></td>
+                            <td class="text-black font-weight-bold">
+                                <strong>
+                                    <del> IDR {{ $grandtotal }} </del>
+                                </strong>
+                             </td>
+                            {{-- <input type="hidden" id="grandtotal" name="grandtotal" value="{{$grandtotal}}"> --}}
+                            <input type="hidden" id="totalprice" name="totalprice" value="{{$grandtotal}}">
+                            {{-- {{ session()->put('total_price',$grandtotal) }} --}}
+                        </tr>
+
+                        <tr>
+                                <td class="text-black font-weight-bold"><strong>Discount!</strong></td>
+                                <td class="text-black font-weight-bold">
+                                    <strong>
+                                         IDR {{ $discountPriceValue }}
+                                    </strong>
+                                 </td>
+                                {{-- <input type="hidden" id="grandtotal" name="grandtotal" value="{{$grandtotal}}"> --}}
+                                <input type="hidden" id="totalprice" name="totalprice" value="{{$grandtotal}}">
+
+                            </tr>
+
+                        <tr>
+                                <td class="text-black font-weight-bold"><strong>After Discount</strong></td>
+                                <td class="text-black font-weight-bold">
+                                    <strong>
+                                        IDR {{ $priceAfterDiscount }}
+                                    </strong>
+                                 </td>
+                        </tr>
+                        {{ session()->put('total_price',$priceAfterDiscount) }}
+
+                        @else
                         <tr>
                             <td class="text-black font-weight-bold"><strong>Grand Total</strong></td>
                             <td class="text-black font-weight-bold"><strong>IDR {{ $grandtotal }}</strong></td>
                             {{-- <input type="hidden" id="grandtotal" name="grandtotal" value="{{$grandtotal}}"> --}}
                             <input type="hidden" id="totalprice" name="totalprice" value="{{$grandtotal}}">
                             {{ session()->put('total_price',$grandtotal) }}
-
                         </tr>
+
+
+
+
+                        @endif
 
 
                       </tbody>

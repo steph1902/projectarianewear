@@ -124,24 +124,27 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
 
+            <div class="col-md-6">
               <div class="row mb-5">
                 <div class="col-md-12">
                   <h2 class="h3 mb-3 text-black">Coupon Code</h2>
                   <div class="p-3 p-lg-5 border">
-
                     <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                    <label for="c_code" class="text-black mb-3">Valid Coupon will be automatically applied on the next process.</label>
                     <div class="input-group w-75">
-                      <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                      <input type="text" class="form-control" id="coupon" name="coupon" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
                       <div class="input-group-append">
-                        <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
+                            {{-- <a href="your-url/{{$nam->id}}">Do stuff</a> --}}
+                      {{-- <a href="{{url('checkCoupon')}}"> --}}
+                        {{-- <button class="btn btn-primary btn-sm px-4" type="button" id="couponbtn" disabled>Valid Coupon will be automatically applied on the next process.</button> --}}
+                    {{-- </a> --}}
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
+
 
               <?php $total = 0 ?>
               @if(session('cart'))
@@ -176,6 +179,9 @@
 
               </div>
             </div>
+
+
+
           </div>
 
         </div>
