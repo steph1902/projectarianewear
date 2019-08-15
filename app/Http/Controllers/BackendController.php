@@ -28,6 +28,9 @@ class BackendController extends Controller
     }
     public function backendPostProduct(Request $request)
     {
+
+        // controller to add product data to database
+
         $validator = Validator::make($request->all(),
         [
             'product_name' => 'required|unique:Products|max:255',
