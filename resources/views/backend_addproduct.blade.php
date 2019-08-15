@@ -20,6 +20,8 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -148,7 +150,7 @@ product_url
 created_at
 updated_at --}}
 
-          <form method="post" action=" {{action('BackendController@backendPostProduct')}} ">
+          <form method="post" action=" {{action('BackendController@backendPostProduct')}} " enctype="multipart/form-data">
             @csrf
             <div class="form-group">
               <label for="product_name">Product Name(*)</label>
@@ -224,7 +226,7 @@ updated_at --}}
 
 
               <div class="form-group">
-                <label for="product_size">Product Size</label>
+                <label for="product_size">Product Size(*)</label>
                 <div class="form-check">
                     <input name="product_size[]" class="form-check-input" type="checkbox" value="S" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">
@@ -250,6 +252,29 @@ updated_at --}}
                     </label>
                   </div>
 
+
+
+                  {{-- upload images start --}}
+                  <br><hr><br>
+                  {{-- <div class="form-group"> --}}
+
+                    <label for="product_photos">Product Photos</label>
+                    <div class="input-group control-group increment" >
+                        <input type="file" name="filename[]" class="form-control">
+                        <div class="input-group-btn">
+                        <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+                        </div>
+                    </div>
+                    <div class="clone hide">
+                        <div class="control-group input-group" style="margin-top:10px">
+                        <input type="file" name="filename[]" class="form-control">
+                        <div class="input-group-btn">
+                            <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                        </div>
+                        </div>
+                    </div>
+                  {{-- </div> --}}
+                  {{-- upload images end --}}
 
 
               </div>
@@ -307,6 +332,24 @@ updated_at --}}
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+
+      $(".btn-success").click(function(){
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+
+      $("body").on("click",".btn-danger",function(){
+          $(this).parents(".control-group").remove();
+      });
+
+    });
+
+</script>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>

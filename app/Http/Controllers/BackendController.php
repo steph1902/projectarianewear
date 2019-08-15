@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
+use File;
+use App\Images;
 
 class BackendController extends Controller
 {
@@ -38,7 +40,8 @@ class BackendController extends Controller
             'product_description' => 'required',
             'product_stock' => 'required',
             'product_weight' => 'required',
-            'product_colour' => 'required'
+            'product_colour' => 'required',
+            'product_size' => 'required'
         ]);
 
         if ($validator->fails())
@@ -52,6 +55,7 @@ class BackendController extends Controller
         $best_seller = false;
         $must_haves = false;
         $now = now();
+        $size = '';
 
         $product_url = \str_slug($form_data['product_name'].' '.$form_data['product_colour']);
 
@@ -95,7 +99,6 @@ class BackendController extends Controller
             ]
         );
 
-        // 'product_colour' => $
         DB::table('colours')->insert(
             [
                 'colour_name' => $form_data['product_colour'],
@@ -105,13 +108,136 @@ class BackendController extends Controller
                 'updated_at' => $now
             ]);
 
-        dd('check db');
+        if($request->exists('product_size'))
+        {
+
+            DB::table('sizes')->insert(
+                [
+                    'size_name' => 'ALL SIZE',
+                    'product_name' => $form_data['product_name'],
+                    'created_at' => $now,
+                    'updated_at' => $now
+                ]);
+        }
+        else
+        {
+            if(in_array('S',$form_data['product_size']))
+            {
+                DB::table('sizes')->insert(
+                    [
+                        'size_name' => 'S',
+                        'product_name' => $form_data['product_name'],
+                        'created_at' => $now,
+                        'updated_at' => $now
+                    ]);
+            }
+
+            if(in_array('M',$form_data['product_size']))
+            {
+                DB::table('sizes')->insert(
+                    [
+                        'size_name' => 'M',
+                        'product_name' => $form_data['product_name'],
+                        'created_at' => $now,
+                        'updated_at' => $now
+                    ]);
+            }
+
+            if(in_array('L',$form_data['product_size']))
+            {
+                DB::table('sizes')->insert(
+                    [
+                        'size_name' => 'L',
+                        'product_name' => $form_data['product_name'],
+                        'created_at' => $now,
+                        'updated_at' => $now
+                    ]);
+            }
+        }
+
+
+            // size_name
+            // product_name
+            // timestamp
+
+
+
+        // return view('')
+
+        // upload images
+        $this->validate($request,
+        [
+
+                'filename' => 'required',
+                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
+
+        ]);
+        //C:\laragon\www\projectariane\public\images\Foto Produk Ariane Wear\Abby Top\ArmyGreen
+
+        if($request->hasfile('filename'))
+        {
+
+           foreach($request->file('filename') as $image)
+           {
+               $name=$image->getClientOriginalName();
+               $image_path = public_path().'\\images\\Foto Produk Ariane Wear\\'. $form_data['product_name'] .'\\'. $form_data['product_colour'];
+               $image_path_to_db = 'images\\Foto Produk Ariane Wear\\'. $form_data['product_name'] .'\\'. $form_data['product_colour'].'\\'.$name;
+               $image->move($image_path,$name);
+            //    $data[] = $name;
+
+
+                $form = new Images();
+                // $form->image_path=json_encode($data);
+                $form->image_path = $image_path_to_db;
+                $form->product_name = $form_data['product_name'];
+                $form->colour_name = $form_data['product_colour'];
+                $form->created_at = $now;
+                $form->updated_at = $now;
+                $form->save();
+
+            }
+        }
+
+        // dd('check db, check folder');
+
+       return back()->with('success', 'Congratulations! your product');
 
 
 
 
 
+    }
 
+    public function backendUploadView()
+    {
+        return view('backend_uploadimages');
+    }
+    public function backendPostImages()
+    {
+        $this->validate($request,
+        [
+
+                'filename' => 'required',
+                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        ]);
+
+        if($request->hasfile('filename'))
+         {
+
+            foreach($request->file('filename') as $image)
+            {
+                $name=$image->getClientOriginalName();
+                $image->move(public_path().'/images/', $name);
+                $data[] = $name;
+            }
+         }
+
+         $form = new Form();
+         $form->filename=json_encode($data);
+         $form->save();
+
+        return back()->with('success', 'Your images has been successfully');
     }
 
 

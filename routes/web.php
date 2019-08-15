@@ -93,6 +93,10 @@ Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->n
 Route::get('ariane-admin-backend-add-product','BackendController@getBackAddProductView')->name('add-product');
 Route::post('ariane-admin-backend-add-product','BackendController@backendPostProduct')->name('add-product');
 
+// step 2 upload product images
+Route::get('ariane-admin-backend-upload-photos','BackendController@backendUploadView');
+Route::post('ariane-admin-backend-upload-photos','BackendController@backendPostImages');
+
 
 Route::get('ariane-admin-backend-product-view','BackendController@getBackProductView')->name('view-product');
 // update
