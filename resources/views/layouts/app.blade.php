@@ -34,6 +34,8 @@
   <!-- Styles -->
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Mukta:300,400,700') }}">
   <link rel="stylesheet" href="{{ asset('fonts/icomoon/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -48,6 +50,16 @@
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>
 
+
+  <style>
+      a
+      {
+          font-weight: bold;
+      }
+
+  </style>
+
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/02a3a3864cd5e400d4100f8bb/a91b4ad7506ddbb10ba996bea.js");</script>
 
 </head>
 <body>
@@ -68,7 +80,7 @@
         <div class="logo">
           {{-- <div class="site-logo"> --}}
             <a href="{{url('/')}}" class="js-logo-clone">
-                <img src="{{asset('images/logoariane.jpg')}}" height="75" width="180"/>
+                <img src="{{asset('images/logoariane.png')}}" height="75" width="180"/>
             </a>
           {{-- </div> --}}
         </div>
@@ -144,7 +156,13 @@
           <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
           <a href="{{ url('cart') }}" class="icons-btn d-inline-block bag">
             <span class="icon-shopping-bag"></span>
-            {{-- <span class="number">2</span> --}}
+            @if(Session::has('cart'))
+            <span class="number">
+
+                {{ count(session('cart')) }}
+
+            </span>
+            @endif
           </a>
           <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
         </div>
@@ -239,7 +257,7 @@
               document.write(new Date().getFullYear());
             </script>
             All rights reserved | This website is developed by
-            <a href="mailto:kairos.projects.id@gmail.com" target="_blank" class="text-primary">Kairos Projects</a><br>
+            <a href="http://kairos-projects.com" target="_blank" class="text-primary">Kairos Projects</a><br>
           </p>
         </div>
 

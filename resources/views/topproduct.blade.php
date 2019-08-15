@@ -69,7 +69,7 @@
             </a>
             <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
             <h3 class="item-title"><a href="#">{{ $product->colour_name }}</a></h3>
-            <strong class="item-price">IDR {{ $product->product_price }}</strong>
+            <strong class="item-price">IDR {{ number_format($product->product_price,2) }}</strong>
           </div>
           @endforeach
 

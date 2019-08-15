@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header"><h6>My Order</h6></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,22 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <div class="container">
+                        <div class="row">
+                            <table class="table">
+                                <th>Order-ID</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Purchase Date</th>
+                                <th>Status</th>
+
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

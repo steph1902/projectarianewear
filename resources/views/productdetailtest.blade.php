@@ -6,10 +6,10 @@
   <div class="site-wrap">
 
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 
     <div class="bg-light py-3">
@@ -32,36 +32,10 @@
         {
             /* height:5%; */
             margin-left: 33%;
-            text-align: center;
         }
         .small-slick-image-slider
         {
             height:15%;
-        }
-        .product-image-ariane
-        {
-            /* height:100%; */
-            /* width: 100%; */
-        }
-        .slider-for
-        {
-            margin: 3%;
-            padding: 3%;
-        }
-        .product-info
-        {
-            margin: 3%;
-            padding: 3%;
-        }
-        .slick-arrow
-        {
-            color: #cfecb6;
-            background: #cfecb6;
-        }
-        .swipe-me
-        {
-            align-content: center;
-            text-align: center;
         }
     </style>
 
@@ -71,7 +45,7 @@
           <div class="col-md-6">
                 <div class="slider-for">
                     @foreach($productImages as $productImage)
-                        <img class="product-image-ariane img-fluid" src="{{ asset($productImage->image_path)  }}" alt="First slide">
+                        <img class="img-fluid img-thumbnail mx-auto" src="{{ asset($productImage->image_path)  }}" alt="First slide">
                     @endforeach
                 </div>
 
@@ -83,26 +57,22 @@
                                         <img class="small-slick-image-slider img-thumbnail mx-auto" src="{{ asset($productImage->image_path)  }}" alt="First slide">
                                     {{-- </div> --}}
                                     @endforeach
-
                             </div>
-                            <i class="swipe-me">swipe me for detail</i>
                     </div>
                 </div>
 
           </div>
           <div class="col-md-6">
-          <div class="product-info">
+
+          <h2 class="text-black"> {{ $productDetails[0]->product_name }}  - {{$productDetails[0]->colour_name}}</h2> {{-- name --}}
 
 
-
-          {{-- kanan start --}}
-          <h2 class="text-black">
-              {{ $productDetails[0]->product_name }}  - {{$productDetails[0]->colour_name}}
-          </h2> {{-- name --}}
+            {{-- <h3 class="text-black">  </h3> colour --}}
 
             <p> {{ $productDetails[0]->product_description }} </p>
 
             <h4 class="text-black">Wash Instruction</h4>
+
             <p class="mb-4">
               {{ $productDetails[0]->product_wash_instruction }}
             </p>
@@ -156,10 +126,6 @@
 
             </form>
 
-        </div>
-
-            {{-- kanan end --}}
-
 
           </div>
         </div>
@@ -177,7 +143,7 @@
         $('.slider-for').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            arrows: true,
+            arrows: false,
             fade: true,
             asNavFor: '.slider-nav'
         });

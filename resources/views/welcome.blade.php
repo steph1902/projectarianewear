@@ -3,6 +3,90 @@
 @section('content')
 <body>
 
+<style>
+  #myModal
+  {
+    margin-top:7%;
+    width: auto;
+  }
+  .ariane
+  {
+    font-family: "Arial Narrow", Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 16px;
+   }
+</style>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- konten modal-->
+                <div class="modal-content">
+                    <!-- heading modal -->
+                    <div class="modal-header">
+
+                        <div class="logo">
+                                {{-- <div class="site-logo"> --}}
+                                  <a href="{{url('/')}}" class="js-logo-clone">
+                                      <img src="{{asset('images/logoariane.jpg')}}" height="75" width="180"/>
+                                  </a>
+                                {{-- </div> --}}
+                              </div>
+
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- body modal -->
+                    <div class="modal-body">
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <div class="image">
+                                        <img src="{{asset('images/Foto Produk Ariane Wear/Clara Outer/White/CLARA OUTER (1).jpg')}}" alt="Image" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h6><i>Sign Up for Our Newsletters</i></h6>
+                                    <p class="ariane">Ariane Daily - Celebrity style, beauty tips, culture news and more</p>
+
+                                    <form method="post" action="{{url('newsletter')}}">
+                                        @csrf
+                                      <div class="form-group">
+                                        <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+
+                                      <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                                    </div>
+                                    </form>
+
+                                    @if (\Session::has('success'))
+                                    <div class="alert alert-success">
+                                        <p>{{ \Session::get('success') }}</p>
+                                    </div><br />
+                                    @endif
+                                    @if (\Session::has('failure'))
+                                    <div class="alert alert-danger">
+                                        <p>{{ \Session::get('failure') }}</p>
+                                    </div><br />
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- footer modal -->
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup Modal</button> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- modal --}}
+
   <div class="site-wrap">
     <div class="site-blocks-cover" data-aos="fade">
       <div class="container">
@@ -67,7 +151,7 @@
             </a>
             <h2 class="item-title"><a href="{{ url( 'productdetail/' .$product->product_url )}}">{{ $product->product_name }}</a></h2>
             <h3 class="item-title"><a href="{{ url( 'productdetail/' .$product->product_url )}}">{{ $product->colour_name }}</a></h3>
-            <strong class="item-price">IDR {{ $product->product_price }}</strong>
+            <strong class="item-price">IDR {{ number_format($product->product_price,2) }}</strong>
           </div>
           @endforeach
 
@@ -77,6 +161,12 @@
     </div>
 
   </div>
+
+  <script type="text/javascript">
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>
 
   </body>
   @endsection

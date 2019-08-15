@@ -37,7 +37,6 @@
   </nav>
 
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
@@ -56,7 +55,7 @@
           <a class="dropdown-item" href="#">Add Product</a>
           <a class="dropdown-item" href="#">Edit Product</a>
           <a class="dropdown-item" href="#">Delete Product</a>
-          
+
           <!-- <a class="dropdown-item" href="blank.html">Blank Page</a> -->
           <div class="dropdown-divider"></div>
 
@@ -76,7 +75,7 @@
           <h6 class="dropdown-header">Customer Management</h6>
           <a class="dropdown-item" href="#">Customer Information</a>
           <!-- <a class="dropdown-item" href="#"></a> -->
-          
+
         </div>
       </li>
       <!-- <li class="nav-item">
@@ -103,6 +102,15 @@
             <li class="breadcrumb-item active">Add Product</li>
           </ol>
 
+          <p class="main">Step 1 of 2 - Add Product Basic Information</p>
+          <p>(*) : must be filled</p><br>
+          <p>If you encountered an error that says : The product name has already been taken.</p>
+          <p>It means that existing product cannot be added twice, <br>
+              for example, if 'Abby Top' is already exists, you cannot add more<br>
+              'Abby Top' instead, you can use this <a href="">link</a></p>
+
+
+
           <!-- Icon Cards-->
           <div class="card-body">
             @if ($errors->any())
@@ -114,97 +122,147 @@
               </ul>
             </div><br />
             @endif
+
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
           </div>
 
-          <form method="" action="">
+{{-- name
+price
+size in cm
+material
+description
+wash instruction
+new arrival, best seller, must haves
+stock
+weight --}}
+
+{{--
+colour_name
+product_name
+product_url
+created_at
+updated_at --}}
+
+          <form method="post" action=" {{action('BackendController@backendPostProduct')}} ">
             @csrf
             <div class="form-group">
-              <label for="product_name">Product Name</label>
+              <label for="product_name">Product Name(*)</label>
               <input type="text" name="product_name" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter product name">
-              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
 
             <div class="form-group">
-              <label for="product_price">Product Price</label>
+              <label for="product_price">Product Price(*)</label>
               <input type="number" name="product_price" class="form-control" id="" placeholder="IDR ..">
             </div>
 
             <div class="form-group">
-              <label for="product_price">Product Stock</label>
+                <label for="product_size_in_cm">Product size (in CM)</label>
+                <input type="text" name="product_size_in_cm" class="form-control" placeholder="Bust X Length X Waist (*CM)">
+            </div>
+
+            <div class="form-group">
+                <label for="product_material">Product Material</label>
+                <input type="text" name="product_material" class="form-control" placeholder="Jersey.. Satten..">
+              </div>
+
+
+            <div class="form-group">
+                <label for="product_wash_instruction">Product Description(*)</label>
+                <textarea class="form-control" name="product_description" placeholder="The best dress ever ..." rows="3"></textarea>
+              </div>
+
+
+            <div class="form-group">
+                <label for="product_wash_instruction">Product Wash Instruction</label>
+                <textarea class="form-control" name="product_wash_instruction" placeholder="Hand wash cold separately ..." rows="3"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="product_special_category">Product Special Category</label>
+                <div class="form-check">
+                    <input name="special_category[]" class="form-check-input" type="checkbox" value="new_arrival" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      New Arrival
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input name="special_category[]" class="form-check-input" type="checkbox" value="best_seller" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Best Seller
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input name="special_category[]" class="form-check-input" type="checkbox" value="must_haves" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Must Haves
+                    </label>
+                  </div>
+              </div>
+
+            <div class="form-group">
+              <label for="product_price">Product Stock(*)</label>
               <input type="number" name="product_stock" class="form-control" id="" placeholder="Number only..">
             </div>
 
-
             <div class="form-group">
-              <label for="product_size_in_cm">Product size (in CM)</label>
-              <input type="text" name="product_size_in_cm" class="form-control" placeholder="Bust X Length X Waist (*CM)">
+                <label for="product_price">Product Weight(*)</label>
+                <input type="number" name="product_weight" class="form-control" id="" placeholder="...gr">
             </div>
 
             <div class="form-group">
-              <label for="product_material">Product Material</label>
-              <input type="text" name="product_material" class="form-control" placeholder="Jersey.. Satten..">
-            </div>
-
-            <div class="form-group">
-              <label for="product_material">Product Colour</label>
-              <input type="text" name="product_colour" class="form-control" placeholder="Blue..">
-            </div>
-
-            <div class="form-group">
-              <label for="product_description">Product Description</label>
-              <textarea class="form-control" name="product_description" placeholder="Product description.." rows="3"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="product_wash_instruction">Product Wash Instruction</label>
-              <textarea class="form-control" name="product_wash_instruction" placeholder="Hand wash cold separately ..." rows="3"></textarea>
-            </div>
-            <!-- custom-control custom-checkbox -->
-
-            <div class="form-group">
-              <label for="product_wash_instruction">Product Size</label>
-
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="product_size_s" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">S</label>
+                <label for="product_name">Product Colour(*)</label>
+                <input type="text" name="product_colour" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter product colour">
               </div>
 
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="product_size_m" id="customCheck2">
-                <label class="custom-control-label" for="customCheck2">M</label>
+
+
+              <div class="form-group">
+                <label for="product_size">Product Size</label>
+                <div class="form-check">
+                    <input name="product_size[]" class="form-check-input" type="checkbox" value="S" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      S
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input name="product_size[]" class="form-check-input" type="checkbox" value="M" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      M
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input name="product_size[]" class="form-check-input" type="checkbox" value="L" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      L
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input name="product_size[]" class="form-check-input" type="checkbox" value="ALL SIZE" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      All Size
+                    </label>
+                  </div>
+
+
+
               </div>
 
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="product_size_l" id="customCheck3">
-                <label class="custom-control-label" for="customCheck3">L</label>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Submit and Proceed to step 2</button>
               </div>
-
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="product_size_allsize" id="customCheck4">
-                <label class="custom-control-label" for="customCheck4">All Size</label>
-              </div>
-
-              <!-- <div class="divider"></div> -->
-              <br>
-                <div class="form-group">
-                  <label for="exampleFormControlFile1">Upload product photos</label>
-                  <input type="file" class="form-control" id="exampleFormControlFile1">
-                </div>
-              
 
             </div>
             <!-- <div class="form-group"> -->
 
-              <button type="submit" class="text-center btn btn-primary">Submit</button>
+              {{-- <button type="submit" class="text-center btn btn-primary">Submit</button> --}}
             </div>
-
-
-
-  <!-- <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div> -->
-  
 </form>
 
 

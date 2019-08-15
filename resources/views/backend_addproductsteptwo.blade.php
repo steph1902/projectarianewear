@@ -31,10 +31,12 @@
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
+
+
+
   </nav>
 
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
@@ -76,7 +78,16 @@
 
         </div>
       </li>
-
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+        </li> -->
       </ul>
 
       <div id="content-wrapper">
@@ -88,8 +99,10 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">View Product</li>
+            <li class="breadcrumb-item active">Add Product</li>
           </ol>
+
+          <p class="main">Step 2 of 4 - Add Product Colour Information</p>
 
           <!-- Icon Cards-->
           <div class="card-body">
@@ -102,47 +115,97 @@
               </ul>
             </div><br />
             @endif
+
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
           </div>
-          {{-- 'products.product_name',
-          'products.product_price',
-          'products.product_material',
-          'products.product_description',
-          'products.wash_instruction',
-          'products.product_stock',
-          'products.product_weight',
-          'colour.colour_name') --}}
-          <table class="table">
 
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                {{-- <th>Material</th> --}}
-                {{-- <th>Description</th> --}}
-                {{-- <th>Wash Instruction</th> --}}
-                <th>Stock</th>
-                {{-- <th>Weight</th> --}}
-                <th>Colour</th>
-                <th>Edit</th>
-                @foreach($products as $product)
-                <tr>
-                    <td>{{$product->id}}</td>
-                    <td>{{$product->product_name}}</td>
-                    <td>IDR {{$product->product_price}}</td>
-                    {{-- <td>{{$product->product_material}}</td> --}}
-                    {{-- <td>{{$product->product_description}}</td> --}}
-                    {{-- <td>{{$product->product_wash_instruction}}</td> --}}
-                    <td>{{$product->product_stock}}</td>
-                    {{-- <td>{{$product->product_weight}}</td> --}}
-                    <td>{{$product->colour_name}}</td>
-                    <td>
+          {{-- colour_name
+          product_name
+          product_url
+          created_at
+          updated_at --}}
+          <form method="post" action=" {{action('BackendController@')}} ">
+            @csrf
+            <div class="form-group">
+              <label for="product_name">Colour Name</label>
+              <input type="text" name="colour_name" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter product name">
+              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
 
-                    <a href="{{ url('ariane-admin-backend-edit-product-view/' .$product->product_url) }}">
-                        {{$product->product_url}}
-                    </a>
-                    </td>
-                </tr>
-                @endforeach
-          </table>
+            <div class="form-group">
+              <label for="product_price">Product Price</label>
+              <input type="number" name="product_price" class="form-control" id="" placeholder="IDR ..">
+            </div>
+
+            <div class="form-group">
+                <label for="product_size_in_cm">Product size (in CM)</label>
+                <input type="text" name="product_size_in_cm" class="form-control" placeholder="Bust X Length X Waist (*CM)">
+            </div>
+
+            <div class="form-group">
+                <label for="product_material">Product Material</label>
+                <input type="text" name="product_material" class="form-control" placeholder="Jersey.. Satten..">
+              </div>
+
+
+            <div class="form-group">
+                <label for="product_wash_instruction">Product Description</label>
+                <textarea class="form-control" name="product_description" placeholder="The best dress ever ..." rows="3"></textarea>
+              </div>
+
+
+            <div class="form-group">
+                <label for="product_wash_instruction">Product Wash Instruction</label>
+                <textarea class="form-control" name="product_wash_instruction" placeholder="Hand wash cold separately ..." rows="3"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="product_special_category">Product Special Category</label>
+                <div class="form-check">
+                    <input name="special_category[]" class="form-check-input" type="checkbox" value="new_arrival" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      New Arrival
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input name="special_category[]" class="form-check-input" type="checkbox" value="best_seller" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Best Seller
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input name="special_category[]" class="form-check-input" type="checkbox" value="must_haves" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Must Haves
+                    </label>
+                  </div>
+              </div>
+
+            <div class="form-group">
+              <label for="product_price">Product Stock</label>
+              <input type="number" name="product_stock" class="form-control" id="" placeholder="Number only..">
+            </div>
+
+            <div class="form-group">
+                <label for="product_price">Product Weight</label>
+                <input type="number" name="product_weight" class="form-control" id="" placeholder="...gr">
+            </div>
+
+            </div>
+            <!-- <div class="form-group"> -->
+
+              <button type="submit" class="text-center btn btn-primary">Submit</button>
+            </div>
+</form>
+
+
 
 
 

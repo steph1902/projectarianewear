@@ -76,20 +76,35 @@ Route::get('searchresult','IndexController@searchProduct');
  * to insert url slug
  */
 // Route::get('urlslug','IndexController@insertUrl');
+Route::get('urlslug','IndexController@insertURLProducts');
+
+
+// newsletter
+Route::post('newsletter','NewsletterController@store');
+
 
 
 //backend
-Route::get('backendindex','BackendController@getBackIndexPageView');
+// sitemap
+Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap');
+
+// Route::get('ariane-admin-backend-index','BackendController@getBackIndexPageView');
 //backend product
-Route::get('backendaddproduct','BackendController@getBackAddProductView');
-Route::get('backendproductview','BackendController@getBackProductView');
+Route::get('ariane-admin-backend-add-product','BackendController@getBackAddProductView')->name('add-product');
+Route::post('ariane-admin-backend-add-product','BackendController@backendPostProduct')->name('add-product');
+
+
+Route::get('ariane-admin-backend-product-view','BackendController@getBackProductView')->name('view-product');
 // update
-Route::get('backendeditproductview/{url}','BackendController@getBackEditProductView');
-Route::post('backendeditproduct','BackendController@backendEditProduct')->name('backendeditproduct');
+Route::get('ariane-admin-backend-edit-product-view/{url}','BackendController@getBackEditProductView')->name('edit-product');
+Route::post('ariane-admin-backend-edit-product','BackendController@backendEditProduct')->name('backendeditproduct');
 
 
 
 
+
+// redesigning product detail
+// Route::get('productdetailtest/{url}','IndexController@productDetailViewtest');
 
 
 

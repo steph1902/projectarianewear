@@ -889,6 +889,57 @@ class IndexController extends Controller
         }
     }
 
+    public function productDetailViewtest($url)
+    {
+
+        $productDetails = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('sizes', 'sizes.product_name', '=', 'products.product_name')
+        ->join('colours', 'colours.product_name', '=', 'products.product_name')
+        ->whereColumn('images.product_name','sizes.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('colours.product_url','=',$url)
+        // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
+        // ->where('colours.colour_name','=',$productColour)
+        ->select(
+              'products.product_stock',
+              'colours.product_url',
+              'colours.colour_name',
+              'products.product_name',
+              'products.product_description',
+              'products.product_wash_instruction',
+              'products.product_price',
+              'images.image_path',
+              'sizes.size_name')
+        ->groupBy(
+              'products.product_name',
+              'colours.colour_name',
+              'sizes.size_name')
+        ->get();
+        // dd($productDetails);
+        // $productDetails =
+        $productString = $productDetails['0']->product_name.' '.$productDetails['0']->colour_name;
+        $url = \str_slug($productString);
+        // dd($url);
+
+        $productImages = DB::table('products')
+        ->join('images','images.product_name' ,'=','products.product_name')
+        ->join('colours','colours.product_name','=','images.product_name')
+        ->where('colours.product_url','=',$url)
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->select('images.image_path')
+        // ->take(4)
+        ->get();
+        // SELECT
+	    // images.image_path
+        // FROM products JOIN images ON products.product_name = images.product_name
+
+        // dd($productImages);
+
+    	return view('productdetailtest',compact('productDetails','productImages'));
+    }
+
+
     public function productDetailView($url)
     {
 
@@ -968,9 +1019,36 @@ class IndexController extends Controller
             );
 
         }
+    }
+
+    public function insertURLProducts()
+    {
+
+        $productColour = DB::table('colours')->select('product_name','colour_name')->get();
+
+        $data = array();
+        $data = $productColour;
 
 
+        foreach($data as $d)
+        {
+            $data['product_name'] = $d->product_name;
+            $data['colour_name'] = $d->colour_name;
+            $data['product_url'] = \str_slug($d->product_name.' '.$d->colour_name);
+            // dd($data['product_url']);
 
+            DB::table('products')
+                ->where( 'product_name', $data['product_name'] )
+                ->where( 'colour_name', $data['colour_name'] )
+                ->update(
+                [
+                    'product_url' => $data['product_url']
+                ]
+            );
+
+        }
+
+        dd('please check db');
     }
 
 
