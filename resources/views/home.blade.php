@@ -16,6 +16,15 @@
 
                     <div class="container">
                         <div class="row">
+                            <a href="{{url('logout-user')}}">
+
+                            {{ __('Logout') }}
+                          </a>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
                             <table class="table">
                                 <th>Order-ID</th>
                                 <th>Item Name</th>

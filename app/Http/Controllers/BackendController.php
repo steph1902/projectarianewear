@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 use File;
 use App\Images;
+use App\Coupon;
+use Illuminate\Support\Facades\Auth;
+
 
 class BackendController extends Controller
 {
@@ -28,6 +31,139 @@ class BackendController extends Controller
 
     	return view('backend_addproduct');
     }
+
+    // coupon
+    public function getBackCouponView()
+    {
+        $coupons = Coupon::all();
+        return view('backend_viewcoupon',compact('coupons'));
+    }
+    public function getBackPostCouponView()
+    {
+        return view('backend_addcoupon');
+    }
+    public function getBackPostCoupon(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+        [
+            'coupon_code' => 'required|unique:Coupons',
+            'coupon_expiry' => 'required',
+            'coupon_discount_value' => 'required|min:1|max:99'
+        ]);
+
+        if ($validator->fails())
+        {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $now = now();
+        $coupon = new Coupon();
+        $coupon->coupon_code = $request->coupon_code;
+        $coupon->coupon_expiry = $request->coupon_expiry;
+        $coupon->coupon_discount_value = $request->coupon_discount_value;
+        $coupon->created_at = $now;
+        $coupon->updated_at = $now;
+        $coupon->save();
+
+        return back()->with('success', 'Congratulations! your coupon has successfully been added!');
+
+
+
+    }
+    // edit coupon
+    public function getBackEditCouponView($id)
+    {
+        $coupon = Coupon::where('id', $id)->first();
+        return view('backend_editcoupon',compact('coupon'));
+    }
+    public function backendEditCoupon(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+        [
+            'coupon_code' => 'required',
+            'coupon_expiry' => 'required',
+            'coupon_discount_value' => 'required|min:1|max:99'
+        ]);
+
+        if ($validator->fails())
+        {
+            return back()->withErrors($validator)->withInput();
+        }
+        $now = now();
+        $coupon_code = $request->input('coupon_code'); //product
+
+        // $coupon = Coupon::find($id);
+        // $coupon->coupon_code = $request->coupon_code;
+        // $coupon->coupon_expiry = $request->coupon_expiry;
+        // $coupon->coupon_discount_value = $request->coupon_discount_value;
+        // $coupon->updated_at = $now;
+        // $coupon->save();
+
+        Coupon::where('coupon_code', $coupon_code)
+          ->update(
+              [
+                  'coupon_code' => $request->coupon_code,
+                  'coupon_expiry' => $request->coupon_expiry,
+                  'coupon_discount_value' => $request->coupon_discount_value,
+                  'updated_at' => $now
+
+                ]);
+
+        // $form_data = $request->all();
+
+        // DB::table('coupons')
+        // ->where('id', $id)
+        // ->update(
+        //     [
+        //         'coupon_code' => $form_data['coupon_code'],
+        //         'coupon_expiry' => $form_data['coupon_expiry'],
+        //         'coupon_discount_value' => $form_data['coupon_discount_value'],
+        //         'updated_at' => $now
+        //         // 'updated_at' => $updatedAt
+        //     ]
+        // );
+
+        return back()->with('success', 'Congratulations! your coupon has successfully been edited!');
+
+    }
+    public function deleteCoupon($id)
+    {
+        $coupon = Coupon::find($id);
+        $coupon->delete();
+        $coupons = Coupon::all();
+        return view('backend_viewcoupon',compact('coupons'));
+
+    }
+    // coupon
+
+    public function getBackLoginView()
+    {
+        return view('backend_login');
+    }
+    public function getBackPostLogin(Request $request)
+    {
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials))
+        {
+            // Authentication passed...
+            // return redirect()->intended('dashboard');
+            return view('backend_sitemap');
+        }
+        else
+        {
+            // return back()->withInput()->withFlashMessage('Wrong password or this account not approved yet.');
+            return back()->withInput()->with('message','Wrong password.');
+        }
+    }
+    public function backendLogout()
+    {
+        Auth::logout();
+        return view('backend_login');
+    }
+
+    // add product to db
     public function backendPostProduct(Request $request)
     {
 
@@ -111,48 +247,53 @@ class BackendController extends Controller
         if($request->exists('product_size'))
         {
 
-            DB::table('sizes')->insert(
-                [
-                    'size_name' => 'ALL SIZE',
-                    'product_name' => $form_data['product_name'],
-                    'created_at' => $now,
-                    'updated_at' => $now
-                ]);
-        }
-        else
-        {
-            if(in_array('S',$form_data['product_size']))
-            {
-                DB::table('sizes')->insert(
-                    [
-                        'size_name' => 'S',
-                        'product_name' => $form_data['product_name'],
-                        'created_at' => $now,
-                        'updated_at' => $now
-                    ]);
-            }
+                if(in_array('ALL SIZE',$form_data['product_size']))
+                {
+                    DB::table('sizes')->insert(
+                        [
+                            'size_name' => 'ALL SIZE',
+                            'product_name' => $form_data['product_name'],
+                            'created_at' => $now,
+                            'updated_at' => $now
+                        ]);
+                }
+                else
+                {
+                    if(in_array('S',$form_data['product_size']))
+                    {
+                        DB::table('sizes')->insert(
+                            [
+                                'size_name' => 'S',
+                                'product_name' => $form_data['product_name'],
+                                'created_at' => $now,
+                                'updated_at' => $now
+                            ]);
+                    }
 
-            if(in_array('M',$form_data['product_size']))
-            {
-                DB::table('sizes')->insert(
-                    [
-                        'size_name' => 'M',
-                        'product_name' => $form_data['product_name'],
-                        'created_at' => $now,
-                        'updated_at' => $now
-                    ]);
-            }
+                    if(in_array('M',$form_data['product_size']))
+                    {
+                        DB::table('sizes')->insert(
+                            [
+                                'size_name' => 'M',
+                                'product_name' => $form_data['product_name'],
+                                'created_at' => $now,
+                                'updated_at' => $now
+                            ]);
+                    }
 
-            if(in_array('L',$form_data['product_size']))
-            {
-                DB::table('sizes')->insert(
-                    [
-                        'size_name' => 'L',
-                        'product_name' => $form_data['product_name'],
-                        'created_at' => $now,
-                        'updated_at' => $now
-                    ]);
-            }
+                    if(in_array('L',$form_data['product_size']))
+                    {
+                        DB::table('sizes')->insert(
+                            [
+                                'size_name' => 'L',
+                                'product_name' => $form_data['product_name'],
+                                'created_at' => $now,
+                                'updated_at' => $now
+                            ]);
+                    }
+
+                }
+
         }
 
 
@@ -200,44 +341,12 @@ class BackendController extends Controller
 
         // dd('check db, check folder');
 
-       return back()->with('success', 'Congratulations! your product');
+       return back()->with('success', 'Congratulations! your product has successfully been added!');
 
 
 
 
 
-    }
-
-    public function backendUploadView()
-    {
-        return view('backend_uploadimages');
-    }
-    public function backendPostImages()
-    {
-        $this->validate($request,
-        [
-
-                'filename' => 'required',
-                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-
-        ]);
-
-        if($request->hasfile('filename'))
-         {
-
-            foreach($request->file('filename') as $image)
-            {
-                $name=$image->getClientOriginalName();
-                $image->move(public_path().'/images/', $name);
-                $data[] = $name;
-            }
-         }
-
-         $form = new Form();
-         $form->filename=json_encode($data);
-         $form->save();
-
-        return back()->with('success', 'Your images has been successfully');
     }
 
 
@@ -338,42 +447,6 @@ class BackendController extends Controller
             );
 
             return redirect()->back()->with('success', 'Product updated successfully!');
-
-        /**
-         * COLOUR TABLE
-         */
-            // colour_name
-            // product_name
-            // product_url
-
-            // e.g. abby-top-armygreen
-
-
-            // $data['product_name'] = $d->product_name;
-
-            // DB::table('colours')->
-
-
-
-
-            // $productUrl = $request->input('product_url'); //product
-
-
-
-
-            // DB::table('sizes')
-            //     ->where('product_name',$name)
-            //     ->update(
-            //         [
-            //             'product_size_in_cm' => $size
-            //         ]);
-
-            // DB::table('sizes')
-            // ->where('product_name',$name)
-            // ->update(
-            //     [
-            //         'product_size_in_cm' => $size
-            //     ]);
 
 
 

@@ -146,6 +146,25 @@
                                 <td>To change product data, click the product you want to change</td>
                         </tr>
 
+                        <tr>
+                            <td>
+                                <a href="{{route('view-coupon')}}">
+                                    View Coupon
+                                </a>
+                            </td>
+                            <td>Check existing coupons</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td>
+                                <a href="{{route('backend-logout')}}">
+                                    Logout
+                                </a>
+                            </td>
+                        </tr>
+
 
                     </table>
                 </div>

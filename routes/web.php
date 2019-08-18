@@ -24,8 +24,8 @@ Route::get('/','IndexController@frontPage');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('logout-user','IndexController@logoutUser');
 
 //Frontend
 Route::get('index','IndexController@indexView');
@@ -86,22 +86,39 @@ Route::post('newsletter','NewsletterController@store');
 
 //backend
 // sitemap
-Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap');
+// Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap')->middleware('auth');
+Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap')->middleware('ariane');
 
 // Route::get('ariane-admin-backend-index','BackendController@getBackIndexPageView');
 //backend product
-Route::get('ariane-admin-backend-add-product','BackendController@getBackAddProductView')->name('add-product');
+Route::get('ariane-admin-backend-add-product','BackendController@getBackAddProductView')->name('add-product')->middleware('ariane');
 Route::post('ariane-admin-backend-add-product','BackendController@backendPostProduct')->name('add-product');
 
 // step 2 upload product images
-Route::get('ariane-admin-backend-upload-photos','BackendController@backendUploadView');
-Route::post('ariane-admin-backend-upload-photos','BackendController@backendPostImages');
+// Route::get('ariane-admin-backend-upload-photos','BackendController@backendUploadView');
+// Route::post('ariane-admin-backend-upload-photos','BackendController@backendPostImages');
 
+//login dashboard page
+Route::get('ariane-admin-backend-login','BackendController@getBackLoginView')->name('ariane-admin-login');
+Route::post('ariane-admin-backend-login','BackendController@getBackPostLogin');
+//logout
+Route::get('ariane-admin-backend-logout','BackendController@backendLogout')->name('backend-logout');
 
-Route::get('ariane-admin-backend-product-view','BackendController@getBackProductView')->name('view-product');
+Route::get('ariane-admin-backend-product-view','BackendController@getBackProductView')->name('view-product')->middleware('ariane');
 // update
-Route::get('ariane-admin-backend-edit-product-view/{url}','BackendController@getBackEditProductView')->name('edit-product');
+Route::get('ariane-admin-backend-edit-product-view/{url}','BackendController@getBackEditProductView')->name('edit-product')->middleware('ariane');
 Route::post('ariane-admin-backend-edit-product','BackendController@backendEditProduct')->name('backendeditproduct');
+
+// COUPONS
+Route::get('ariane-admin-backend-view-coupons','BackendController@getBackCouponView')->name('view-coupon')->middleware('ariane');
+// add coupon
+Route::get('ariane-admin-backend-add-coupon','BackendController@getBackPostCouponView')->name('add-coupon')->middleware('ariane');
+Route::post('ariane-admin-backend-add-coupon','BackendController@getBackPostCoupon')->name('post-coupon')->middleware('ariane');
+// edit coupon
+Route::get('ariane-admin-backend-edit-coupon-view/{id}','BackendController@getBackEditCouponView')->name('edit-coupon')->middleware('ariane');
+Route::post('ariane-admin-backend-edit-coupon','BackendController@backendEditCoupon');
+
+Route::get('ariane-admin-backend-delete-coupon/{id}', 'BackendController@deleteCoupon');
 
 
 

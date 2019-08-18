@@ -11,6 +11,7 @@ use App\coupons;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Veritrans_Config;
 use Veritrans_Snap;
 use Veritrans_Notification;
@@ -36,33 +37,18 @@ class IndexController extends Controller
         Veritrans_Config::$is3ds = config('services.midtrans.is3ds');
     }
 
-    // public function checkCoupon(Request $request, $coupon)
-    // {
-        // $products = DB::table('products')
-        //     ->join('images', 'images.product_name', '=', 'products.product_name')
-        //     ->join('colours','colours.product_name', '=', 'products.product_name')
-        //     ->where('products.product_name', 'like' , '%'.$searchValue.'%' )
-        //     ->whereColumn('images.colour_name','colours.colour_name')
-        //     ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
-        //     ->groupBy('colours.colour_name', 'products.product_name')
-        //     ->paginate(20);// ->get();//
-        // $couponValue = $coupon;
-        // $result = DB::table('coupons')->select('coupons.coupon_code', 'coupons.coupon_expiry', 'coupon_discount_value')->get();
-        // dd($couponValue);
-    // }
-
-
-
     public function thankyouPage()
     {
         return view('thankyou');
     }
+    public function logoutUser()
+    {
+        Auth::logout();
+        return redirect('login');
+    }
 
     public function toPayment(Request $request)
     {
-
-
-
 
         $firstName = $this->request->firstname;
         $lastName = $this->request->lastname;
