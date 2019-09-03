@@ -15,17 +15,11 @@ use Illuminate\Support\Facades\Auth;
 use Veritrans_Config;
 use Veritrans_Snap;
 use Veritrans_Notification;
-
+use App\Notifications\OutOfStock;
+use App\User;
 
 class IndexController extends Controller
 {
-    /*
-
-		Controller Frontend
-
-    */
-
-
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -45,6 +39,16 @@ class IndexController extends Controller
     {
         Auth::logout();
         return redirect('login');
+    }
+
+    public function testEmail()
+    {
+        $user = User::findOrFail(4);
+        $outOfStock = '';
+        $user->notify(new OutOfStock($outOfStock));
+
+        dd('please check your email.');
+
     }
 
     public function toPayment(Request $request)
@@ -246,6 +250,9 @@ class IndexController extends Controller
 
         $snapToken = Veritrans_Snap::getSnapToken($payload);
         $this->response['snap_token'] = $snapToken;
+
+        // dd($cart);
+
         return response()->json($this->response);
     }
 

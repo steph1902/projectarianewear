@@ -155,6 +155,23 @@
                             <td>Check existing coupons</td>
                         </tr>
 
+                        <tr>
+                            <td>
+                                <a href="{{route('add-coupon')}}">
+                                    Add Coupon
+                                </a>
+                            </td>
+                            <td>Add Coupon</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="{{route('view-billing')}}">
+                                    View Order / Billing
+                                </a>
+                            </td>
+                            <td>Check existing coupons</td>
+                        </tr>
 
 
                         <tr>

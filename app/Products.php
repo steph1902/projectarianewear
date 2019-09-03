@@ -8,6 +8,8 @@ use Gloudemans\Shoppingcart\Contracts\Buyable;
 class Products extends Model
 {
     use Gloudemans\Shoppingcart\CanBeBought;
+    use Notifiable;
+
 
 
 	protected $table = 'products';

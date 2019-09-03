@@ -120,13 +120,15 @@ Route::post('ariane-admin-backend-edit-coupon','BackendController@backendEditCou
 
 Route::get('ariane-admin-backend-delete-coupon/{id}', 'BackendController@deleteCoupon');
 
-
+Route::get('ariane-admin-backend-view-billing','BackendController@viewBilling')->name('view-billing');
 
 
 
 // redesigning product detail
 // Route::get('productdetailtest/{url}','IndexController@productDetailViewtest');
 
+// test email
+Route::get('test-send-email','IndexController@testEmail');
 
 
 

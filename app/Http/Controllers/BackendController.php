@@ -136,6 +136,13 @@ class BackendController extends Controller
     }
     // coupon
 
+    // working checkpoint
+    // billing
+    public function viewBilling()
+    {
+        return view('backend_view');
+    }
+
     public function getBackLoginView()
     {
         return view('backend_login');
