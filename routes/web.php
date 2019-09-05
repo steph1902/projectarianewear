@@ -83,6 +83,10 @@ Route::get('urlslug','IndexController@insertURLProducts');
 Route::post('newsletter','NewsletterController@store');
 
 
+// customer login logic start here
+Route::get('my-order','SpecialController@customerOrder')->middleware('auth');
+
+
 
 //backend
 // sitemap
@@ -120,7 +124,8 @@ Route::post('ariane-admin-backend-edit-coupon','BackendController@backendEditCou
 
 Route::get('ariane-admin-backend-delete-coupon/{id}', 'BackendController@deleteCoupon');
 
-Route::get('ariane-admin-backend-view-billing','BackendController@viewBilling')->name('view-billing');
+// billling details admin dashboard
+Route::get('ariane-admin-backend-view-billing','BackendController@getBillingView')->name('view-billing');
 
 
 

@@ -17,6 +17,7 @@ use Veritrans_Snap;
 use Veritrans_Notification;
 use App\Notifications\OutOfStock;
 use App\User;
+use Illuminate\Support\Carbon;
 
 class IndexController extends Controller
 {

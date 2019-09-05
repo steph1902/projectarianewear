@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class billing_details extends Model
 {
     //
+        protected $table = 'billing_details';
+
         protected $fillable =
         [
             'order_id',

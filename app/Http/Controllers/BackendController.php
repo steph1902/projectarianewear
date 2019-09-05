@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use File;
 use App\Images;
 use App\Coupon;
+use App\billing_details;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -138,10 +139,10 @@ class BackendController extends Controller
 
     // working checkpoint
     // billing
-    public function viewBilling()
-    {
-        return view('backend_view');
-    }
+    // public function viewBilling()
+    // {
+    //     return view('backend_view');
+    // }
 
     public function getBackLoginView()
     {
@@ -458,6 +459,14 @@ class BackendController extends Controller
 
 
 
+    }
+
+    // billing details
+    public function getBillingView()
+    {
+        $billings = billing_details::all();
+        // dd($billing);
+        return view('backend_billing',compact('billings'));
     }
 
 }
