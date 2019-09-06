@@ -18,7 +18,7 @@
           <div class="col-md-12 mb-0">
             <a href="{{url('/')}}">Home</a>
               <span class="mx-2 mb-0">/</span>
-              <a href="{{ url('productlist') }}">Shop</a> <span class="mx-2 mb-0">/</span>
+              <a href="{{ url('product-list') }}">Shop</a> <span class="mx-2 mb-0">/</span>
               <strong class="text-black">{{ $productDetails[0]->product_name }}  - {{$productDetails[0]->colour_name}}</strong></div>
         </div>
       </div>
@@ -31,7 +31,7 @@
         .slick-slider-image
         {
             /* height:5%; */
-            margin-left: 33%;
+            /* margin-left: 33%; */
             text-align: center;
         }
         .small-slick-image-slider
@@ -42,6 +42,7 @@
         {
             /* height:100%; */
             /* width: 100%; */
+            height: 550px;
         }
         .slider-for
         {
@@ -63,12 +64,35 @@
             align-content: center;
             text-align: center;
         }
+        .small-slick-image-slider
+        {
+            height: 100px;
+        }
+
+        .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+    .tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+    .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
+    .tg .tg-0lax{text-align:left;vertical-align:top}
+
     </style>
+{{--
+sm
+md
+lg
+xl --}}
+
+{{-- generated table --}}
+{{-- <style type="text/css"> --}}
+{{-- /* </style> */ --}}
+
+{{-- generated table --}}
 
     <div class="site-section">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
                 <div class="slider-for">
                     @foreach($productImages as $productImage)
                         <img class="product-image-ariane img-fluid" src="{{ asset($productImage->image_path)  }}" alt="First slide">
@@ -76,21 +100,16 @@
                 </div>
 
                 <div class="slick-slider-image">
-                    <div class="col-md-6">
                             <div class="slider-nav">
                                     @foreach($productImages as $productImage)
-                                    {{-- <div class="h-25"> --}}
                                         <img class="small-slick-image-slider img-thumbnail mx-auto" src="{{ asset($productImage->image_path)  }}" alt="First slide">
-                                    {{-- </div> --}}
                                     @endforeach
-
                             </div>
-                            <i class="swipe-me">swipe me for detail</i>
-                    </div>
+                            <i class="swipe-me">swipe me</i>
                 </div>
 
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
           <div class="product-info">
 
 
@@ -107,7 +126,7 @@
               {{ $productDetails[0]->product_wash_instruction }}
             </p>
 
-            <p><strong class="text-primary h4">IDR {{ $productDetails[0]->product_price }}</strong></p>
+            <p><strong class="text-primary h4">IDR {{ number_format($productDetails[0]->product_price,2) }}</strong></p>
             @if ($productDetails[0]->product_stock != 0 )
                 <p><strong class="text-primary h4">Only {{ $productDetails[0]->product_stock }} left!</strong></p>
             @else
@@ -121,15 +140,54 @@
             @foreach($productDetails as $productDetail)
 
             @if ($productDetails[0]->product_stock != 0 )
-                <div class="mb-1 d-flex">
-                <label for="option-sm" class="d-flex mr-3 mb-3">
-                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
-                    <input type="radio" id="size_name" name="size_name"></span> <span class="d-inline-block text-black">{{ $productDetail->size_name }}</span>
-                </label>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="{{$productDetail->size_name}}" name="size_name" class="custom-control-input" value="{{$productDetail->size_name}}">
+                    <label class="custom-control-label" for="{{$productDetail->size_name}}">{{ $productDetail->size_name }}</label>
                 </div>
+                <br>
             @endif
 
             @endforeach
+
+
+
+            {{-- size chart table --}}
+            @if($productDetail->size_name != 'ALL SIZE')
+            <div class="size-chart table-responsive">
+                <table class="tg">
+                    <tr>
+                      <th class="tg-1wig">Ladies Size Chart</th>
+                      <th class="tg-amwm">Height</th>
+                      <th class="tg-amwm">Chest</th>
+                      <th class="tg-amwm">Waist</th>
+                    </tr>
+                    <tr>
+                      <td class="tg-amwm">S</td>
+                      <td class="tg-0lax">157-163</td>
+                      <td class="tg-0lax">79-87</td>
+                      <td class="tg-0lax">60-68</td>
+                    </tr>
+                    <tr>
+                      <td class="tg-amwm">M</td>
+                      <td class="tg-0lax">162-168</td>
+                      <td class="tg-0lax">82-90</td>
+                      <td class="tg-0lax">63-71</td>
+                    </tr>
+                    <tr>
+                      <td class="tg-amwm">L</td>
+                      <td class="tg-0lax">167-173</td>
+                      <td class="tg-0lax">85-93</td>
+                      <td class="tg-0lax">66-74</td>
+                    </tr>
+                  </table>
+            </div>
+            @endif
+            {{-- chart table --}}
+            <br><br>
+
+
+
+
 
             @if ($productDetails[0]->product_stock != 0 )
             <div class="mb-5">
@@ -153,6 +211,7 @@
                 <button class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" type="submit">Notify me about this product!</button>
                 </a>
             @endif
+
 
             </form>
 

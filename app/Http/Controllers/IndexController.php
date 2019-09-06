@@ -771,6 +771,14 @@ class IndexController extends Controller
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
+
+
+        // discount_percentage
+        // discount_until
+
+
+
+
         // dd($products);
 
 

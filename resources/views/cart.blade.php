@@ -102,7 +102,7 @@
                 <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
               </div> --}}
               <div class="col-md-6">
-              <a href="{{url('productlist')}}">
+              <a href="{{url('product-list')}}">
                 <button class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>
               </a>
               </div>

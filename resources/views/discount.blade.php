@@ -31,6 +31,7 @@
         <div class="row mb-5">
           {{-- <div class="col-md-9 order-1"> --}}
 
+
             <div class="row">
               @foreach($products as $product)
               <div class="card col-md-3 item-entry mb-3">
@@ -39,8 +40,28 @@
                 </a>
                 <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
                 <h3 class="item-title"><a href="#">{{ $product->colour_name }}</a></h3>
-                <strong class="item-price">IDR {{ number_format($product->product_price,2) }}</strong>
-              </div>
+
+                {{-- calculate discount --}}
+
+                <?php $discount = $product->discount_percentage ?>
+                <?php $discountNominal = $discount / 100 * $product->product_price  ?>
+                <?php $priceAfterDiscount = $product->product_price - $discountNominal ?>
+
+                {{-- calculate discount --}}
+                <span class="item-price">
+                    <strike>  IDR {{ number_format($product->product_price,2) }} </strike>
+                <span>
+                <br>
+                <strong class="item-price">
+                    <h5 class="discount-price"> IDR {{ number_format($priceAfterDiscount,2) }} </h5>
+                </strong>
+
+                {{-- <form method="post" action="{{ action('IndexController@addToCart',['url' => $productDetails[0]->product_url]) }}" accept-charset="UTF-8"> --}}
+                {{-- @csrf --}}
+                    <button class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" type="submit">Add To Cart</button>
+                {{-- </form> --}}
+
+            </div>
               @endforeach
 
             </div>

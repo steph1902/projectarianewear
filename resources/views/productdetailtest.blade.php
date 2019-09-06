@@ -18,7 +18,7 @@
           <div class="col-md-12 mb-0">
             <a href="{{url('/')}}">Home</a>
               <span class="mx-2 mb-0">/</span>
-              <a href="{{ url('productlist') }}">Shop</a> <span class="mx-2 mb-0">/</span>
+              <a href="{{ url('product-list') }}">Shop</a> <span class="mx-2 mb-0">/</span>
               <strong class="text-black">{{ $productDetails[0]->product_name }}  - {{$productDetails[0]->colour_name}}</strong></div>
         </div>
       </div>

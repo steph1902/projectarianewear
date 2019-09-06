@@ -65,7 +65,7 @@
         <div class="row mb-5">
           @foreach($products as $product)
           <div class="card col-md-4 item-entry mb-4">
-            <a href="{{ url( 'productdetail/' .$product->product_url )}}" class="product-item md-height bg-gray d-block">
+            <a href="{{ url( 'product-detail/' .$product->product_url )}}" class="product-item md-height bg-gray d-block">
               <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
             <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>

@@ -29,17 +29,20 @@ Route::get('logout-user','IndexController@logoutUser');
 
 //Frontend
 Route::get('index','IndexController@indexView');
-Route::get('productlist', 'IndexController@productListView');
-Route::get('productdetail/{url}','IndexController@productDetailView');
+Route::get('product-list', 'IndexController@productListView');
+Route::get('product-detail/{url}','IndexController@productDetailView');
 Route::get('cart','IndexController@cart');
-Route::post('addtocart/{url}','IndexController@addToCart')->name('addToCart');
-Route::delete('removecart', 'IndexController@removeCart')->name('removecart');
-Route::get('precheckout','IndexController@preCheckoutPage');
+Route::post('add-to-cart/{url}','IndexController@addToCart')->name('addToCart');
+Route::delete('remove-cart', 'IndexController@removeCart')->name('removecart');
+Route::get('pre-checkout','IndexController@preCheckoutPage');
 Route::get('checkout','IndexController@checkoutPage');
 
-Route::get('newarrival','IndexController@newArrival');
-Route::get('bestseller','IndexController@bestSeller');
-Route::get('musthaves','IndexController@mustHaves');
+Route::get('discount','DiscountsController@index')->name('discount');
+
+Route::get('new-arrival','IndexController@newArrival');
+Route::get('best-seller','IndexController@bestSeller');
+Route::get('must-haves','IndexController@mustHaves');
+
 
 Route::get('top','IndexController@topProduct');
 Route::get('dress','IndexController@dressProduct');
@@ -47,7 +50,7 @@ Route::get('outer','IndexController@outerProduct');
 Route::get('jumpsuit','IndexController@jumpsuitProduct');
 Route::get('set','IndexController@setProduct');
 
-Route::get('aboutme','IndexController@aboutMe');
+Route::get('about-me','IndexController@aboutMe');
 
 Route::get('testguzzle','IndexController@testGuzzle');
 Route::get('rajaongkir','IndexController@rajaOngkir');
@@ -63,10 +66,10 @@ Route::post('toPayment','IndexController@toPayment')->name('toPayment'); //befor
 Route::post('orderdetails','IndexController@orderDetails')->name('orderdetails');
 
 
-Route::post('thankyou','IndexController@thankYou');
+Route::post('thank-you','IndexController@thankYou');
 Route::post('notification/handler','IndexController@notificationHandler');
 
-Route::get('thankyou','IndexController@thankyouPage');
+Route::get('thank-you','IndexController@thankyouPage');
 
 
 // search
@@ -91,7 +94,7 @@ Route::get('my-order','SpecialController@customerOrder')->middleware('auth');
 //backend
 // sitemap
 // Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap')->middleware('auth');
-Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap')->middleware('ariane');
+Route::get('ariane-admin-backend-sitemap','BackendController@getSitemapView')->name('sitemap')->middleware('auth');
 
 // Route::get('ariane-admin-backend-index','BackendController@getBackIndexPageView');
 //backend product

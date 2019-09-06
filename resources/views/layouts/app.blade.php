@@ -88,19 +88,22 @@
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
 
-                <li><a href="{{ url('newarrival') }}">New Arrival</a></li>
-                <li><a href="{{ url('bestseller') }}">Best Seller</a></li>
+                <li><a href="{{url('discount')}}">DISCOUNT</a></li>
+                <li><a href="{{url('must-haves')}}">MUST HAVES</a></li>
+                <li><a href="{{ url('new-arrival') }}">NEW ARRIVAL</a></li>
+                <li><a href="{{ url('best-seller') }}">BEST SELLER</a></li>
+                {{-- <li><a href="{{url('musthaves')}}">Must Haves</a></li> --}}
 
-                <li><a href="{{url('musthaves')}}">Must Haves</a></li>
+
 
                 <li class="has-children ">
-                  <a href="#">Categories</a>
+                  <a href="#">CATEGORIES</a>
                   <ul class="dropdown">
-                    <li><a href="{{url('top')}}">Top</a></li>
-                    <li><a href="{{url('dress')}}">Dress</a></li>
-                    <li><a href="{{url('outer')}}">Outerwear</a></li>
-                    <li><a href="{{url('jumpsuit')}}">Jumpsuit</a></li>
-                    <li><a href="{{url('set')}}">Set</a></li>
+                    <li><a href="{{url('top')}}">TOP</a></li>
+                    <li><a href="{{url('dress')}}">DRESS</a></li>
+                    <li><a href="{{url('outer')}}">OUTERWEAR</a></li>
+                    <li><a href="{{url('jumpsuit')}}">JUMPSUIT</a></li>
+                    <li><a href="{{url('set')}}">SET</a></li>
                   </ul>
                 </li>
                 @guest
@@ -153,7 +156,7 @@
         </div>
         <div class="icons">
           <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-          <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+          {{-- <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a> --}}
           <a href="{{ url('cart') }}" class="icons-btn d-inline-block bag">
             <span class="icon-shopping-bag"></span>
             @if(Session::has('cart'))
@@ -184,7 +187,7 @@
       <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
         <h3 class="footer-heading mb-4">Promo</h3>
         <a href="#" class="block-6">
-          <img src="images/about_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+          <img src="{{asset('images/about_1.jpg')}}" alt="Image placeholder" class="img-fluid rounded mb-4">
           <h3 class="font-weight-light  mb-0">Finding Your Perfect Shirts This Summer</h3>
           <p>Promo from  July 15 &mdash; 25, 2019</p>
         </a>
@@ -198,27 +201,27 @@
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="{{url('productlist')}}">All Products</a></li>
-              <li><a href="{{url('newarrival')}}">New Arrival</a></li>
-              <li><a href="{{url('bestseller')}}">Best Seller</a></li>
-              <li><a href="{{url('musthaves')}}">Must Haves</a></li>
-              <li><a href="{{url('cart')}}">Shopping Cart</a></li>
+              <li><a href="{{url('product-list')}}">ALL PRODUCTS</a></li>
+              <li><a href="{{url('new-arrival')}}">NEW ARRIVAL</a></li>
+              <li><a href="{{url('best-seller')}}">BEST SELLER</a></li>
+              <li><a href="{{url('must-haves')}}">MUST HAVES</a></li>
+              <li><a href="{{url('cart')}}">SHOPPING CART</a></li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="{{url('top')}}">Top</a></li>
-              <li><a href="{{url('dress')}}">Dress</a></li>
-              <li><a href="{{url('outerwear')}}">Outerwear</a></li>
-              <li><a href="{{url('jumpsuit')}}">Jumpsuit</a></li>
-              <li><a href="{{url('set')}}">Set</a></li>
+              <li><a href="{{url('top')}}">TOP</a></li>
+              <li><a href="{{url('dress')}}">DRESS</a></li>
+              <li><a href="{{url('outerwear')}}">OUTERWEAR</a></li>
+              <li><a href="{{url('jumpsuit')}}">JUMPSUIT</a></li>
+              <li><a href="{{url('set')}}">SET</a></li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="{{url('login')}}">Login</a></li>
-              <li><a href="{{url('register')}}">Register</a></li>
-              <li><a href="{{url('aboutme')}}">About Us</a></li>
+              <li><a href="{{url('login')}}">LOGIN</a></li>
+              <li><a href="{{url('register')}}">REGISTER</a></li>
+              <li><a href="{{url('aboutme')}}">ABOUT US</a></li>
             </ul>
           </div>
         </div>
@@ -236,10 +239,11 @@
         </div>
 
         <div class="block-7">
-          <form action="#" method="post">
+                <form method="post" action="{{url('newsletter')}}">
+                        @csrf
             <label for="email_subscribe" class="footer-heading">Subscribe</label>
             <div class="form-group">
-              <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+              <input type="email" name="email" class="form-control py-4" id="email_subscribe" placeholder="Email">
               <input type="submit" class="btn btn-sm btn-primary" value="Send">
             </div>
           </form>
@@ -256,7 +260,7 @@
             <script>
               document.write(new Date().getFullYear());
             </script>
-            All rights reserved | This website is developed by
+            <a href="http://www.arianewear.com">Ariane Wear</a> All rights reserved | This website is developed by
             <a href="http://kairos-projects.com" target="_blank" class="text-primary">Kairos Projects</a><br>
           </p>
         </div>

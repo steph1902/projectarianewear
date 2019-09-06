@@ -95,7 +95,7 @@
             <div class="site-block-cover-content">
             <h2 class="sub-title">#New Summer Collection 2019</h2>
             <h1>Arrivals Sales</h1>
-            <p><a href="{{url('productlist')}}" class="btn btn-black rounded-0">Shop Now</a></p>
+            <p><a href="{{url('product-list')}}" class="btn btn-black rounded-0">Shop Now</a></p>
             </div>
           </div>
           <div class="col-md-6 order-1 align-self-end">
@@ -146,11 +146,11 @@
         <div class="row">
             @foreach($products as $product)
           <div class="col-lg-4 col-md-6 item-entry mb-4">
-            <a href="{{ url( 'productdetail/' .$product->product_url )}}" class="product-item md-height bg-white d-block">
+            <a href="{{ url( 'product-detail/' .$product->product_url )}}" class="product-item md-height bg-white d-block">
               <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
-            <h2 class="item-title"><a href="{{ url( 'productdetail/' .$product->product_url )}}">{{ $product->product_name }}</a></h2>
-            <h3 class="item-title"><a href="{{ url( 'productdetail/' .$product->product_url )}}">{{ $product->colour_name }}</a></h3>
+            <h2 class="item-title"><a href="{{ url( 'product-detail/' .$product->product_url )}}">{{ $product->product_name }}</a></h2>
+            <h3 class="item-title"><a href="{{ url( 'product-detail/' .$product->product_url )}}">{{ $product->colour_name }}</a></h3>
             <strong class="item-price">IDR {{ number_format($product->product_price,2) }}</strong>
           </div>
           @endforeach

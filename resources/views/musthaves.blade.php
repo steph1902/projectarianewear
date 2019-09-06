@@ -31,40 +31,10 @@
     <div class="row mb-5">
       <div class="col-md-9 order-1">
 
-        {{-- <div class="row align">
-          <div class="col-md-12 mb-5">
-            <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
-            <div class="d-flex">
-              <div class="dropdown mr-1 ml-md-auto">
-                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Latest
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                  <a class="dropdown-item" href="#">Men</a>
-                  <a class="dropdown-item" href="#">Women</a>
-                  <a class="dropdown-item" href="#">Children</a>
-                </div>
-              </div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                  <a class="dropdown-item" href="#">Relevance</a>
-                  <a class="dropdown-item" href="#">Name, A to Z</a>
-                  <a class="dropdown-item" href="#">Name, Z to A</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Price, low to high</a>
-                  <a class="dropdown-item" href="#">Price, high to low</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> --}}
-
-
         <div class="row mb-5">
           @foreach($products as $product)
           <div class="card col-md-4 item-entry mb-4">
-            <a href="{{ url( 'productdetail/' .$product->product_url )}}" class="product-item md-height bg-gray d-block">
+            <a href="{{ url( 'product-detail/' .$product->product_url )}}" class="product-item md-height bg-gray d-block">
               <img src="{{ $product->image_path}}" alt="Image" class="img-fluid">
             </a>
             <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
@@ -92,7 +62,7 @@
       </div>
 
 
-          <div class="border p-4 rounded mb-4">
+          {{-- <div class="border p-4 rounded mb-4">
             <div class="mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
               <div id="slider-range" class="border-primary"></div>
@@ -128,7 +98,7 @@
               </a>
             </div>
 
-          </div>
+          </div> --}}
         </div>
       </div>
 
