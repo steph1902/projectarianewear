@@ -66,7 +66,9 @@
                     <td class="product-name">
                             <h2 class="h5 text-black">{{ $details['product_weight'] }}</h2>
                     </td>
-                    <td>IDR {{ $details['product_price'] }}</td>
+
+                    <td>IDR {{ number_format($details['product_price'],2) }}</td>
+
                     <td class="product-name">
                         <h2 class="h5 text-black">{{ $details['product_quantity'] }}</h2>
                     </td>
@@ -162,7 +164,7 @@
 
                 <div class="row">
                   <div class="col-md-12">
-                  <a href="{{url('precheckout')}}">
+                  <a href="{{url('pre-checkout')}}">
                     <button class="btn btn-primary btn-lg btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
                   </a>
                   </div>

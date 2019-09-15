@@ -28,11 +28,11 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Ariane Wear Dashboard</a>
-
+    <a class="navbar-brand mr-1" href="{{ url('ariane-admin-backend-sitemap') }}">Ariane Wear Dashboard</a>
+{{--
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
-    </button>
+    </button> --}}
 
 
 
@@ -40,7 +40,7 @@
 
   <div id="wrapper">
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
+    {{-- <ul class="sidebar navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -90,7 +90,7 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
         </li> -->
-      </ul>
+      </ul> --}}
 
       <div id="content-wrapper">
 
@@ -99,18 +99,18 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
+                <a href="{{ url('ariane-admin-backend-sitemap') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Add Product</li>
           </ol>
 
-          <p class="main">Step 1 of 2 - Add Product Basic Information</p>
+          {{-- <p class="main">Step 1 of 2 - Add Product Basic Information</p>
           <p>(*) : must be filled</p><br>
           <p>If you encountered an error that says : The product name has already been taken.</p>
           <p>It means that existing product cannot be added twice, <br>
               for example, if 'Abby Top' is already exists, you cannot add more<br>
               'Abby Top' instead, you can use this <a href="">link</a></p>
-
+ --}}
 
 
           <!-- Icon Cards-->

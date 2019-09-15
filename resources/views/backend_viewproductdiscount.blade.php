@@ -26,7 +26,7 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="{{ url('ariane-admin-backend-sitemap') }}">Ariane Wear Dashboard</a>
+    <a class="navbar-brand mr-1" href="{{url('ariane-admin-backend-sitemap')}}">Ariane Wear Dashboard</a>
 
     {{-- <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -86,7 +86,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="{{ url('ariane-admin-backend-sitemap') }}">Dashboard</a>
+              <a href="{{url('ariane-admin-backend-sitemap')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">View Product</li>
           </ol>
@@ -115,29 +115,22 @@
 
                 <th>ID</th>
                 <th>Name</th>
+                <th>Discount Percentage</th>
                 <th>Price</th>
-                {{-- <th>Material</th> --}}
-                {{-- <th>Description</th> --}}
-                {{-- <th>Wash Instruction</th> --}}
-                <th>Stock</th>
-                {{-- <th>Weight</th> --}}
-                <th>Colour</th>
+                <th>Price After Discount</th>
                 <th>Edit</th>
                 @foreach($products as $product)
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>
-                    <td>IDR {{$product->product_price}}</td>
-                    {{-- <td>{{$product->product_material}}</td> --}}
-                    {{-- <td>{{$product->product_description}}</td> --}}
-                    {{-- <td>{{$product->product_wash_instruction}}</td> --}}
-                    <td>{{$product->product_stock}}</td>
-                    {{-- <td>{{$product->product_weight}}</td> --}}
-                    <td>{{$product->colour_name}}</td>
+                    <td>{{$product->discount_percentage}}</td>
+                    <td>{{$product->product_price}}</td>
+                    <td>{{$product->price_after_discount}}</td>
                     <td>
 
-                    <a href="{{ url('ariane-admin-backend-edit-product-view/' .$product->product_url) }}">
-                        {{$product->product_url}}
+                    <a href="{{ url('ariane-admin-backend-edit-discount/' .$product->id) }}">
+                        {{-- set discount for {{$product->product_name}} --}}
+                        edit
                     </a>
                     </td>
                 </tr>

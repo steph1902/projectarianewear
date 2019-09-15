@@ -24,7 +24,7 @@ Route::get('/','IndexController@frontPage');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('logout-user','IndexController@logoutUser');
 
 //Frontend
@@ -87,7 +87,7 @@ Route::post('newsletter','NewsletterController@store');
 
 
 // customer login logic start here
-Route::get('my-order','SpecialController@customerOrder')->middleware('auth');
+// Route::get('home','SpecialController@customerOrder')->middleware('auth');
 
 
 
@@ -124,13 +124,20 @@ Route::post('ariane-admin-backend-add-coupon','BackendController@getBackPostCoup
 // edit coupon
 Route::get('ariane-admin-backend-edit-coupon-view/{id}','BackendController@getBackEditCouponView')->name('edit-coupon')->middleware('ariane');
 Route::post('ariane-admin-backend-edit-coupon','BackendController@backendEditCoupon');
-
+// delete coupon
 Route::get('ariane-admin-backend-delete-coupon/{id}', 'BackendController@deleteCoupon');
 
 // billling details admin dashboard
 Route::get('ariane-admin-backend-view-billing','BackendController@getBillingView')->name('view-billing');
 
-
+// discount
+Route::get('ariane-admin-backend-view-product-discount','BackendController@getBackDiscountView')->name('view-discount')->middleware('auth');
+//add discount
+Route::get('ariane-admin-backend-edit-discount/{id}','BackendController@setDiscountView');
+Route::post('ariane-admin-backend-edit-discount/{id}','BackendController@setDiscount');
+// edit discount
+// Route::get();
+// Route::post();
 
 // redesigning product detail
 // Route::get('productdetailtest/{url}','IndexController@productDetailViewtest');
@@ -139,9 +146,23 @@ Route::get('ariane-admin-backend-view-billing','BackendController@getBillingView
 Route::get('test-send-email','IndexController@testEmail');
 
 
+// checkpoint
+// benerin di product detail
+
 
 /*
 	Products
 */
 Route::get('addproduct','ProductsController@create');
 Route::post('addproduct','ProductsController@store');
+
+
+
+
+
+Route::get('clear-cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return "Cache is cleared";
+});

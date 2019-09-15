@@ -69,7 +69,7 @@
             height: 100px;
         }
 
-        .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+    .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
     .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
     .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
     .tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
@@ -126,7 +126,16 @@ xl --}}
               {{ $productDetails[0]->product_wash_instruction }}
             </p>
 
-            <p><strong class="text-primary h4">IDR {{ number_format($productDetails[0]->product_price,2) }}</strong></p>
+
+            @if(strcmp($productDetails[0]->is_discount,'true') == 0 )
+                <strike><p><strong class="text-primary h4">IDR {{ number_format($productDetails[0]->product_price,2) }}</strong></p></strike>
+                <p><strong class="text-primary h3"> IDR {{ number_format($productDetails[0]->price_after_discount,2) }} </p>
+            @else
+                <p><strong class="text-primary h4">IDR {{ number_format($productDetails[0]->product_price,2) }}</strong></p>
+            @endif
+
+
+
             @if ($productDetails[0]->product_stock != 0 )
                 <p><strong class="text-primary h4">Only {{ $productDetails[0]->product_stock }} left!</strong></p>
             @else

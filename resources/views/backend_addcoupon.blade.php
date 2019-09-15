@@ -28,11 +28,11 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Ariane Wear Dashboard</a>
+    <a class="navbar-brand mr-1" href="{{ url('ariane-admin-backend-sitemap') }}">Ariane Wear Dashboard</a>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+    {{-- <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
-    </button>
+    </button> --}}
 
 
 
@@ -40,9 +40,9 @@
 
   <div id="wrapper">
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
+    {{-- <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ url('ariane-admin-backend-sitemap') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -90,7 +90,7 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
         </li> -->
-      </ul>
+      </ul> --}}
 
       <div id="content-wrapper">
 
@@ -99,7 +99,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
+              <a href="{{ url('ariane-admin-backend-sitemap') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Add Coupon</li>
           </ol>

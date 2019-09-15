@@ -26,11 +26,11 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Ariane Wear Dashboard</a>
+    <a class="navbar-brand mr-1" href="{{url('ariane-admin-backend-sitemap')}}">Ariane Wear Dashboard</a>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+    {{-- <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
-    </button>
+    </button> --}}
 
 
   </nav>
@@ -96,12 +96,12 @@
       <div class="container-fluid">
 
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
+        {{-- <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Site Map</li>
-        </ol>
+        </ol> --}}
 
         <div class="container">
             <div class="row">
@@ -171,6 +171,15 @@
                                 </a>
                             </td>
                             <td>Check existing coupons</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="{{route('view-discount')}}">
+                                    View product discount
+                                </a>
+                            </td>
+                            <td>Check product discount</td>
                         </tr>
 
 
@@ -258,13 +267,13 @@
 
 
       <!-- Sticky Footer -->
-      <footer class="sticky-footer">
+      {{-- <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright © ARIANE WEAR PROJECT 2019</span>
           </div>
         </div>
-      </footer>
+      </footer> --}}
 
     </div>
     <!-- /.content-wrapper -->

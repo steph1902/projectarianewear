@@ -438,7 +438,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_name','like','%top%')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -452,7 +452,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_name','like','%dress%')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -465,7 +465,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_name','like','%outer%')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -480,7 +480,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_name','like','%jump%')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -496,7 +496,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_name','like','%set%')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -513,7 +513,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_new_arrival_flag','true')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -527,7 +527,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_best_seller_flag','true')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
         // dd($products);
@@ -541,7 +541,7 @@ class IndexController extends Controller
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
         ->where('products.product_must_haves_flag','true')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
@@ -803,6 +803,8 @@ class IndexController extends Controller
         // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
         // ->where('colours.colour_name','=',$productColour)
         ->select(
+              'products.is_discount',
+              'products.price_after_discount',
               'colours.colour_name',
               'products.product_name',
               'products.product_description',
@@ -823,6 +825,18 @@ class IndexController extends Controller
         $quantity = $request->input('quantity');
 
         // dd($quantity);
+        // $price =
+        // if(!$products->isEmpty()){
+            if(strcmp($productDetails[0]->is_discount,'true')==0)
+            {
+                // discount
+                $price = $productDetails[0]->price_after_discount;
+            }
+            else
+            {
+                $price = $productDetails[0]->product_price;
+            }
+
 
         if(!$productDetails)
         {
@@ -836,7 +850,7 @@ class IndexController extends Controller
                 $url =>[
                     "product_name" => $productDetails[0]->product_name,
                     "product_quantity" => $quantity,
-                    "product_price" => $productDetails[0]->product_price,
+                    "product_price" => $price,
                     "product_image" => $productDetails[0]->image_path,
                     "product_size" => $size,
                     'product_weight' => $productDetails[0]->product_weight,
@@ -863,7 +877,7 @@ class IndexController extends Controller
          $cart[$url] = [
             "product_name" => $productDetails[0]->product_name,
             "product_quantity" => $quantity,
-            "product_price" => $productDetails[0]->product_price,
+            "product_price" => $price,
             "product_image" => $productDetails[0]->image_path,
             "product_size" => $size,
             'product_weight' => $productDetails[0]->product_weight,
@@ -955,6 +969,9 @@ class IndexController extends Controller
         // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
         // ->where('colours.colour_name','=',$productColour)
         ->select(
+              'products.is_discount',
+              'products.discount_percentage',
+              'products.price_after_discount',
               'products.product_stock',
               'colours.product_url',
               'colours.colour_name',
@@ -983,13 +1000,49 @@ class IndexController extends Controller
         ->select('images.image_path')
         // ->take(4)
         ->get();
-        // SELECT
-	    // images.image_path
-        // FROM products JOIN images ON products.product_name = images.product_name
 
-        // dd($productImages);
 
-    	return view('productdetail',compact('productDetails','productImages'));
+        $productDiscount = DB::table('products')
+        ->join('images', 'images.product_name', '=', 'products.product_name')
+        ->join('sizes', 'sizes.product_name', '=', 'products.product_name')
+        ->join('colours', 'colours.product_name', '=', 'products.product_name')
+        ->join('discounts','discounts.product_id','=','products.id')
+        ->whereColumn('images.product_name','sizes.product_name')
+        ->whereColumn('images.colour_name','colours.colour_name')
+        ->where('colours.product_url','=',$url)
+        // ->where('products.product_name','=',$productName) //->where('products.id','=',$id)
+        // ->where('colours.colour_name','=',$productColour)
+        ->select(
+              'products.product_stock',
+              'colours.product_url',
+              'colours.colour_name',
+              'products.product_name',
+              'products.product_description',
+              'products.product_wash_instruction',
+              'products.product_price',
+              'images.image_path',
+              'sizes.size_name',
+              'discounts.discount_percentage',
+              'discounts.product_id'
+              )
+        ->groupBy(
+              'products.product_name',
+              'colours.colour_name',
+              'sizes.size_name')
+        ->get();
+
+        // if($productDiscount->isEmpty())
+        // {
+        //     // dd('no data');
+        //     $productDiscount =
+        // }
+        // else
+        // {
+            // dd($productDiscount);
+        // }
+
+
+    	return view('productdetail',compact('productDetails','productImages','productDiscount'));
     }
 
     /**

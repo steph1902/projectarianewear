@@ -13,12 +13,17 @@
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet" type="text/css">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
 </head>
 
@@ -26,17 +31,19 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="{{ url('ariane-admin-backend-sitemap') }}">Ariane Wear Dashboard</a>
+    <a class="navbar-brand mr-1" href="index.html">Ariane Wear Dashboard</a>
 
-    {{-- <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
-    </button> --}}
+    </button>
+
+
+
   </nav>
 
   <div id="wrapper">
-
     <!-- Sidebar -->
-    {{-- <ul class="sidebar navbar-nav">
+    <ul class="sidebar navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -76,8 +83,17 @@
 
         </div>
       </li>
-
-      </ul> --}}
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+        </li> -->
+      </ul>
 
       <div id="content-wrapper">
 
@@ -86,10 +102,11 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="{{ url('ariane-admin-backend-sitemap') }}">Dashboard</a>
+              <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">View Product</li>
+            <li class="breadcrumb-item active">Edit Coupon</li>
           </ol>
+
 
           <!-- Icon Cards-->
           <div class="card-body">
@@ -102,47 +119,55 @@
               </ul>
             </div><br />
             @endif
+
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
           </div>
-          {{-- 'products.product_name',
-          'products.product_price',
-          'products.product_material',
-          'products.product_description',
-          'products.wash_instruction',
-          'products.product_stock',
-          'products.product_weight',
-          'colour.colour_name') --}}
-          <table class="table">
 
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                {{-- <th>Material</th> --}}
-                {{-- <th>Description</th> --}}
-                {{-- <th>Wash Instruction</th> --}}
-                <th>Stock</th>
-                {{-- <th>Weight</th> --}}
-                <th>Colour</th>
-                <th>Edit</th>
-                @foreach($products as $product)
-                <tr>
-                    <td>{{$product->id}}</td>
-                    <td>{{$product->product_name}}</td>
-                    <td>IDR {{$product->product_price}}</td>
-                    {{-- <td>{{$product->product_material}}</td> --}}
-                    {{-- <td>{{$product->product_description}}</td> --}}
-                    {{-- <td>{{$product->product_wash_instruction}}</td> --}}
-                    <td>{{$product->product_stock}}</td>
-                    {{-- <td>{{$product->product_weight}}</td> --}}
-                    <td>{{$product->colour_name}}</td>
-                    <td>
+{{--
+<th>Coupon Code</th>
+<th>Coupon Expiry</th>
+<th>Coupon Discount Value</th> --}}
+{{-- -discount_percentage --}}
+{{-- -price_after_discount --}}
+{{-- <a href="{{ url('ariane-admin-backend-edit-discount/' .$product->id) }}"> --}}
+          {{-- <form method="post" action="{{action('BackendController@setDiscount')}}"> --}}
+            <form method="post" action="{{url('ariane-admin-backend-edit-discount/'.$products[0]->id)}}">
+            @csrf
 
-                    <a href="{{ url('ariane-admin-backend-edit-product-view/' .$product->product_url) }}">
-                        {{$product->product_url}}
-                    </a>
-                    </td>
-                </tr>
-                @endforeach
-          </table>
+            {{-- <div class="form-group">
+              <label for="product_name">Coupon Code</label>
+            <input type="text" value="{{$coupon->coupon_code}}" name="coupon_code" class="form-control" id="" aria-describedby="couponCode" placeholder="Enter unique coupon code">
+            </div> --}}
+
+            {{-- <div class="form-group">
+              <label for="coupon_expiry">Coupon Expiry</label>
+            <input type="date" value="{{$coupon->coupon_expiry}}" name="coupon_expiry" class="form-control" id="" placeholder="">
+            </div> --}}
+            <h6>Set discount for:</h6>
+            {{$products[0]->product_name}}<br>
+            IDR {{number_format($products[0]->product_price,2)}}
+            <br><br><br>
+
+            <div class="form-group">
+                <label for="coupon_discount_value">Discount Percentage (%)</label>
+            <input type="number" name="discount_percentage" class="form-control" placeholder="1..99 %">
+            </div>
+
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+
+            </div>
+            </div>
+</form>
+
+
 
 
 
@@ -184,6 +209,24 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+
+      $(".btn-success").click(function(){
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+
+      $("body").on("click",".btn-danger",function(){
+          $(this).parents(".control-group").remove();
+      });
+
+    });
+
+</script>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>

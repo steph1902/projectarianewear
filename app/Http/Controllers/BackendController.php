@@ -10,6 +10,7 @@ use File;
 use App\Images;
 use App\Coupon;
 use App\billing_details;
+use App\Products;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -93,13 +94,6 @@ class BackendController extends Controller
         $now = now();
         $coupon_code = $request->input('coupon_code'); //product
 
-        // $coupon = Coupon::find($id);
-        // $coupon->coupon_code = $request->coupon_code;
-        // $coupon->coupon_expiry = $request->coupon_expiry;
-        // $coupon->coupon_discount_value = $request->coupon_discount_value;
-        // $coupon->updated_at = $now;
-        // $coupon->save();
-
         Coupon::where('coupon_code', $coupon_code)
           ->update(
               [
@@ -109,20 +103,6 @@ class BackendController extends Controller
                   'updated_at' => $now
 
                 ]);
-
-        // $form_data = $request->all();
-
-        // DB::table('coupons')
-        // ->where('id', $id)
-        // ->update(
-        //     [
-        //         'coupon_code' => $form_data['coupon_code'],
-        //         'coupon_expiry' => $form_data['coupon_expiry'],
-        //         'coupon_discount_value' => $form_data['coupon_discount_value'],
-        //         'updated_at' => $now
-        //         // 'updated_at' => $updatedAt
-        //     ]
-        // );
 
         return back()->with('success', 'Congratulations! your coupon has successfully been edited!');
 
@@ -457,6 +437,85 @@ class BackendController extends Controller
             return redirect()->back()->with('success', 'Product updated successfully!');
 
 
+
+
+    }
+
+    // set discount
+    public function getBackDiscountView()
+    {
+        // $products = Products::all();
+        $products = DB::table('products')->get();
+        return view('backend_viewproductdiscount',compact('products'));
+    }
+    public function setDiscountView($id)
+    {
+        $products = DB::table('products')->where('id', '=', $id)->get();
+        // dd($products);
+        return view('backend_editproductdiscount',compact('products'));
+    }
+    // method post
+    public function setDiscount(Request $request,$id)
+    {
+
+        // -is_discount
+        // -discount_percentage
+        // -price_after_discount
+
+
+
+        $validator = Validator::make($request->all(),
+        [
+            'discount_percentage' => 'required|min:1|max:99'
+        ]);
+
+        if ($validator->fails())
+        {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $now = now();
+
+        // process
+        $products = DB::table('products')->where('id', '=', $id)->get();
+
+        $normal_price = $products[0]->product_price;
+        $discount_percentage = $request->input('discount_percentage'); //discount percentage
+        $discount_nominal = $discount_percentage * $normal_price / 100;
+        $price_after_discount = $normal_price - $discount_nominal;
+
+        if($discount_percentage != 0)
+        {
+            $is_discount = 'true';
+        }
+        else
+        {
+            $is_discount = 'false';
+        }
+
+
+        DB::table('products')
+            ->where('id', $id)
+            ->update(
+                [
+                  'is_discount' => $is_discount,
+                  'discount_percentage' => $discount_percentage,
+                  'price_after_discount' => $price_after_discount,
+                  'updated_at' => $now
+
+                ]);
+
+        // Products::where('id', $id)
+        //   ->update(
+        //       [
+        //           'is_discount' => $is_discount,
+        //           'discount_percentage' => $discount_percentage,
+        //           'price_after_discount' => $price_after_discount,
+        //           'updated_at' => $now
+
+        //         ]);
+
+        return back()->with('success', 'Congratulations! your product price has successfully been edited!');
 
 
     }

@@ -27,14 +27,26 @@
                         <div class="row">
                             <table class="table">
                                 <th>Order-ID</th>
-                                <th>Item Name</th>
-                                <th>Quantity</th>
-                                <th>Purchase Date</th>
+                                <th>Total Purchased</th>
                                 <th>Status</th>
-
-                                <tr>
-                                    <td></td>
+                                @foreach($billing_details as $billing)
+                                @if($billing->status == 'success')
+                                <tr class="table-success">
+                                @elseif($billing->status == 'failed')
+                                    <tr class="table-danger">
+                                @elseif($billing->status == 'pending')
+                                    <tr class="table-warning">
+                                @elseif($billing->status == 'expired')
+                                    <tr class="table-info">
+                                @else
+                                <tr class="">
+                                @endif
+                                    <td>{{$billing->order_id}}</td>
+                                    <td>IDR {{number_format($billing->total_price,2)}}</td>
+                                    <td>{{$billing->status}}</td>
                                 </tr>
+                                @endforeach
+
                             </table>
                         </div>
                     </div>

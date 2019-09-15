@@ -19,7 +19,7 @@
           <div class="col-md-12 mb-0">
             <a href="{{url('/')}}">Home</a>
             <span class="mx-2 mb-0">/</span>
-            <strong class="text-black">Shop</strong>
+            <strong class="text-black">Must Haves</strong>
           </div>
         </div>
       </div>
@@ -39,8 +39,21 @@
             </a>
             <h2 class="item-title"><a href="#">{{ $product->product_name }}</a></h2>
             <h3 class="item-title"><a href="#">{{ $product->colour_name }}</a></h3>
-            <strong class="item-price">IDR {{ number_format($product->product_price,2) }}</strong>
+
+
+            {{-- <strong class="item-price">IDR {{ number_format($product->product_price,2) }}</strong> --}}
+
+            @if(strcmp($product->is_discount,'true') == 0 )
+            <strike>
+                    <strong class="text-primary h6">IDR {{ number_format($product->product_price,2) }}</strong>
+            </strike>
+                <strong class="text-primary h5"> IDR {{ number_format($product->price_after_discount,2) }} </strong>
+            @else
+                <strong class="text-primary h5">IDR {{ number_format($product->product_price,2) }}</strong>
+             @endif
+
           </div>
+          {{-- &nbsp&nbsp&nbsp --}}
           @endforeach
 
         </div>
@@ -60,45 +73,6 @@
           </div>
         </div>
       </div>
-
-
-          {{-- <div class="border p-4 rounded mb-4">
-            <div class="mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
-              <div id="slider-range" class="border-primary"></div>
-              <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
-            </div>
-
-            <div class="mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
-              <label for="s_sm" class="d-flex">
-                <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>
-              </label>
-              <label for="s_md" class="d-flex">
-                <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>
-              </label>
-              <label for="s_lg" class="d-flex">
-                <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
-              </label>
-            </div>
-
-            <div class="mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
-              <a href="#" class="d-flex color-item align-items-center" >
-                <span class="bg-danger color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Red (2,429)</span>
-              </a>
-              <a href="#" class="d-flex color-item align-items-center" >
-                <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Green (2,298)</span>
-              </a>
-              <a href="#" class="d-flex color-item align-items-center" >
-                <span class="bg-info color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Blue (1,075)</span>
-              </a>
-              <a href="#" class="d-flex color-item align-items-center" >
-                <span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Purple (1,075)</span>
-              </a>
-            </div>
-
-          </div> --}}
         </div>
       </div>
 

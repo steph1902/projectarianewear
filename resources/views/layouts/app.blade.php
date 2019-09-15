@@ -57,6 +57,7 @@
           font-weight: bold;
       }
 
+
   </style>
 
 <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/02a3a3864cd5e400d4100f8bb/a91b4ad7506ddbb10ba996bea.js");</script>
@@ -201,27 +202,29 @@
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="{{url('product-list')}}">ALL PRODUCTS</a></li>
-              <li><a href="{{url('new-arrival')}}">NEW ARRIVAL</a></li>
-              <li><a href="{{url('best-seller')}}">BEST SELLER</a></li>
-              <li><a href="{{url('must-haves')}}">MUST HAVES</a></li>
-              <li><a href="{{url('cart')}}">SHOPPING CART</a></li>
+              <li><a href="{{url('product-list')}}"target="_blank">ALL PRODUCTS</a></li>
+              <li><a href="{{url('new-arrival')}}"target="_blank">NEW ARRIVAL</a></li>
+              <li><a href="{{url('best-seller')}}"target="_blank">BEST SELLER</a></li>
+              <li><a href="{{url('must-haves')}}"target="_blank">MUST HAVES</a></li>
+              <li><a href="{{url('cart')}}"target="_blank">SHOPPING CART</a></li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="{{url('top')}}">TOP</a></li>
-              <li><a href="{{url('dress')}}">DRESS</a></li>
-              <li><a href="{{url('outerwear')}}">OUTERWEAR</a></li>
-              <li><a href="{{url('jumpsuit')}}">JUMPSUIT</a></li>
-              <li><a href="{{url('set')}}">SET</a></li>
+              <li><a href="{{url('top')}}"target="_blank">TOP</a></li>
+              <li><a href="{{url('dress')}}"target="_blank">DRESS</a></li>
+              <li><a href="{{url('outer')}}"target="_blank">OUTERWEAR</a></li>
+              <li><a href="{{url('jumpsuit')}}"target="_blank">JUMPSUIT</a></li>
+              <li><a href="{{url('set')}}"target="_blank">SET</a></li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="{{url('login')}}">LOGIN</a></li>
-              <li><a href="{{url('register')}}">REGISTER</a></li>
-              <li><a href="{{url('aboutme')}}">ABOUT US</a></li>
+              <li><a href="{{url('login')}}"target="_blank">LOGIN</a></li>
+              {{-- <li><a href="{{url('logout')}}"target="_blank">LOGOUT</a></li> --}}
+              <li><a href="{{url('register')}}"target="_blank">REGISTER</a></li>
+              <li><a href="{{url('home')}}"target="_blank">MY ORDER</a></li>
+              <li><a href="{{url('aboutme')}}"target="_blank">ABOUT US</a></li>
             </ul>
           </div>
         </div>
@@ -234,7 +237,7 @@
             <li class="address">Jakarta</li>
             <li class="phone"><a href="tel://+6287878919818">+6287878919818</a></li>
             <li class="email"><a href="mailto://arianewear@gmail.com">arianewear@gmail.com</li>
-            <li class="instagram"><a href="https://www.instagram.com/arianewear">@arianewear</a></li>
+            <li class="instagram"><a href="https://www.instagram.com/arianewear"target="_blank">@arianewear</a></li>
           </ul>
         </div>
 
@@ -260,7 +263,7 @@
             <script>
               document.write(new Date().getFullYear());
             </script>
-            <a href="http://www.arianewear.com">Ariane Wear</a> All rights reserved | This website is developed by
+            <a href="http://www.arianewear.com">Ariane Wear</a> All rights reserved <br> This website is developed by
             <a href="http://kairos-projects.com" target="_blank" class="text-primary">Kairos Projects</a><br>
           </p>
         </div>
