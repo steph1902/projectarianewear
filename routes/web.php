@@ -61,6 +61,9 @@ Route::get('/getpostalcode','IndexController@getpostalcode');
 Route::get('/getshippingcost','IndexController@getshippingcost')->name('getshippingcost');
 
 //
+// Route::get('pre-checkout','IndexController@preCheckoutPage');
+// Route::get('checkout','IndexController@checkoutPage');
+
 Route::get('checkCoupon','IndexController@checkCoupon');
 Route::post('toPayment','IndexController@toPayment')->name('toPayment'); //before payment, fill data, calculate shipping cost
 Route::post('orderdetails','IndexController@orderDetails')->name('orderdetails');

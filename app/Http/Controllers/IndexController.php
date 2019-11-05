@@ -75,17 +75,17 @@ class IndexController extends Controller
 
         curl_setopt_array($curl, array
         (
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => $CURLOPT_POSTFIELDS_STRING,
-        CURLOPT_HTTPHEADER => array(
-            "content-type: application/x-www-form-urlencoded",
-            "key: e33a9c5190a759d73f9036c2f3756589"
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $CURLOPT_POSTFIELDS_STRING,
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "key: e33a9c5190a759d73f9036c2f3756589"
         ),
         ));
 
@@ -94,10 +94,6 @@ class IndexController extends Controller
 
             curl_close($curl);
 
-
-            // $provinceObj = json_decode($response,true);
-            // $provinces = array();
-            // $provinces = $provinceObj['rajaongkir']['results'];
             $SHIPPING_COST = 0;
             $costObj = json_decode($response,true);
             $costs = array();
@@ -334,7 +330,7 @@ class IndexController extends Controller
             ->join('colours','colours.product_name', '=', 'products.product_name')
             ->where('products.product_name', 'like' , '%'.$searchValue.'%' )
             ->whereColumn('images.colour_name','colours.colour_name')
-            ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+            ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
             ->groupBy('colours.colour_name', 'products.product_name')
             ->paginate(20);// ->get();//
         }
@@ -575,22 +571,20 @@ class IndexController extends Controller
 
 
         $CURLOPT_POSTFIELDS_STRING =  "origin=155&destination=".$city."&weight=".$weight."&courier=jne";
-
         $curl = curl_init();
-
         curl_setopt_array($curl, array
         (
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => $CURLOPT_POSTFIELDS_STRING,
-        CURLOPT_HTTPHEADER => array(
-            "content-type: application/x-www-form-urlencoded",
-            "key: e33a9c5190a759d73f9036c2f3756589"
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $CURLOPT_POSTFIELDS_STRING,
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "key: e33a9c5190a759d73f9036c2f3756589"
         ),
         ));
 
@@ -767,7 +761,7 @@ class IndexController extends Controller
         ->join('images', 'images.product_name', '=', 'products.product_name')
         ->join('colours','colours.product_name', '=', 'products.product_name')
         ->whereColumn('images.colour_name','colours.colour_name')
-        ->select('products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
+        ->select('products.is_discount','products.price_after_discount','products.product_name','products.product_price','images.image_path','colours.colour_name','colours.product_url')
         ->groupBy('colours.colour_name', 'products.product_name')
         ->paginate(20);// ->get();//
 
